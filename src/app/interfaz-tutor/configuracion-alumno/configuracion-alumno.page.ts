@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActionSheetController, ToastController } from '@ionic/angular';
@@ -6,6 +6,7 @@ import { Alumno } from 'src/app/models/alumno.model';
 import { CamaraService } from 'src/app/services/camara.service';
 import { DatabaseService } from 'src/app/services/database.service';
 import { Validators } from '@angular/forms';
+import {AlumnoService} from "../../services/alumno.service";
 
 @Component({
   selector: 'app-configuracion-alumno',
@@ -13,13 +14,13 @@ import { Validators } from '@angular/forms';
   styleUrls: ['./configuracion-alumno.page.scss'],
 })
 export class ConfiguracionAlumnoPage implements OnInit {
-
-  alumno : Alumno; 
+  private alumnoService = inject(AlumnoService);
+  alumno : Alumno;
   alumnoId : number;
   public foto : string;
   public nombre : string;
   public formulario;
-  
+
 
   constructor(private toast: ToastController, private db : DatabaseService, private formBuilder: FormBuilder, private actionSheetCtrl: ActionSheetController, public camaraService: CamaraService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
@@ -27,13 +28,13 @@ export class ConfiguracionAlumnoPage implements OnInit {
 
     this.activatedRoute.paramMap.subscribe(async params => {
       let alumnoId = params.get('alumnoId');
- 
-      await this.db.getAlumno(alumnoId).then(async data => {
+
+      await this.alumnoService.getAlumno(alumnoId).subscribe(async data => {
 
         this.alumno = new Alumno(data.id, data.nombre, data.fotoPerfil);
         this.nombre = data.nombre;
         this.alumnoId = data.id;
-      
+
         this.foto = data.fotoPerfil;
         if(this.foto == null || this.foto == '')
           this.foto = "../../assets/sinFoto.png";
@@ -61,30 +62,30 @@ export class ConfiguracionAlumnoPage implements OnInit {
 
       return false;
 
-    } 
-    
+    }
+
     else{
       await this.editarAlumno();
       return true;
     }
-      
-  
+
+
   }
 
   async editarAlumno(){
 
     this.nombre = this.formulario.value.nombre;
-        
+
       const alumno = new Alumno(this.alumnoId, this.nombre, this.foto);
-        
-      this.db.updateAlumno(alumno).then(async _ => {
+
+      this.alumnoService.updateAlumno(alumno).subscribe(async _ => {
           //volvemos a la página inicial del tutor
           await this.router.navigate(['..']);
       });
   }
   async eliminarAlumno(){
 
-    await this.db.deleteAlumno(this.alumnoId).then(async _ => {
+    await this.alumnoService.deleteAlumno(this.alumnoId).subscribe(async _ => {
         //volvemos a la página inicial del tutor
         await this.router.navigate(['./homepage-tutor']);
     });
@@ -98,23 +99,23 @@ export class ConfiguracionAlumnoPage implements OnInit {
       buttons: [{
         text: 'Galería',
         handler: async () => {
- 
+
           await  this.camaraService.getGaleria().then(async (_) => {
-         
+
             this.foto = await this.camaraService.imgURL;
-           
+
           });
         }
-        
+
       }, {
         text: 'Cámara',
         handler: async () => {
 
         await this.camaraService.getCamara().then(async (_) => {
-          
+
           this.foto = await this.camaraService.imgURL;
 
-          
+
         });
 
         }
@@ -129,6 +130,6 @@ export class ConfiguracionAlumnoPage implements OnInit {
     const { role, data } = await actionSheet.onDidDismiss();
 
   }
-  
+
 
 }

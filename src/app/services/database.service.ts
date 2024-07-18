@@ -48,7 +48,6 @@ export class DatabaseService {
         const rdy = await this.plt.ready();
         if (rdy){
           if (this.sqlite){
-            debugger
             const db = await this.sqlite.create({
               name: 'app-emociones.db',
               location: 'default',
@@ -90,7 +89,7 @@ export class DatabaseService {
             console.log('listoooo');
             this.dbReady.next(true);
           })
-          .catch(e => console.error(e)) 
+          .catch(e => console.error(e))
         }
       });
   }
@@ -124,7 +123,7 @@ export class DatabaseService {
 
     let data = [nombre, profilePhoto];
       return await this.database.executeSql('INSERT INTO alumno (nombre, fotoPerfil) VALUES (?, ?)', data).then(async data => {
-        
+
         await this.loadAlumnos();
       });
   }
@@ -2032,7 +2031,7 @@ export class DatabaseService {
     let data = [idJuego, audio];
     console.log('data Audio ' + data);
     return this.database.executeSql('INSERT INTO sonido ( idJuego, audio) VALUES (?, ?)', data).then(data => {
-      //this.loadSonidos();  
+      //this.loadSonidos();
 
     });
   }
