@@ -20,6 +20,8 @@ import { Media } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@awesome-cordova-plugins/file-path/ngx';
+import {Alumno} from "./models/alumno.model";
+import {AlumnoService} from "./services/alumno.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +32,7 @@ import { FilePath } from '@awesome-cordova-plugins/file-path/ngx';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [provideHttpClient(), { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, ScreenOrientation, SQLitePorter, SQLite, Camera, MediaCapture, Media, File, FileChooser, FilePath],
+  providers: [AlumnoService, provideHttpClient(), { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, ScreenOrientation, SQLitePorter, SQLite, Camera, MediaCapture, Media, File, FileChooser, FilePath],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

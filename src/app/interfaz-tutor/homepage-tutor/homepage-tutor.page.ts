@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import * as $ from "jquery";
 import { DatabaseService } from '../../services/database.service';
 import { Alumno } from 'src/app/models/alumno.model';
@@ -7,6 +7,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { OpcionCuestionarioFinal } from 'src/app/models/opcion-cuestionario-final.model';
 import { PreguntaUnir } from 'src/app/models/pregunta-unir.model';
 import { JuegoUnir } from 'src/app/models/juego-unir.model';
+import {AlumnoService} from "../../services/alumno.service";
 
 @Component({
   selector: 'app-homepage-tutor',
@@ -14,7 +15,7 @@ import { JuegoUnir } from 'src/app/models/juego-unir.model';
   styleUrls: ['./homepage-tutor.page.scss'],
 })
 export class HomepageTutorPage implements OnInit {
-
+  private alumnoService = inject(AlumnoService);
 
   alumnos: Alumno[] = [];
   alumno : Alumno;
@@ -34,45 +35,40 @@ export class HomepageTutorPage implements OnInit {
 
     this.lockToPortrait();
 
-    this.db.getDatabaseState().subscribe(rdy => {
-      if (rdy) {
-        this.db.getAlumnos().subscribe(al => {
-          this.alumnos = al;
-          console.log(this.alumnos);
-          this.db.getAlumnos()
-        })
-
-        this.db.getJuegosUnirColor().subscribe(jue => {
-          this.juegos = jue;
-
-          console.log(this.juegos);
-
-        })
-
-        this.db.getPreguntasUnirColor().subscribe(jue => {
-          console.log(jue);
-
-        })
-
-        this.db.getSonidos().subscribe(jue => {
-          console.log(jue);
-          this.sonidos = jue;
-          console.log(this.sonidos);
-
-        })
-
-        this.db.getOpcionesCuestionarioFinal().subscribe(jue => {
-          console.log(jue);
-          this.opcionesCuestionarioFinal = jue;
-          console.log(this.opcionesCuestionarioFinal);
-
-        })
-
-      }
+    this.alumnoService.getAlumnos().subscribe(al => {
+      this.alumnos = al.items;
+      console.log(this.alumnos);
     });
 
+    /***
 
 
+    this.db.getJuegosUnirColor().subscribe(jue => {
+      this.juegos = jue;
+
+      console.log(this.juegos);
+
+    })
+
+    this.db.getPreguntasUnirColor().subscribe(jue => {
+      console.log(jue);
+
+    })
+
+    this.db.getSonidos().subscribe(jue => {
+      console.log(jue);
+      this.sonidos = jue;
+      console.log(this.sonidos);
+
+    })
+
+    this.db.getOpcionesCuestionarioFinal().subscribe(jue => {
+      console.log(jue);
+      this.opcionesCuestionarioFinal = jue;
+      console.log(this.opcionesCuestionarioFinal);
+
+    })
+     */
   }
 
   // Lock to landscape
