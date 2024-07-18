@@ -1,0 +1,516 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button href=".." slot="start"> <ion-icon name="arrow-back-outline"></ion-icon> </ion-button>
+    <ion-title class="ion-title-center">Nuevo juego de {{tipoJuego}}</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-slides [options]="slidesOpts" (ionSlideDidChange)="onSlidesDidChange()"
+  (ionSlideWillChange)="onSlidesChanged()">
+  <ng-container *ngFor="let slide of slides">
+    <ion-slide>
+
+      
+      <form [formGroup]="presentacionForm" #presentacionFormRef="ngForm" novalidate *ngIf="slide === 'Presentacion'">
+        
+        <ion-list-header>
+          <ion-label color="primary"> Presentación </ion-label>
+        </ion-list-header>
+
+        <ion-grid>
+
+          <ion-row>
+            <ion-col >
+              <ion-item lines="none">
+                <ion-label position="floating">Nombre</ion-label>
+                <ion-textarea formControlName="nombre"></ion-textarea>
+              </ion-item>
+              <ion-text color="danger">
+                <span class="text-tiny"
+                  [style.visibility]="presentacionNombre?.errors?.required && presentacionFormRef.submitted ? '' : 'hidden'">
+                  Campo obligatorio.
+                </span>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-item lines="none">
+              <ion-col>
+                  <ion-label>Portada</ion-label>              
+              </ion-col>
+                
+            </ion-item>
+          </ion-row>
+  
+          <ion-row class="rowCenter">
+            <ion-col class="rowCenter">
+      
+              <ion-button strong shape="round" color="primary" size="small" (click)="presentActionSheet('portada')">
+                Seleccionar
+              </ion-button>
+
+            </ion-col>
+          </ion-row>
+
+        
+          <ion-row class="rowCenter">
+            <ion-col class="rowCenter">
+                <img class="img-thumb" [src]="this.portadaJuego" *ngIf="this.portadaJuego.length != 0">            
+              </ion-col>
+            
+          </ion-row>
+      </ion-grid>
+    
+      </form>
+
+      <form [formGroup]="tutorialForm" #tutorialFormRef="ngForm" novalidate *ngIf="slide === 'Tutorial'">
+        <ion-list-header>
+          <ion-label color="primary"> Tutorial </ion-label>
+        </ion-list-header>
+
+        <ion-col>
+          <ion-toggle [ngModelOptions]="{standalone: true}" [(ngModel)]="visualizarTutorial"></ion-toggle>
+        </ion-col>
+
+        <ion-grid *ngIf="visualizarTutorial">
+          <ion-row>
+            <ion-col >
+              <ion-item lines="none">
+                <ion-label position="floating">Descripción</ion-label>
+                <ion-textarea placeholder="Escriba el tutorial..." formControlName="descripcion"></ion-textarea>
+              </ion-item>
+              <ion-text color="danger">
+                <span class="text-tiny"
+                  [style.visibility]="tutorialDescripcion?.errors?.required && tutorialFormRef.submitted && this.visualizarTutorial ? '' : 'hidden'">
+                  Campo obligatorio.
+                </span>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-item lines="none">
+              <ion-col size="6">
+                  <ion-label>Ejercicio de prueba</ion-label>              
+              </ion-col>
+
+              <ion-col size="6" *ngIf="this.ejercicioTutorial.length == 0">
+                <ion-button class="botonCrear" color="dark" (click)="initModalEjercicio('tutorial')" > 
+                  <ion-icon [name]="'add-circle-outline'"></ion-icon>
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="6" *ngIf="this.ejercicioTutorial.length != 0">
+                <ion-button (click)="deleteEjercicioTutorial()"><ion-icon [name]="'trash-outline'"></ion-icon></ion-button>
+              </ion-col>
+
+            </ion-item>
+          </ion-row>          
+
+          <ion-row>
+            <ion-col text-center>
+              <ion-list *ngFor="let pregunta of this.ejercicioTutorial; index as i;">
+                <ion-item>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col>
+                        <ion-title>Pregunta {{i+1}}</ion-title>
+                      </ion-col>
+      
+                    </ion-row>
+      
+                    <ion-row>
+                      <ion-col>
+                        <ion-label>Imagen</ion-label>
+                      </ion-col>
+      
+                    </ion-row>
+                  
+      
+                  <ion-row>
+                      <ion-col>
+                        <img class="img-thumb" [src]="pregunta.img">
+                      </ion-col>
+                  </ion-row>
+      
+                  <ion-row>
+                    <ion-col>
+                      <ion-text>{{pregunta.texto}}</ion-text>
+                    </ion-col>
+                  </ion-row>
+      
+      
+                  <ion-row>
+                    <ion-col *ngIf="pregunta.intruso">
+                      <ion-text> Es el intruso </ion-text>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+
+      </ion-grid>
+
+      </form>
+
+      <form [formGroup]="juegoForm" #juegoFormRef="ngForm" novalidate *ngIf="slide === 'Juego'">
+        
+        <ion-list-header>
+          <ion-label color="primary"> Juego </ion-label>
+        </ion-list-header>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col >
+              <ion-item lines="none">
+                <ion-label position="stacked">Instrucciones</ion-label>
+                <ion-textarea placeholder="Escriba las instrucciones..." formControlName="instrucciones"></ion-textarea>
+              </ion-item>
+              <ion-text color="danger">
+                <span class="text-tiny"
+                  [style.visibility]="juegoInstrucciones?.errors?.required && juegoFormRef.submitted ? '' : 'hidden'">
+                  Campo obligatorio.
+                </span>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-item lines="none">
+              <ion-col>
+                  <ion-label>Refuerzo negativo</ion-label>              
+              </ion-col>
+
+              <ion-col>
+                <ion-toggle [ngModelOptions]="{standalone: true}" [(ngModel)]="refNegativo"></ion-toggle>
+              </ion-col>
+            </ion-item>
+          </ion-row>
+
+          <ion-row *ngIf="this.refNegativo">
+            <ion-item lines="none">
+              <ion-col>
+                  <ion-text>Imagen</ion-text>              
+              </ion-col>
+                
+            </ion-item>
+          </ion-row>
+  
+          <ion-row class="rowCenter" *ngIf="this.refNegativo">
+            <ion-col class="rowCenter">
+      
+              <ion-button strong shape="round" color="primary" size="small" (click)="presentActionSheet('imgRefNegativo')">
+                Seleccionar
+              </ion-button>
+
+            </ion-col>
+          </ion-row>
+
+        
+          <ion-row class="rowCenter" *ngIf="this.refNegativo">
+            <ion-col class="rowCenter">
+                <img class="img-thumb" [src]="this.imgRefNegativo" *ngIf="this.imgRefNegativo.length != 0">            
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-item lines="none">
+              <ion-col>
+                  <ion-label>Refuerzo positivo</ion-label>              
+              </ion-col>
+
+              <ion-col>
+                <ion-toggle [ngModelOptions]="{standalone: true}" [(ngModel)]="refPositivo"></ion-toggle>
+              </ion-col>
+            </ion-item>
+          </ion-row>
+
+          <ion-row *ngIf="this.refPositivo">
+            <ion-item lines="none">
+              <ion-col>
+                  <ion-text>Imagen</ion-text>              
+              </ion-col>
+                
+            </ion-item>
+          </ion-row>
+  
+          <ion-row class="rowCenter" *ngIf="this.refPositivo">
+            <ion-col class="rowCenter">
+      
+              <ion-button strong shape="round" color="primary" size="small" (click)="presentActionSheet('imgRefPositivo')">
+                Seleccionar
+              </ion-button>
+
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="rowCenter" *ngIf="this.refPositivo">
+            <ion-col class="rowCenter">
+                <img class="img-thumb" [src]="this.imgRefPositivo" *ngIf="this.imgRefPositivo.length != 0">            
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-item lines="none">
+              <ion-col size="6">
+                  <ion-label>Ejercicios</ion-label>              
+              </ion-col>
+
+              <ion-col size="6" offset="-3">
+                <ion-button class="botonCrear" color="dark" (click)="initModalEjercicio('ejercicios')"> 
+                  <ion-icon [name]="'add-circle-outline'"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-item>
+          </ion-row>
+
+          <div *ngFor="let ejercicio of this.ejercicios; let i = index ">
+          <ion-row>
+            <ion-item>
+              <ion-col>
+                <ion-label>Ejercicio {{i+1}}</ion-label>
+
+                  <ion-col size="6" *ngIf="this.ejercicios.length != 0">
+                    <ion-button (click)="this.deleteEjercicio(i)"><ion-icon [name]="'trash-outline'"></ion-icon></ion-button>
+                  </ion-col>
+
+                    <div *ngFor="let pregunta of ejercicio">
+                      <ion-item>
+                      <ion-grid>
+                      
+                        <ion-row>
+                          <ion-col>
+                            <ion-label>Imagen</ion-label>
+                          </ion-col>
+          
+                        </ion-row>
+                      
+          
+                      <ion-row>
+                          <ion-col>
+                            <img class="img-thumb" [src]="pregunta.img">
+                          </ion-col>
+                      </ion-row>
+          
+                      <ion-row>
+                        <ion-col>
+                          <ion-text>{{pregunta.texto}}</ion-text>
+                        </ion-col>
+                      </ion-row>
+          
+          
+                      <ion-row>
+                        <ion-col *ngIf="pregunta.intruso">
+                          <ion-text> Es el intruso </ion-text>
+                        </ion-col>
+                      </ion-row>
+                    
+                    </ion-grid>
+                  </ion-item>
+                    </div>
+
+              </ion-col>
+            </ion-item>
+          </ion-row>
+        </div>
+          
+      </ion-grid>
+    
+      </form>
+
+      <form [formGroup]="sonidoForm" #sonidoFormRef="ngForm" novalidate *ngIf="slide === 'Sonido'">
+        <ion-list-header>
+          <ion-label color="primary"> Efectos de sonido </ion-label>
+          <ion-col>
+            <ion-toggle [ngModelOptions]="{standalone: true}" [(ngModel)]="efectosSonido"></ion-toggle>
+          </ion-col>
+        </ion-list-header>
+
+        <ion-grid *ngIf="efectosSonido">
+
+          <ion-row>
+            <ion-col>
+              <ion-item lines="none">
+              <ion-label>Sonido al fallar</ion-label>
+              <ion-button (click)="this.playAudio(this.audioFallar)">
+                <ion-icon slot="icon-only" name="play-outline"></ion-icon>
+              </ion-button>
+              <ion-button (click)="this.selectAudio('fallar')">
+                <ion-icon slot="start" name="musical-notes"></ion-icon>
+                Elegir otro sonido
+              </ion-button>
+            </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-item lines="none">
+              <ion-label>Sonido al completar el ejercicio</ion-label>
+              <ion-button (click)="this.playAudio(this.audioCompletar)">
+                <ion-icon slot="icon-only" name="play-outline"></ion-icon>
+              </ion-button>
+              <ion-button (click)="this.selectAudio('completar')">
+                <ion-icon lazy="true" slot="start" name="musical-notes"></ion-icon>
+                Elegir otro sonido
+              </ion-button>
+            </ion-item>
+            </ion-col>
+          </ion-row>
+
+      </ion-grid>
+
+      </form>
+
+
+      <form [formGroup]="resultForm" #resultFormRef="ngForm" novalidate *ngIf="slide === 'Resultados'">
+        <ion-list-header>
+          <ion-label color="primary"> Resultados </ion-label>
+        </ion-list-header>
+
+        <ion-grid>
+          <ion-row>
+            <ion-item lines="none">
+              <ion-col>
+                  <ion-label>Resultado numérico</ion-label>              
+              </ion-col>
+
+              <ion-col>
+                <ion-toggle [ngModelOptions]="{standalone: true}" [(ngModel)]="resultNum"></ion-toggle>
+              </ion-col>
+            </ion-item>
+          </ion-row>
+
+          <ion-row>
+            <ion-item lines="none">
+              <ion-col>
+                  <ion-label>Resultado con pictograma</ion-label>              
+              </ion-col>
+
+              <ion-col>
+                <ion-toggle [ngModelOptions]="{standalone: true}" [(ngModel)]="resultPicto"></ion-toggle>
+              </ion-col>
+            </ion-item>
+          </ion-row>
+
+          <ion-row>
+            <ion-item lines="none">
+              <ion-col>
+                  <ion-label>Cuestionario final</ion-label>              
+              </ion-col>
+
+              <ion-col>
+                <ion-toggle [ngModelOptions]="{standalone: true}" [(ngModel)]="this.cuestionarioFinal"></ion-toggle>
+              </ion-col>
+            </ion-item>
+          </ion-row>
+
+          <ion-row *ngIf="this.cuestionarioFinal">
+            <ion-col >
+              <ion-item lines="none">
+                <ion-label position="floating">Pregunta</ion-label>
+                <ion-textarea formControlPregunta="pregunta"> </ion-textarea>
+              </ion-item>
+              <ion-text color="danger">
+                <span class="text-tiny"
+                  [style.visibility]="resultadosPregunta?.errors?.required && resultFormRef.submitted && this.cuestionarioFinal ? '' : 'hidden'">
+                  Campo obligatorio.
+                </span>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="this.cuestionarioFinal">
+            <ion-item lines="none">
+              <ion-col size="6">
+                  <ion-label>Opciones</ion-label>              
+              </ion-col>
+
+              <ion-col size="6" offset="-3">
+                <ion-button class="botonCrear" color="dark" (click)="initModalOpcionCuestionario()"> 
+                  <ion-icon [name]="'add-circle-outline'"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-item>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col text-center>
+              <ion-list *ngFor="let opcion of this.opcionesCuestionario; index as i;">
+                <ion-item>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col>
+                        <ion-title>Opción {{i+1}}</ion-title>
+                      </ion-col>
+
+                      <ion-col size="6" *ngIf="this.opcionesCuestionario.length != 0">
+                        <ion-button (click)="this.deleteOpcionCuestionario(i)"><ion-icon [name]="'trash-outline'"></ion-icon></ion-button>
+                      </ion-col>
+      
+                    </ion-row>
+      
+                    <ion-row>
+                      <ion-col>
+                        <ion-label>Imagen</ion-label>
+                      </ion-col>
+      
+                    </ion-row>
+                  
+      
+                  <ion-row>
+                      <ion-col>
+                        <img class="img-thumb" [src]="opcion.img">
+                      </ion-col>
+      
+                  </ion-row>
+      
+                  <ion-row>
+                    <ion-col>
+                      <ion-text>{{opcion.texto}}</ion-text>
+                    </ion-col>
+      
+                  </ion-row>
+                </ion-grid>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+
+      </ion-grid>
+
+      </form>
+    </ion-slide>
+  </ng-container>
+  </ion-slides>
+</ion-content>
+
+
+<ion-footer>
+  <ion-toolbar>
+
+    <ion-button style="width: 120px;" strong shape="round" color="dark"
+      [style.visibility]="(isBeginning) ? 'hidden' : ''" (click)="onBackButtonTouched()">
+      <span>Anterior</span>
+      <ion-icon slot="start" name="chevron-back"></ion-icon>
+    </ion-button>
+    <ion-button style="width: 120px;" strong shape="round" color="primary" [style.visibility]="isEnd ? 'hidden' : ''"
+      (click)="onNextButtonTouched()">
+      <span>Siguiente</span>
+    </ion-button>
+  
+    <ion-button style="width: 120px;" strong shape="round" color="primary" [style.visibility]="!isEnd ? 'hidden' : ''"
+      (click)="onCrearButtonTouched()" >
+      <span>Crear</span>
+    </ion-button>
+
+  </ion-toolbar>
+</ion-footer>

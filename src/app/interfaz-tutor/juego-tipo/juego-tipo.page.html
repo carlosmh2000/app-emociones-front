@@ -1,0 +1,147 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  
+    <ion-title class="ion-text-center"> {{tipoJuego}} </ion-title>
+         
+    <ion-searchbar slot="end" showCancelButton="focus"></ion-searchbar>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+    <div class="juegos" *ngIf="this.tipoJuego == 'unirColor'">
+      
+      <div class="juego" *ngFor="let juego of juegos" > 
+
+        <ion-grid >
+          <ion-row class="colCenter" >
+            
+              <ion-img [routerLink]="['./juego', juego.id]" class="portada" src="../assets/sinFoto.png" [hidden]="juego.portada != null" ></ion-img>
+              <ion-img [routerLink]="['./juego', juego.id]" class="portada" src={{juego.portada}} [hidden]="juego.portada === null"></ion-img>
+          
+          </ion-row>
+ 
+          <ion-row class="colCenter">
+            <div class="nombreSection">
+              <ion-text class="nombreJuego"> {{juego.nombre}} </ion-text>
+            </div>
+              
+          </ion-row>
+        </ion-grid>
+
+      </div>
+      
+        <div class="botonSection" >
+          <ion-button class="botonCrear" size="large" color="dark" [routerLink]="['./', 'crear-juego']">
+            <ion-icon [name]="'add-circle-outline'"></ion-icon>
+          </ion-button>
+
+        </div>
+
+
+    </div> 
+    
+    <div class="juegos" *ngIf="this.tipoJuego == 'asociarImagen'">
+      
+      <div class="juego" *ngFor="let juego of juegosAsociar" > 
+
+        <ion-grid >
+          <ion-row class="colCenter" >
+            
+              <ion-img [routerLink]="['./juego', juego.id]" class="portada" src="../assets/sinFoto.png" [hidden]="juego.portada != null" ></ion-img>
+              <ion-img [routerLink]="['./juego', juego.id]" class="portada" src={{juego.portada}} [hidden]="juego.portada === null"></ion-img>
+          
+          </ion-row>
+ 
+          <ion-row class="colCenter">
+            <div class="nombreSection">
+              <ion-text class="nombreJuego"> {{juego.nombre}} </ion-text>
+            </div>
+              
+          </ion-row>
+        </ion-grid>
+
+      </div>
+      
+ 
+
+        <div class="botonSection" >
+          <ion-button class="botonCrear" size="large" color="dark" [routerLink]="['./', 'crear-juego-asociar-imagen']">
+            <ion-icon [name]="'add-circle-outline'"></ion-icon>
+          </ion-button>
+
+        </div>
+
+
+    </div>
+
+    <div class="juegos" *ngIf="this.tipoJuego == 'buscarIntruso'">
+      
+      <div class="juego" *ngFor="let juego of juegosBuscarIntruso" > 
+
+        <ion-grid >
+          <ion-row class="colCenter" >
+            
+              <ion-img [routerLink]="['./juego', juego.id]" class="portada" src="../assets/sinFoto.png" [hidden]="juego.portada != null" ></ion-img>
+              <ion-img [routerLink]="['./juego', juego.id]" class="portada" src={{juego.portada}} [hidden]="juego.portada === null"></ion-img>
+          
+          </ion-row>
+ 
+          <ion-row class="colCenter">
+            <div class="nombreSection">
+              <ion-text class="nombreJuego"> {{juego.nombre}} </ion-text>
+            </div>
+              
+          </ion-row>
+        </ion-grid>
+
+      </div>
+      
+
+        <div class="botonSection">
+          <ion-button class="botonCrear" size="large" color="dark" [routerLink]="['./', 'crear-juego-buscar-intruso']">
+            <ion-icon [name]="'add-circle-outline'"></ion-icon>
+          </ion-button>
+
+        </div>
+
+    </div>
+
+    <div class="juegos" *ngIf="this.tipoJuego == 'hacerPareja'">
+      
+      <div class="juego" *ngFor="let juego of juegosUnirPareja" > 
+
+        <ion-grid >
+          <ion-row class="colCenter" >
+            
+              <ion-img [routerLink]="['./juego', juego.id]" class="portada" src="../assets/sinFoto.png" [hidden]="juego.portada != null" ></ion-img>
+              <ion-img [routerLink]="['./juego', juego.id]" class="portada" src={{juego.portada}} [hidden]="juego.portada === null"></ion-img>
+          
+          </ion-row>
+ 
+          <ion-row class="colCenter">
+            <div class="nombreSection">
+              <ion-text class="nombreJuego"> {{juego.nombre}} </ion-text>
+            </div>
+              
+          </ion-row>
+        </ion-grid>
+
+      </div>
+      
+      
+        <div class="botonSection" >
+          <ion-button class="botonCrear" size="large" color="dark" [routerLink]="['./', 'crear-juego-unir-pareja']">
+            <ion-icon [name]="'add-circle-outline'"></ion-icon>
+          </ion-button>
+
+        </div>
+
+    </div>
+
+</ion-content>

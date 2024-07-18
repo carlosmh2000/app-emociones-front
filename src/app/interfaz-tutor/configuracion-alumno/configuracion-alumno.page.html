@@ -1,0 +1,73 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>    
+
+    <ion-button href=".." slot="start"> <ion-icon name="arrow-back-outline"></ion-icon> </ion-button>
+    <ion-title class="ion-text-center"> Configuración </ion-title>
+
+    <ion-button (click)="enviarFormulario()"  slot="end"> Guardar </ion-button>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Perfil
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+        
+      <ion-item>
+        <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()" novalidate>
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input formControlName="nombre" type="text" [(ngModel)]="this.nombre" >  </ion-input>
+
+          <small *ngIf="formulario.get('nombre').invalid && (formulario.get('nombre').dirty ||formulario.get('nombre').touched )">
+            <small *ngIf="(formulario.get('nombre')).errors?.required">Debe introducir un nombre.</small>
+            <small *ngIf="(formulario.get('nombre')).errors?.minlength">El nombre debe de tener como mínimo dos caracteres.</small>
+          </small>
+          
+        </form>
+        
+      </ion-item>
+
+      
+    <ion-item>
+      
+      <ion-label position="stacked">Foto de perfil</ion-label>
+
+      <ion-grid>
+        <ion-row class="rowCenter">
+          <ion-col class="rowCenter">
+            <ion-img class="profileUser" src={{this.foto}}></ion-img>
+          </ion-col>
+        </ion-row>
+ 
+        <ion-row class="rowCenter">
+          <ion-col class="rowCenter">
+    
+            <ion-button class="botonSeleccionar" strong shape="round" color="primary" size="small" (click)="presentActionSheet()">
+              Seleccionar
+            </ion-button>
+    
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col class="colCenter">
+        <ion-button color="danger" (click)="eliminarAlumno()"> <ion-icon name="trash-outline" slot="start"></ion-icon> Eliminar alumno </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+ 
+</ion-content>

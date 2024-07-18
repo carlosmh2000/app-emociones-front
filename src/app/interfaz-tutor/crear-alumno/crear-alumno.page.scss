@@ -1,0 +1,59 @@
+.ion-toolbar{
+    margin-bottom: 10%;
+
+}
+
+.ion-col{
+    margin: 10%;
+}
+
+#botonCrear{
+    margin-right: 5%;
+
+}
+
+#titleProfilePicture{
+    margin: 5%;
+}
+
+.cell-class {
+    border-color: black; 
+    border-width: .01em; 
+    border-style:solid; 
+    margin-bottom : 1px;
+}
+
+.profilePhoto{
+    object-fit: cover;
+    border-radius: 100px !important;
+    overflow: hidden;
+    height: 20vw; 
+    width: 20vw; 
+  
+
+}
+
+.rowCenter{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.colCenter{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+
+ion-grid{
+    padding:50px;
+}
+
+.error{ 
+    font-weight: bold;
+    color: red;
+}
+

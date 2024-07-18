@@ -1,0 +1,41 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-title class="ion-text-center"> Emociones </ion-title>
+          
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="alumnos">
+    <div class="alumno" *ngFor="let alumno of alumnos">
+
+      <ion-grid >
+        <ion-row class="colCenter">
+
+            <div *ngIf="alumno.fotoPerfil == '' || alumno.fotoPerfil == null">
+              <ion-img [routerLink]="['./', 'alumno', alumno.id]" class="profileUser" src="../../assets/sinFoto.png" ></ion-img>
+            </div>
+
+            <div *ngIf="alumno.fotoPerfil != '' && alumno.fotoPerfil != null">
+              <ion-img [routerLink]="['./', 'alumno', alumno.id]" class="profileUser" src={{alumno.fotoPerfil}} ></ion-img>
+            </div>
+        </ion-row>
+
+
+        <ion-row class="colCenter">
+          <div class="nombreSection">
+            <ion-text class="nombreAlumno"> {{alumno.nombre}} </ion-text>
+          </div>
+            
+        </ion-row>
+      </ion-grid>
+
+    </div>
+  </div>
+    
+    <ion-button class="modoTutor" size="small" color="light" href="/confirmar-modo-tutor">
+      Modo tutor
+    </ion-button>
+
+</ion-content>

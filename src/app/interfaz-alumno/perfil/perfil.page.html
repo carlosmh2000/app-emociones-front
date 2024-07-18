@@ -1,0 +1,22 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-button color="azul" class="botonHeader" href="login/{{alumno.id}}" slot="start"> <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon> </ion-button>
+    <ion-title > {{alumno.nombre}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col offset="4">
+
+        <ion-img class="profileUser" src="../assets/sinFoto.png" [hidden]="alumno.fotoPerfil != null" ></ion-img>
+        <ion-img class="profileUser" src={{alumno.fotoPerfil}} [hidden]="alumno.fotoPerfil == null"></ion-img>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+
+</ion-content>

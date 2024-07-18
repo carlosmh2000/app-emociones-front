@@ -1,0 +1,42 @@
+<ion-header >
+  <ion-toolbar>
+
+    <ion-button color="azul" class="botonHeader" href="/login" slot="start"> <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon> </ion-button>
+ 
+    <ion-button color="verdeClaro" class="botonHeader" [routerLink]="['./', 'resultados']" slot="end"> <ion-icon name="stats-chart-outline" slot="icon-only"></ion-icon> </ion-button>
+
+    <ion-button color="morado" class="botonHeader" [routerLink]="['./', 'perfil']" slot="end">
+        <ion-img class="profileUser" src="../assets/sinFoto.png" [hidden]="this.profilePhoto != null" ></ion-img>
+        <ion-img class="profileUser" src={{this.profilePhoto}} [hidden]="this.profilePhoto == null"></ion-img>
+    </ion-button>
+    
+
+    <ion-button color="ayuda" class="botonHeader" slot="end">
+      <ion-icon name="help-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="juegos">
+    <div class="juego" *ngFor="let juego of juegos">
+
+      <ion-grid >
+          <ion-row class="colCenter">
+            
+              <ion-img [routerLink]="['./', this.jugarJuegoTipo(juego.tipo), juego.id]" class="portada" src="../assets/sinFoto.png" [hidden]="juego.portada != null" ></ion-img>
+              <ion-img [routerLink]="['./', this.jugarJuegoTipo(juego.tipo), juego.id]" class="portada" src={{juego.portada}} [hidden]="juego.portada === null"></ion-img>
+          
+          </ion-row>
+ 
+          <ion-row class="colCenter">
+            <div class="nombreSection">
+              <ion-text class="nombreJuego"> {{juego.nombre}} </ion-text>
+            </div>
+              
+          </ion-row>
+        </ion-grid>
+
+    </div>
+  </div>
+</ion-content>

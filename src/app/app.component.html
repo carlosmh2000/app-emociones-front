@@ -1,0 +1,41 @@
+<ion-menu side="start" menuId="custom" contentId="main" class="my-custom-menu">
+  <ion-header>
+    <ion-toolbar color="transparent">
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item [routerDirection]="'root'" [routerLink]="'/homepage-tutor'" menuClose  (click)="openEnd()">
+        <ion-icon slot="start" [name]="'people-outline'"></ion-icon>
+        <ion-label>
+          ALUMNOS
+        </ion-label>
+      </ion-item>
+
+      <ion-item [routerDirection]="'root'" [routerLink]="'/juegos'" menuClose  (click)="openEnd()">
+        <ion-icon slot="start" [name]="'game-controller-outline'"></ion-icon>
+        <ion-label>
+          JUEGOS
+        </ion-label>
+      </ion-item>
+
+      <ion-item [routerDirection]="'root'" [routerLink]="'/biblioteca'" menuClose  (click)="openEnd()">
+        <ion-icon slot="start" [name]="'folder-outline'"></ion-icon>
+        <ion-label>
+          BIBLIOTECA DE MEDIA
+        </ion-label>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-button class="botonModoAlumnos" color="dark" href="/login"  (click)="openEnd()">
+      Modo alumno
+    </ion-button>
+
+
+  </ion-content>
+</ion-menu>
+
+
+<ion-router-outlet id="main"></ion-router-outlet>

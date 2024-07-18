@@ -1,0 +1,73 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>    
+
+    <ion-button href=".." slot="start"> <ion-icon name="arrow-back-outline"></ion-icon> </ion-button>
+    <ion-title class="ion-text-center"> {{this.nombreAlumno}} </ion-title>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="colCenter">
+          <ion-img class="profileUser" src="../../assets/sinFoto.png" [hidden]="this.foto != null" ></ion-img>
+          <ion-img class="profileUser" src={{this.foto}} [hidden]="this.foto === null"></ion-img>
+        
+      </ion-col>
+    </ion-row>
+
+      <ion-row >
+        <ion-col class="colCenter">
+          <ion-button class="botonConfiguracion" [routerLink]="['./', 'configuracion']"> Configuración </ion-button>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="colCenter">
+        <ion-button > Importar </ion-button>
+        <ion-button > Exportar </ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+ 
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>
+      Juegos
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <div class="juegos">
+      <div class="juego" *ngFor="let juego of juegos">
+
+        <ion-grid >
+          <ion-row class="colCenter">
+            
+              <ion-img [routerLink]="['./', juego.id]" class="portada" src="../assets/sinFoto.png" [hidden]="juego.portada != null" ></ion-img>
+              <ion-img [routerLink]="['./', juego.id]" class="portada" src={{juego.portada}} [hidden]="juego.portada === null"></ion-img>
+          
+          </ion-row>
+ 
+          <ion-row class="colCenter">
+            <div class="nombreSection">
+              <ion-text class="nombreJuego"> {{juego.nombre}} </ion-text>
+            </div>
+              
+          </ion-row>
+        </ion-grid>
+
+      </div>
+      
+        <div class="botonSection">
+          <ion-button class="botonCrear" size="large" color="dark" href="/crear-alumno">
+            <ion-icon [name]="'add-circle-outline'"></ion-icon>
+          </ion-button>
+
+        </div>
+    </div>   
+  </ion-card-content>
+</ion-card>
+ 
+</ion-content>

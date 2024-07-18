@@ -1,0 +1,166 @@
+@font-face { font-family: Escolar; src: url('/assets/fonts/escolar.ttf'); } 
+
+ion-toolbar{
+  --background: #ebd4ab;
+  min-height: 100px!important;
+  height:100%;
+}
+
+ion-header{
+  min-height: 100px;
+}
+
+ion-footer{
+ min-height: 100px;
+}
+
+ion-content {
+ --background: aliceblue;
+ height: 100%;
+
+}
+
+ion-slides, ng-container, ion-slide{
+ height: 100%;
+}
+
+.toolbar-container{
+   min-height: 100px!important;
+}
+
+.toolbar-title{
+   min-height: 100px!important;
+}
+
+ .profileUser{
+    padding: 10px;
+    object-fit: cover;
+    border-radius: 200px !important;
+    overflow: hidden;
+    height: 100px; 
+    width: 100px; 
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  
+}
+
+.botonHeader{
+  width: 120px;
+  height: 100px;
+  border: 2px solid black;
+  vertical-align: middle;
+  border-radius: 6px;
+}
+
+.ion-color-verdeClaro {
+   --ion-color-base: var(--ion-color-verdeClaro);
+   --ion-color-base-rgb: var(--ion-color-verdeClaro-rgb);
+   --ion-color-contrast: var(--ion-color-verdeClaro-contrast);
+   --ion-color-contrast-rgb: var(--ion-color-verdeClaro-contrast-rgb);
+   --ion-color-shade: var(--ion-color-verdeClaro-shade);
+   --ion-color-tint: var(--ion-color-verdeClaro-tint);
+ }
+
+ .ion-color-morado {
+   --ion-color-base: var(--ion-color-morado);
+   --ion-color-base-rgb: var(--ion-color-morado-rgb);
+   --ion-color-contrast: var(--ion-color-morado-contrast);
+   --ion-color-contrast-rgb: var(--ion-color-morado-contrast-rgb);
+   --ion-color-shade: var(--ion-color-morado-shade);
+   --ion-color-tint: var(--ion-color-morado-tint);
+ }
+
+ .ion-color-ayuda {
+   --ion-color-base: var(--ion-color-ayuda);
+   --ion-color-base-rgb: var(--ion-color-ayuda-rgb);
+   --ion-color-contrast: var(--ion-color-ayuda-contrast);
+   --ion-color-contrast-rgb: var(--ion-color-ayuda-contrast-rgb);
+   --ion-color-shade: var(--ion-color-ayuda-shade);
+   --ion-color-tint: var(--ion-color-ayuda-tint);
+ }
+
+ .ion-color-azul {
+   --ion-color-base: var(--ion-color-azul);
+   --ion-color-base-rgb: var(--ion-color-azul-rgb);
+   --ion-color-contrast: var(--ion-color-azul-contrast);
+   --ion-color-contrast-rgb: var(--ion-color-azul-contrast-rgb);
+   --ion-color-shade: var(--ion-color-azul-shade);
+   --ion-color-tint: var(--ion-color-azul-tint);
+ }
+
+ .colCenter {
+   display: flex;
+   justify-content: center;
+}
+
+
+.portada{
+   border: 5px solid #ab7cc3;
+   object-fit: cover;
+   border-radius: 40px !important;
+   overflow: hidden;
+   height: 18vw; 
+   width: 18vw; 
+ 
+}
+
+.nombreSection{
+   max-width: 200px;
+   overflow-wrap: break-word;
+}
+
+.nombreJuego{
+   font-family: Escolar;
+   font-size: 25px;
+   font-weight: bold;
+   text-align: center;
+   line-height: 40px;
+   align-items: center;
+   color: black;
+   
+}
+
+.botonSection{
+   display: flex;
+   min-width: 80px;
+   padding: 10px 0;
+   justify-content: center;
+   align-items: center;
+   margin: 1rem;
+   border: 2px solid gray;
+    --background: lightgrey;
+}
+
+.botonCrear{
+   margin: auto;
+}
+
+.juegos {
+   -webkit-box-orient: horizontal;
+   -webkit-box-direction: normal;
+   -ms-flex-direction: row;
+   flex-direction: row;
+   -webkit-box-pack: justify;
+   -ms-flex-pack: justify;
+   justify-content: space-between;
+   position: relative;
+   max-width: 1080px;
+   margin: 0 auto;
+   padding: 0 20px;
+   box-sizing: content-box;
+
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+   
+ }
+
+ .juego {
+   min-width: 80px;
+   padding: 10px 0;
+   justify-content: center;
+   align-items: center;
+   margin: 1rem;
+   
+ }
+

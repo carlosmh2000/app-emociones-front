@@ -1,0 +1,7 @@
+{
+  "name": "app-emo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

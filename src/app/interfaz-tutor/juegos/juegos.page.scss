@@ -1,0 +1,77 @@
+ion-searchbar {
+    width: 20%;
+    padding: 15px;
+ }
+ 
+.ion-padding{
+    padding: 10%;
+}
+
+
+.colCenter {
+  display: flex;
+  justify-content: center;
+}
+
+
+.portada{
+  width: 60%;
+  border-style: solid;
+  border-color: gray;
+  padding: 10px;
+
+
+}
+
+.nombreSection{
+  margin-top: 10px;
+  max-width: 200px;
+  overflow-wrap: break-word;
+}
+
+.nombreJuego{
+  font-weight: bold;
+  align-items: center;
+  
+}
+
+.botonSection{
+  display: flex;
+  min-width: 80px;
+  padding: 10px 0;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+
+.botonCrear{
+  margin: auto;
+}
+
+.juegos {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: content-box;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  
+}
+
+.juego {
+  min-width: 80px;
+  padding: 10px 0;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+  
+}

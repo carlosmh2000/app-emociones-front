@@ -1,0 +1,583 @@
+@font-face { font-family: Escolar; src: url('/assets/fonts/escolar.ttf'); } 
+
+ ion-toolbar{
+   --background: #ebd4ab;
+   min-height: 100px!important;
+   height:100%;
+ }
+
+ ion-header{
+   min-height: 100px;
+ }
+
+ ion-footer{
+  min-height: 100px;
+}
+
+ ion-content {
+  --background: aliceblue;
+  height: 100%;
+
+}
+
+ion-slides, ng-container, ion-slide{
+  height: 100%;
+}
+
+ .toolbar-container{
+    min-height: 100px!important;
+ }
+
+ .toolbar-title{
+    min-height: 100px!important;
+ }
+
+.picto{
+  padding: 10 0px;
+  object-fit: cover;
+  overflow: hidden;
+  height: 90px;
+  max-width: 100%; 
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+}
+
+
+ .colCenter {
+   display: flex;
+   justify-content: center;
+   height:100%;
+}
+
+.refuerzoPositivo{
+  padding-top: 25px;
+  font-family: Escolar;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  align-items: center;
+  color: green;
+  vertical-align: middle;
+  line-height: 45px;
+  display: flex; 
+  justify-content: center;
+}
+
+.refuerzoNegativo{
+  padding-top: 25px;
+  font-family: Escolar;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  align-items: center;
+  color:red;
+  vertical-align: middle;
+  line-height: 45px;
+  display: flex; 
+  justify-content: center;
+}
+
+.center {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: table;
+}
+
+.repetir{
+  opacity: 50%;
+  height: 100%;
+}
+
+.norepetir{
+  height: 100%;
+}
+
+.middleEjercicio {
+
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  align-items: center;
+  height: 100%;
+
+}
+
+.middleTutorial {
+  width:30%;
+  display: table-cell;
+  text-align: center;
+  align-items: center;
+  background-color: plum;
+  height: 100%;
+  overflow: auto;
+}
+
+
+.inner {
+  padding: 70px 0;
+  margin-left: auto;
+  margin-right: auto;
+  height:100%;
+}
+
+
+
+.parrafo{
+  font-family: Escolar;
+  font-size: 20px;
+  color:black;
+  overflow-wrap: break-word;
+  margin: 10px;
+}
+
+.botonImagen{
+  width: 100%;
+  height: 100%;
+  border: 2px solid gray;
+  vertical-align: middle;
+  border-radius: 10px;
+  min-width: 0;
+  min-height: 0;
+  --background: lightgrey;
+}
+
+.botonImagenSelected{
+  width: 100%;
+  height: 100%;
+  border: 4px solid black;
+  vertical-align: middle;
+  border-radius: 10px;
+  min-width: 0;
+  --background: lightgrey;
+}
+
+.botonImagenSelectedCorrecto{
+  width: 100%;
+  height: 100%;
+  border: 4px solid green;
+  vertical-align: middle;
+  border-radius: 10px;
+  min-width: 0;
+  --background: lightgrey;
+}
+
+.botonImagenSelectedFallo{
+  width: 100%;
+  height: 100%;
+  border: 4px solid red;
+  vertical-align: middle;
+  border-radius: 10px;
+  min-width: 0;
+  --background: lightgrey;
+}
+
+
+
+@media(max-width: 1200px) {
+
+  
+.botonHeader{
+  width: 150px;
+  height: 85px;
+  margin: 0 20px;
+  border: 2px solid black;
+  vertical-align: middle;
+  border-radius: 10px;
+  font-family: Escolar;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 40px;
+}
+
+
+.botonHeaderRepetir{
+  width: 150px;
+  height: 85px;
+  margin-left: 20px;
+  border: 2px solid black;
+  vertical-align: middle;
+  border-radius: 10px;
+  font-family: Escolar;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 40px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.botonHeaderTransparente{
+  width: 70px;
+  height: 85px;
+  vertical-align: middle;
+  border-radius: 10px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  
+}
+
+  ion-icon{
+    width: 100%;
+  }
+
+  .titulo{
+    font-family: Escolar;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+    
+  }
+
+  .textoImg{
+    font-family: Escolar;
+    font-size: 20px;
+    font-weight: bold;
+    color:black;
+    overflow-wrap: break-word;
+  }
+  
+  .imagen{
+    width:100%;
+    height:100%;
+    max-height: 130px;
+    max-width: 130px;
+    padding: 10px;
+    object-fit: cover;
+    overflow: hidden;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  
+  }
+
+  .elemento {
+    height: 100%;
+    min-width: 80px;
+    min-height: 80px;
+    padding: 7px 7px;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .elementos {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    max-width: 1080px;
+    margin: auto;
+    padding: 80px 30px;
+    box-sizing: content-box;
+    min-width: 0;
+    height: 100%;
+  
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    
+    
+  }
+  
+  .elementos6 {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    max-width: 1080px;
+    margin: auto;
+    padding: 0 20px;
+    box-sizing: content-box;
+    min-width: 0;
+    height: 100%;
+  
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    
+    
+  }
+
+  .elementos8 {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    max-height: 580px;
+    margin: auto;
+    padding: 0 10px;
+    box-sizing: content-box;
+    min-width: 0;
+    height: 100%;
+    
+  
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    
+  }
+
+
+
+}
+
+.botonImagenSmaller{
+  width: 100%;
+  height: 100%;
+  border: 2px solid gray;
+  vertical-align: middle;
+  border-radius: 10px;
+  min-width: 0;
+  min-height: 0;
+  max-width: 150;
+  max-height: 150px;
+  --background: lightgrey;
+}
+
+
+@media(min-width: 1200px) {
+
+  .botonHeader{
+    width: 150px;
+    height: 85px;
+    margin-right: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 2px solid black;
+    vertical-align: middle;
+    border-radius: 10px;
+    font-family: Escolar;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 40px;
+  }
+  
+  
+  .botonHeaderRepetir{
+    width: 150px;
+    height: 85px;
+    margin-left: 20px;
+    border: 2px solid black;
+    vertical-align: middle;
+    border-radius: 10px;
+    font-family: Escolar;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 40px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .botonHeaderTransparente{
+    width: 70px;
+    height: 85px;
+    vertical-align: middle;
+    border-radius: 10px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    
+  }
+  
+    ion-icon{
+      width: 100%;
+    }
+  
+    .titulo{
+      margin-left: 20px;
+      font-family: Escolar;
+      font-size: 30px;
+      font-weight: bold;
+      text-align: center;
+      color: black;
+      
+    }
+  
+    .textoImg{
+      font-family: Escolar;
+      font-size: 20px;
+      font-weight: bold;
+      color:black;
+      overflow-wrap: break-word;
+    }
+    
+    .imagen{
+      width:100%;
+      height:100%;
+      max-height: 130px;
+      max-width: 130px;
+      padding: 10px;
+      object-fit: cover;
+      overflow: hidden;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    
+    }
+  
+    .elemento {
+      height: 100%;
+      min-width: 80px;
+      min-height: 80px;
+      padding: 7px 7px;
+      justify-content: center;
+      align-items: center;
+      
+    }
+    .elementos2 {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      position: relative;
+      margin: auto;
+      max-width: 1080px;
+      padding: 0px 80px;
+      box-sizing: content-box;
+      min-width: 0;
+      height: 100%;
+    
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      
+      
+    }
+  
+    .elementos {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      position: relative;
+      max-width: 1080px;
+      margin: auto;
+      padding: 80px 30px;
+      box-sizing: content-box;
+      min-width: 0;
+      height: 100%;
+    
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      
+      
+    }
+    
+    .elementos6 {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      position: relative;
+      max-width: 1080px;
+      margin: auto;
+      padding: 0 20px;
+      box-sizing: content-box;
+      min-width: 0;
+      height: 100%;
+    
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      
+      
+    }
+  
+    .elementos8 {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      position: relative;
+      max-height: 580px;
+      margin: auto;
+      padding: 0 10px;
+      box-sizing: content-box;
+      min-width: 0;
+      height: 100%;
+      
+    
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      
+    }
+  
+  
+  
+}
+
+
+
+
+/************    COLORES       *********/
+.ion-color-verdeClaro {
+  --ion-color-base: var(--ion-color-verdeClaro);
+  --ion-color-base-rgb: var(--ion-color-verdeClaro-rgb);
+  --ion-color-contrast: var(--ion-color-verdeClaro-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-verdeClaro-contrast-rgb);
+  --ion-color-shade: var(--ion-color-verdeClaro-shade);
+  --ion-color-tint: var(--ion-color-verdeClaro-tint);
+}
+
+.ion-color-morado {
+  --ion-color-base: var(--ion-color-morado);
+  --ion-color-base-rgb: var(--ion-color-morado-rgb);
+  --ion-color-contrast: var(--ion-color-morado-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-morado-contrast-rgb);
+  --ion-color-shade: var(--ion-color-morado-shade);
+  --ion-color-tint: var(--ion-color-morado-tint);
+}
+
+.ion-color-ayuda {
+  --ion-color-base: var(--ion-color-ayuda);
+  --ion-color-base-rgb: var(--ion-color-ayuda-rgb);
+  --ion-color-contrast: var(--ion-color-ayuda-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-ayuda-contrast-rgb);
+  --ion-color-shade: var(--ion-color-ayuda-shade);
+  --ion-color-tint: var(--ion-color-ayuda-tint);
+}
+
+.ion-color-azul {
+  --ion-color-base: var(--ion-color-azul);
+  --ion-color-base-rgb: var(--ion-color-azul-rgb);
+  --ion-color-contrast: var(--ion-color-azul-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-azul-contrast-rgb);
+  --ion-color-shade: var(--ion-color-azul-shade);
+  --ion-color-tint: var(--ion-color-azul-tint);
+}

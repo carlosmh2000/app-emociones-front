@@ -1,0 +1,32 @@
+
+<ion-content >
+
+  <ion-grid>
+    <ion-row >
+      <ion-col>
+        <ion-card>        
+          <ion-card-header>
+            <ion-card-title class="pregunta">
+              ¿Desea acceder al modo tutor?
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <div class="botones">
+            <ion-button size="large" href="/login">
+              <ion-icon slot="start" [name]="'arrow-back-outline'"></ion-icon>
+              NO
+            </ion-button>
+      
+            <ion-button class="botonSi" size="small" color="light" href="/homepage-tutor">
+              SI
+            </ion-button>
+
+          </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-content>

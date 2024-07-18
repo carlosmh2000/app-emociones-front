@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>    
+
+    <ion-button href="/juego-tipo" slot="start"> <ion-icon name="arrow-back-outline"></ion-icon> </ion-button>
+    <ion-title class="ion-text-center"> {{this.nombreJuego}} </ion-title>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="colCenter">
+          <ion-img class="profileUser" src="../../assets/sinFoto.png" [hidden]="this.portada != null" ></ion-img>
+          <ion-img class="profileUser" src={{this.portada}} [hidden]="this.portada === null"></ion-img>
+        
+      </ion-col>
+    </ion-row>
+
+      <ion-row >
+        <ion-col class="colCenter">
+          <ion-button class="botonConfiguracion" [routerLink]="['./', 'configuracion-juego']"> Configuración </ion-button>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="colCenter">
+        <ion-button > Importar </ion-button>
+        <ion-button > Exportar </ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+ 
+</ion-content>

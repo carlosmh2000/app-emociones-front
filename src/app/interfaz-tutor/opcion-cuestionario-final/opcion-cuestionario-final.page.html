@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button slot="start" (click)="cerrar()"><ion-icon name="close-circle-outline"></ion-icon></ion-button>
+    <ion-title *ngIf="numOpcion != 0">Opción {{ numOpcion }}</ion-title>
+    <ion-button slot="end" (click)="create()">Crear</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+
+            <form [formGroup]="preguntaForm" #preguntaFormRef="ngForm" novalidate >
+
+              <ion-grid>
+
+                <ion-row>
+                  <ion-col>
+                    <ion-label>Imagen</ion-label>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col>
+                    <div class="flex align-items-center full-width ion-margin-top">
+                      <div class="ion-margin-end">
+                        
+                        <ion-button strong shape="round" color="primary" size="small" (click)="presentActionSheet()">
+                          Seleccionar
+                        </ion-button>
+                      </div>
+                      <div>
+                        <img class="img-thumb"  [src]="this.img" *ngIf="this.img != null">
+                      </div>
+                    </div>
+  
+                    <ion-text color="danger">
+                      <span class="text-tiny"
+                        [style.visibility]="this.img == null && preguntaFormRef.submitted ? '' : 'hidden'">
+                        Debe seleccionar una imagen
+                      </span>
+                    </ion-text>
+  
+                  </ion-col>
+
+  
+                </ion-row>
+
+                <ion-row>
+                  <ion-col>
+  
+                   
+                        <ion-item lines="none">
+                          <ion-label position="floating">Texto</ion-label>
+                          <ion-input clear-input="true" type="text" formControlName="texto"></ion-input>
+                        </ion-item>
+                        <ion-text color="danger">
+                          <span class="text-tiny"
+                            [style.visibility]="texto?.errors?.required && preguntaFormRef.submitted ? '' : 'hidden'">
+                            Campo obligatorio
+                          </span>
+                        </ion-text>
+  
+                  </ion-col>
+  
+                </ion-row>
+
+              </ion-grid>
+              
+            </form>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+
+</ion-content>

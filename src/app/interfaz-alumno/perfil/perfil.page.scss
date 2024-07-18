@@ -1,0 +1,74 @@
+@font-face { font-family: Escolar; src: url('/assets/fonts/escolar.ttf'); } 
+
+ion-toolbar{
+   --background: #ebd4ab;
+   min-height: 100px!important;
+   height:100%;
+ }
+
+ ion-header{
+   min-height: 100px;
+ }
+
+ ion-footer{
+  min-height: 100px;
+}
+
+ ion-content {
+  --background: aliceblue;
+  height: 100%;
+
+}
+
+ion-slides, ng-container, ion-slide{
+  height: 100%;
+}
+
+ .toolbar-container{
+    min-height: 100px!important;
+ }
+
+ .toolbar-title{
+    min-height: 100px!important;
+ }
+
+ ion-title{
+    font-family: Escolar;
+    align-items: center!important;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 50px;
+    min-height: 100px!important;
+ }
+
+ .profileUser{
+    border: 5px solid #ab7cc3;
+    object-fit: cover;
+    border-radius: 40px !important;
+    overflow: hidden;
+    height: 30vw; 
+    width: 30vw; 
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    vertical-align: middle;
+    margin: 40px;
+}
+
+.botonHeader{
+    width: 120px;
+    height: 100px;
+    border: 2px solid black;
+    vertical-align: middle;
+    border-radius: 10px;
+}
+
+.ion-color-azul {
+    --ion-color-base: var(--ion-color-azul);
+    --ion-color-base-rgb: var(--ion-color-azul-rgb);
+    --ion-color-contrast: var(--ion-color-azul-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-azul-contrast-rgb);
+    --ion-color-shade: var(--ion-color-azul-shade);
+    --ion-color-tint: var(--ion-color-azul-tint);
+  }
