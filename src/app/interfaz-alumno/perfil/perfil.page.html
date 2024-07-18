@@ -11,12 +11,12 @@
     <ion-row>
       <ion-col offset="4">
 
-        <ion-img class="profileUser" src="../assets/sinFoto.png" [hidden]="alumno.fotoPerfil != null" ></ion-img>
-        <ion-img class="profileUser" src={{alumno.fotoPerfil}} [hidden]="alumno.fotoPerfil == null"></ion-img>
+        <ion-img class="profileUser" src="../assets/sinFoto.png" [hidden]="alumno.fotoPerfil !== null" ></ion-img>
+        <ion-img class="profileUser" src={{alumno.fotoPerfil}} [hidden]="alumno.fotoPerfil === null"></ion-img>
 
       </ion-col>
     </ion-row>
   </ion-grid>
-  
+
 
 </ion-content>

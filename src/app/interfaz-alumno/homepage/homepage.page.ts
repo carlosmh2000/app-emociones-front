@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Alumno } from 'src/app/models/alumno.model';
 import { Juego } from 'src/app/models/juego.model';
 import { CamaraService } from 'src/app/services/camara.service';
 import { DatabaseService } from 'src/app/services/database.service';
+import {AlumnoService} from "../../services/alumno.service";
 
 @Component({
   selector: 'app-homepage',
@@ -12,6 +13,7 @@ import { DatabaseService } from 'src/app/services/database.service';
   styleUrls: ['./homepage.page.scss'],
 })
 export class HomepagePage implements OnInit {
+  private alumnoService = inject(AlumnoService);
 
   public alumnos : Alumno[] = [];
   public alumno : Alumno;
@@ -30,7 +32,7 @@ export class HomepagePage implements OnInit {
       let alumnoId = params.get('alumnoId');
 
       //obtenemos el alumno de la base de datos
-      this.db.getAlumno(alumnoId).then(data => {
+      this.alumnoService.getAlumno(alumnoId).subscribe(data => {
 
         this.nombreAlumno = data.nombre;
         this.profilePhoto = data.fotoPerfil;
