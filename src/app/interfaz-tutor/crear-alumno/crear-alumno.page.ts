@@ -16,6 +16,7 @@ export class CrearAlumnoPage implements OnInit {
   private alumnoService = inject(AlumnoService);
   public formulario;
   foto : string = '../../assets/sinFoto.png' ;
+  fotoUrl: string = ''
 
 
 
@@ -41,9 +42,9 @@ export class CrearAlumnoPage implements OnInit {
         handler: async () => {
 
           await  this.camaraService.getGaleria().then(async (_) => {
-
             this.foto = await this.camaraService.imgURL;
-
+            this.fotoUrl = this.camaraService.imageData.filepath;
+            console.log(this.camaraService.imageData);
           });
         }
 
@@ -51,11 +52,10 @@ export class CrearAlumnoPage implements OnInit {
         text: 'Cámara',
         handler: async () => {
 
-        await this.camaraService.getCamara().then(async (_) => {
-
-          this.foto = await this.camaraService.imgURL;
-
-
+          await this.camaraService.getCamara().then(async (_) => {
+            this.foto = await this.camaraService.imgURL;
+            this.fotoUrl = this.camaraService.imageData.filepath;
+            console.log(this.camaraService.imageData);
         });
 
         }
@@ -95,7 +95,7 @@ export class CrearAlumnoPage implements OnInit {
   async crearAlumno(formulario) {
 
       //añadimos el alumno con esa personalización
-        await this.alumnoService.addAlumno(formulario.value.nombre, this.foto).subscribe(async _ => {
+        await this.alumnoService.addAlumno(formulario.value.nombre, this.fotoUrl).subscribe(async _ => {
 
           //volvemos a la página inicial del tutor
           await this.router.navigate(['./homepage-tutor']);

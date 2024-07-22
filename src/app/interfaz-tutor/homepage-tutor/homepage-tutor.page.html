@@ -3,9 +3,9 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-  
+
     <ion-title class="ion-text-center"> Alumnos </ion-title>
-    
+
   </ion-toolbar>
 </ion-header>
 
@@ -16,29 +16,29 @@
 
         <ion-grid >
           <ion-row class="colCenter">
-              
-            <div *ngIf="alumno.fotoPerfil == '' || alumno.fotoPerfil == null">
+
+            <div *ngIf="alumno.fotoPerfil === '' || alumno.fotoPerfil === null">
               <ion-img [routerLink]="['./', 'alumno', alumno.id]" class="profileUser" src="../../assets/sinFoto.png" ></ion-img>
             </div>
 
-            <div *ngIf="alumno.fotoPerfil != '' && alumno.fotoPerfil != null">
+            <div *ngIf="alumno.fotoPerfil !== '' && alumno.fotoPerfil !== null">
               <ion-img [routerLink]="['./', 'alumno', alumno.id]" class="profileUser" src={{alumno.fotoPerfil}} ></ion-img>
             </div>
-              
-              
-          
+
+
+
           </ion-row>
- 
+
           <ion-row class="colCenter">
             <div class="nombreSection">
               <ion-text class="nombreAlumno"> {{alumno.nombre}} </ion-text>
             </div>
-              
+
           </ion-row>
         </ion-grid>
 
       </div>
-      
+
         <div class="botonSection">
           <ion-button class="botonCrear" slot="icon-only" size="large" color="dark" href="/crear-alumno">
             <ion-icon [name]="'add-circle-outline'"></ion-icon>
@@ -52,6 +52,6 @@
           </ion-button>
 
         </div>
-    </div>   
+    </div>
 
 </ion-content>

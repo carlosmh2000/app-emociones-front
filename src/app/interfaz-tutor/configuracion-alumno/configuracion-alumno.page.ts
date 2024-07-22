@@ -101,9 +101,8 @@ export class ConfiguracionAlumnoPage implements OnInit {
         handler: async () => {
 
           await  this.camaraService.getGaleria().then(async (_) => {
-
             this.foto = await this.camaraService.imgURL;
-
+            console.log(this.foto);
           });
         }
 
@@ -112,10 +111,8 @@ export class ConfiguracionAlumnoPage implements OnInit {
         handler: async () => {
 
         await this.camaraService.getCamara().then(async (_) => {
-
           this.foto = await this.camaraService.imgURL;
-
-
+          console.log(this.foto);
         });
 
         }

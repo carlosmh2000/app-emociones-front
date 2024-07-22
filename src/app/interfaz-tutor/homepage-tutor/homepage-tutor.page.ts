@@ -8,6 +8,7 @@ import { OpcionCuestionarioFinal } from 'src/app/models/opcion-cuestionario-fina
 import { PreguntaUnir } from 'src/app/models/pregunta-unir.model';
 import { JuegoUnir } from 'src/app/models/juego-unir.model';
 import {AlumnoService} from "../../services/alumno.service";
+import {Filesystem} from "@capacitor/filesystem";
 
 @Component({
   selector: 'app-homepage-tutor',
