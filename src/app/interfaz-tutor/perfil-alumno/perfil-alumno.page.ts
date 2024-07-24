@@ -4,7 +4,6 @@ import { Juego } from 'src/app/models/juego.model';
 import { DatabaseService } from 'src/app/services/database.service';
 import { ActivatedRoute } from '@angular/router';
 import {AlumnoService} from "../../services/alumno.service";
-import {Filesystem} from "@capacitor/filesystem";
 
 @Component({
   selector: 'app-perfil-alumno',
