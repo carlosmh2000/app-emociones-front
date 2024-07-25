@@ -1,7 +1,7 @@
 import { OpcionCuestionarioFinal } from "./opcion-cuestionario-final.model";
 
   export class Juego {
-    public id: number;
+    public id?: number;
     public nombre: string;
     public portada : string;
     public tipo : string;
@@ -20,9 +20,9 @@ import { OpcionCuestionarioFinal } from "./opcion-cuestionario-final.model";
     public cuestionarioFinalPregunta : string;
     public opcionesCuestionarioFinal : OpcionCuestionarioFinal[];
 
-  
+
     constructor(id, nombre = '', portada =  '', tipo = '', instrucciones = '', tutorial = true, descrip_tutorial = '', efectos_sonido = true, sonidos = [], refPositivo = true, refNegativo = true,  resultadoNum = true, resultadoPicto = false,
-    imgRefPositivo = '', imgRefNegativo = '',  cuestionarioFinal = true, cuestionarioFinalPregunta = '', opcionesCuestionarioFinal = []) 
+    imgRefPositivo = '', imgRefNegativo = '',  cuestionarioFinal = true, cuestionarioFinalPregunta = '', opcionesCuestionarioFinal = [])
     {
       this.id = id;
       this.nombre = nombre;
@@ -43,5 +43,5 @@ import { OpcionCuestionarioFinal } from "./opcion-cuestionario-final.model";
       this.cuestionarioFinalPregunta = cuestionarioFinalPregunta;
       this.opcionesCuestionarioFinal = opcionesCuestionarioFinal;
     }
-  
+
   }

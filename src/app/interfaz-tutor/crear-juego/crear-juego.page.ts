@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ActionSheetController, IonContent, IonSlides, NavController } from '@ionic/angular';
 import { AbstractControl, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
@@ -11,6 +11,8 @@ import { AudioService } from 'src/app/services/audio.service';
 import { OpcionCuestionarioFinal } from 'src/app/models/opcion-cuestionario-final.model';
 import { OpcionCuestionarioFinalPage } from '../opcion-cuestionario-final/opcion-cuestionario-final.page';
 import { PreguntaUnir } from 'src/app/models/pregunta-unir.model';
+import {Juego} from "../../models/juego.model";
+import {JuegoService} from "../../services/juego.service";
 
 
 @Component({
@@ -19,7 +21,7 @@ import { PreguntaUnir } from 'src/app/models/pregunta-unir.model';
   styleUrls: ['./crear-juego.page.scss'],
 })
 export class CrearJuegoPage implements OnInit {
-
+  juegoService = inject(JuegoService);
 
   tipoJuego : string;
   public slides: string[];
@@ -91,7 +93,7 @@ export class CrearJuegoPage implements OnInit {
   async initModalEjercicio(tipo : string) {
     const modal = await this.modalController.create({
       component: PreguntasUnirColorPage,
-      componentProps: { 
+      componentProps: {
         numEjer: (this.ejercicios.length + 1),
         tipo: tipo
       },
@@ -104,7 +106,6 @@ export class CrearJuegoPage implements OnInit {
             this.ejercicios.push(data[0].data);
             console.log(data[0].data);
             console.log(this.ejercicios);
-
           }
 
           else if(tipo == 'tutorial'){
@@ -112,7 +113,7 @@ export class CrearJuegoPage implements OnInit {
             console.log(data[0].data);
             console.log(this.ejercicioTutorial);
           }
-         
+
        }
      });
     })
@@ -121,7 +122,7 @@ export class CrearJuegoPage implements OnInit {
   async initModalOpcionCuestionario() {
     const modal = await this.modalController.create({
       component: OpcionCuestionarioFinalPage,
-      componentProps: { 
+      componentProps: {
         numOpcion: (this.opcionesCuestionario.length + 1),
       },
       cssClass: 'addEjercicio',
@@ -132,8 +133,8 @@ export class CrearJuegoPage implements OnInit {
 
           this.opcionesCuestionario.push(data[0].data);
           console.log(data[0].data);
-          console.log(this.opcionesCuestionario); 
-          console.log(this.opcionesCuestionario.length); 
+          console.log(this.opcionesCuestionario);
+          console.log(this.opcionesCuestionario.length);
        }
      });
     })
@@ -152,7 +153,7 @@ export class CrearJuegoPage implements OnInit {
     }
 
     this.opcionesCuestionario = aux;
-    
+
   }
 
   async deleteEjercicio(index : number){
@@ -178,7 +179,7 @@ export class CrearJuegoPage implements OnInit {
     this.currentSlide = slides[0];
     this.slides = slides;
   }
-  
+
 
   setupForm() {
     this.presentacionForm = new FormGroup({
@@ -212,7 +213,7 @@ export class CrearJuegoPage implements OnInit {
     else if(elemento == 'numElementos')
       this.numElementos++;
   }
-  
+
   public decrement (elemento) {
     if(elemento == 'numPreguntas' && this.numPreguntas > 1){
       this.numPreguntas--;
@@ -221,7 +222,7 @@ export class CrearJuegoPage implements OnInit {
     else if(elemento == 'numElementos' && this.numElementos > 1){
       this.numElementos--;
     }
-      
+
   }
 
   public slidesOpts = {
@@ -255,10 +256,10 @@ export class CrearJuegoPage implements OnInit {
 
   get resultadosPregunta(): AbstractControl {
     return this.resultForm.get('pregunta');
-  } 
+  }
 
 
- 
+
   onCrearButtonTouched() {
 
     console.log('nombre: ' + this.nombreJuego);
@@ -280,19 +281,15 @@ export class CrearJuegoPage implements OnInit {
     console.log('ejercicios: ' + this.ejercicios);
     console.log('opcionesCuestionarioFinal: ' + this.opcionesCuestionario);
     console.log('sonidos ' + this.sonidos );
-
-  
-      this.db.addJuegoUnirColor(this.nombreJuego, this.portadaJuego, this.tipoJuego, this.juegoInstruc, 
-        this.visualizarTutorial, this.tutorialDescrip, this.efectosSonido, this.sonidos, this.refPositivo, 
-        this.refNegativo, this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo,
-        this.cuestionarioFinal, this.preguntaCuestionario, this.opcionesCuestionario, 
-        this.ejercicioTutorial, this.ejercicios).then( _ => {
-        
-    });
-
-    
-    
-
+    const juego = new Juego(undefined, this.nombreJuego, this.portadaJuego, this.tipoJuego, this.juegoInstruc,
+      this.visualizarTutorial, this.tutorialDescrip, this.efectosSonido, this.sonidos, this.refPositivo, this.refNegativo,
+      this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo);
+    console.log(this.sonidos);
+    console.log(this.opcionesCuestionario);
+    this.juegoService.addJuego(juego).subscribe(juego =>{
+        console.log(juego);
+      }
+    );
   }
 
   onBackButtonTouched() {
@@ -301,7 +298,7 @@ export class CrearJuegoPage implements OnInit {
   }
 
   onNextButtonTouched() {
-    
+
     if (this.currentSlide === 'Presentacion') {
 
       this.presentacionFormRef.onSubmit(undefined);
@@ -317,9 +314,9 @@ export class CrearJuegoPage implements OnInit {
         this.ionSlides.slideNext();
         this.ionContent.scrollToTop();
       }
-    
+
       } else if (this.currentSlide === 'Tutorial' ) {
-      
+
       this.tutorialFormRef.onSubmit(undefined);
 
       if (this.tutorialForm.valid || !this.visualizarTutorial) {
@@ -331,7 +328,7 @@ export class CrearJuegoPage implements OnInit {
       }
 
     } else if (this.currentSlide === 'Juego') {
-      
+
       this.juegoFormRef.onSubmit(undefined);
 
       if (this.juegoForm.valid) {
@@ -343,7 +340,7 @@ export class CrearJuegoPage implements OnInit {
       }
 
     } else if (this.currentSlide === 'Sonido' && this.efectosSonido) {
-      
+
       this.sonidoFormRef.onSubmit(undefined);
 
       if( this.audioFallar.length != 0){
@@ -357,20 +354,20 @@ export class CrearJuegoPage implements OnInit {
       } else{
         this.sonidos.push('../../assets/completar.mp3');
       }
-        
+
         this.ionSlides.slideNext();
         this.ionContent.scrollToTop();
-      
-      
+
+
 
     } else if (this.currentSlide === 'Resultados' ) {
-      
+
       this.resultFormRef.onSubmit(undefined);
 
-      
+
       this.ionSlides.slideNext();
       this.ionContent.scrollToTop();
-      
+
 
     } else {
 
@@ -383,7 +380,7 @@ export class CrearJuegoPage implements OnInit {
     const file = event.target.files[0];
     if (!event.target.files[0]) return;
     if (!file.type.match('audio')) return;
-    
+
 
     let blobReader = new FileReader();
     blobReader.readAsArrayBuffer(file);
@@ -393,10 +390,10 @@ export class CrearJuegoPage implements OnInit {
       if(type == 'acertar'){
         this.audioAcertar = blobURL;
         console.log('acertar: ' + this.audioAcertar);
-      
+
       }
     };
-    
+
   }
 
 
@@ -420,7 +417,7 @@ export class CrearJuegoPage implements OnInit {
         this.audioCompletar = this.audioService.returnpath;
       }
     })
-    
+
   }
 
   async playAudio(sonido : string){
@@ -438,7 +435,7 @@ export class CrearJuegoPage implements OnInit {
     else{
       await this.audioPlaying.pause();
     }
-    
+
 
 
   }
@@ -450,11 +447,11 @@ export class CrearJuegoPage implements OnInit {
       buttons: [{
         text: 'Galería',
         handler: async () => {
- 
+
           await  this.photoService.getGaleria().then(async (_) => {
             if(tipo == 'portada')
               this.portadaJuego = await this.photoService.imgURL;
-           
+
             else if(tipo == 'imgRefNegativo')
               this.imgRefNegativo = await this.photoService.imgURL;
 
@@ -464,26 +461,26 @@ export class CrearJuegoPage implements OnInit {
 
           });
         }
-        
+
       }, {
         text: 'Cámara',
         handler: async () => {
 
         await this.photoService.getCamara().then(async (_) => {
-          
+
           if(tipo == 'portada')
             this.portadaJuego = await this.photoService.imgURL;
-           
+
           else if(tipo == 'imgRefNegativo')
             this.imgRefNegativo = await this.photoService.imgURL;
 
           else if(tipo == 'imgRefPositivo')
             this.imgRefPositivo = await this.photoService.imgURL;
 
-          
+
         });
 
-        
+
 
         }
       }, {
