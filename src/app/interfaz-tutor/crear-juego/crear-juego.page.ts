@@ -1,5 +1,5 @@
 import {Component, inject, OnInit, ViewChild} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { ActionSheetController, IonContent, IonSlides, NavController } from '@ionic/angular';
 import { AbstractControl, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -22,6 +22,7 @@ import {JuegoService} from "../../services/juego.service";
 })
 export class CrearJuegoPage implements OnInit {
   juegoService = inject(JuegoService);
+  router = inject(Router);
 
   tipoJuego : string;
   public slides: string[];
@@ -288,6 +289,7 @@ export class CrearJuegoPage implements OnInit {
     console.log(this.opcionesCuestionario);
     this.juegoService.addJuego(juego).subscribe(juego =>{
         console.log(juego);
+        this.router.navigate(['/juegos/unirColor'])
       }
     );
   }

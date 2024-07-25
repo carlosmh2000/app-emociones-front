@@ -294,7 +294,7 @@ export class CrearJuegoUnirParejaPage implements OnInit {
     console.log(this.opcionesCuestionario);
     this.juegoService.addJuego(juego).subscribe(juego =>{
       console.log(juego);
-      this.router.navigate(['..']);
+      this.router.navigate(['/juegos/hacerPareja']);
       }
     );
   }

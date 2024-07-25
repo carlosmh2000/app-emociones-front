@@ -36,7 +36,7 @@ export class JuegoTipoPage implements OnInit {
       this.juegoService.getJuegos(this.tipoJuego).subscribe(juegos => {
         if(this.tipoJuego === 'unirColor') this.juegos = juegos.items;
         else if(this.tipoJuego === 'hacerPareja') this.juegosUnirPareja = juegos.items;
-        else if(this.tipoJuego === 'asociarImagen') this.juegosUnirPareja = juegos.items;
+        else if(this.tipoJuego === 'asociarImagen') this.juegosAsociar = juegos.items;
         console.log(this.juegos);
 
       })
