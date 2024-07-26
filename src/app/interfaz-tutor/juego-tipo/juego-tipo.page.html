@@ -176,4 +176,36 @@
 
   </div>
 
+  <div class="juegos" *ngIf="this.tipoJuego == 'unirFrase'">
+
+    <div class="juego" *ngFor="let juego of juegosAsociarFrase" >
+
+      <ion-grid >
+        <ion-row class="colCenter" >
+
+          <ion-img [routerLink]="['./juego', juego.id]" class="portada" src="../assets/sinFoto.png" [hidden]="juego.portada != null" ></ion-img>
+          <ion-img [routerLink]="['./juego', juego.id]" class="portada" src={{juego.portada}} [hidden]="juego.portada === null"></ion-img>
+
+        </ion-row>
+
+        <ion-row class="colCenter">
+          <div class="nombreSection">
+            <ion-text class="nombreJuego"> {{juego.nombre}} </ion-text>
+          </div>
+
+        </ion-row>
+      </ion-grid>
+
+    </div>
+
+
+    <div class="botonSection" >
+      <ion-button class="botonCrear" size="large" color="dark" [routerLink]="['./', 'crear-juego-asociar-frase']">
+        <ion-icon [name]="'add-circle-outline'"></ion-icon>
+      </ion-button>
+
+    </div>
+
+  </div>
+
 </ion-content>

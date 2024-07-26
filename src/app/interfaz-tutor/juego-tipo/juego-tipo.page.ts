@@ -7,6 +7,7 @@ import { JuegoUnir } from 'src/app/models/juego-unir.model';
 import { DatabaseService } from 'src/app/services/database.service';
 import {JuegoService} from "../../services/juego.service";
 import {JuegoElegirEmocion} from "../../models/juego-elegir-emocion.model";
+import {JuegoAsociarFrase} from "../../models/juego-asociar-frase.model";
 
 @Component({
   selector: 'app-juego-tipo',
@@ -20,6 +21,7 @@ export class JuegoTipoPage implements OnInit {
   public juegosAsociar : JuegoAsociar[] = [];
   public juegosUnirPareja : JuegoUnirPareja[] = [];
   public juegosElegirEmocion : JuegoElegirEmocion[] = [];
+  public juegosAsociarFrase : JuegoAsociarFrase[] = [];
   public tipoJuego;
 
   constructor( private db : DatabaseService, private activatedRoute: ActivatedRoute) {
@@ -41,6 +43,7 @@ export class JuegoTipoPage implements OnInit {
         else if(this.tipoJuego === 'asociarImagen') this.juegosAsociar = juegos.items;
         else if(this.tipoJuego === 'buscarIntruso') this.juegosBuscarIntruso = juegos.items;
         else if(this.tipoJuego === 'elegirEmocion') this.juegosElegirEmocion = juegos.items;
+        else if(this.tipoJuego === 'unirFrase') this.juegosAsociarFrase = juegos.items;
         console.log(this.juegos);
 
       })

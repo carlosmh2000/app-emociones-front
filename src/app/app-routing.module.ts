@@ -74,7 +74,10 @@ const routes: Routes = [
             path: 'crear-juego-unir-pareja',
             loadChildren: () => import('./interfaz-tutor/crear-juego-unir-pareja/crear-juego-unir-pareja.module').then( m => m.CrearJuegoUnirParejaPageModule)
           },
-
+          {
+            path: 'crear-juego-asociar-frase',
+            loadChildren: () => import('./interfaz-tutor/crear-juego-asociar-frase/crear-juego-asociar-frase.module').then( m => m.CrearJuegoAsociarFrasePageModule)
+          },
           {
             path: 'juego/:juegoId',
             children: [
@@ -189,6 +192,10 @@ const routes: Routes = [
   {
     path: 'crear-juego-elegir-emocion',
     loadChildren: () => import('./interfaz-tutor/crear-juego-elegir-emocion/crear-juego-elegir-emocion.module').then( m => m.CrearJuegoElegirEmocionPageModule)
+  },
+  {
+    path: 'crear-juego-asociar-frase',
+    loadChildren: () => import('./interfaz-tutor/crear-juego-asociar-frase/crear-juego-asociar-frase.module').then( m => m.CrearJuegoAsociarFrasePageModule)
   }
 
 
