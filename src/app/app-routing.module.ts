@@ -21,17 +21,17 @@ const routes: Routes = [
             path: '',
             loadChildren: () => import('./interfaz-tutor/perfil-alumno/perfil-alumno.module').then( m => m.PerfilAlumnoPageModule)
           },
-          
+
           {
             path: 'configuracion',
             loadChildren: () => import('./interfaz-tutor/configuracion-alumno/configuracion-alumno.module').then( m => m.ConfiguracionAlumnoPageModule)
           },
-          
+
 
         ]
-        
+
       },
-      
+
     ]
   },
   {
@@ -53,7 +53,7 @@ const routes: Routes = [
             loadChildren: () => import('./interfaz-tutor/juego-tipo/juego-tipo.module').then( m => m.JuegoTipoPageModule)
 
           },
-          
+
           {
             path: 'crear-juego',
             loadChildren: () => import('./interfaz-tutor/crear-juego/crear-juego.module').then( m => m.CrearJuegoPageModule)
@@ -61,6 +61,10 @@ const routes: Routes = [
           {
             path: 'crear-juego-asociar-imagen',
             loadChildren: () => import('./interfaz-tutor/crear-juego-asociar-imagen/crear-juego-asociar-imagen.module').then( m => m.CrearJuegoAsociarImagenPageModule)
+          },
+          {
+            path: 'crear-juego-elegir-emocion',
+            loadChildren: () => import('./interfaz-tutor/crear-juego-elegir-emocion/crear-juego-elegir-emocion.module').then( m => m.CrearJuegoElegirEmocionPageModule)
           },
           {
             path: 'crear-juego-buscar-intruso',
@@ -86,19 +90,19 @@ const routes: Routes = [
               },
 
             ]
-          
-          
+
+
           },
 
 
         ]
-        
+
       },
 
     ]
-    
+
   },
-  
+
   {
     path: 'login',
     children: [
@@ -114,7 +118,7 @@ const routes: Routes = [
             path: '',
             loadChildren: () => import('./interfaz-alumno/homepage/homepage.module').then( m => m.HomepagePageModule)
           },
-          
+
           {
             path: 'juego-unir-color/:juegoId',
             loadChildren: () => import('./interfaz-alumno/juegos/juego-unir-color/juego-unir-color.module').then( m => m.JuegoUnirColorPageModule)
@@ -137,8 +141,8 @@ const routes: Routes = [
     path: 'confirmar-modo-tutor',
     loadChildren: () => import('./interfaz-alumno/confirmar-modo-tutor/confirmar-modo-tutor.module').then( m => m.ConfirmarModoTutorPageModule)
   },
-  
-  
+
+
   {
     path: 'preguntas-unir-color',
     loadChildren: () => import('./interfaz-tutor/preguntas-unir-color/preguntas-unir-color.module').then( m => m.PreguntasUnirColorPageModule)
@@ -151,7 +155,7 @@ const routes: Routes = [
     path: 'juego-buscar-intruso',
     loadChildren: () => import('./interfaz-alumno/juegos/juego-buscar-intruso/juego-buscar-intruso.module').then( m => m.JuegoBuscarIntrusoPageModule)
   },
-  
+
   {
     path: 'juego-unir-pareja',
     loadChildren: () => import('./interfaz-alumno/juegos/juego-unir-pareja/juego-unir-pareja.module').then( m => m.JuegoUnirParejaPageModule)
@@ -168,12 +172,12 @@ const routes: Routes = [
     path: 'asociar-imagen',
     loadChildren: () => import('./interfaz-alumno/juegos/asociar-imagen/asociar-imagen.module').then( m => m.AsociarImagenPageModule)
   },
-  
+
   {
     path: 'preguntas-unir-pareja',
     loadChildren: () => import('./interfaz-tutor/preguntas-unir-pareja/preguntas-unir-pareja.module').then( m => m.PreguntasUnirParejaPageModule)
   },
-  
+
   {
     path: 'preguntas-buscar-intruso',
     loadChildren: () => import('./interfaz-tutor/preguntas-buscar-intruso/preguntas-buscar-intruso.module').then( m => m.PreguntasBuscarIntrusoPageModule)
@@ -181,15 +185,20 @@ const routes: Routes = [
   {
     path: 'preguntas-asociar',
     loadChildren: () => import('./interfaz-tutor/preguntas-asociar/preguntas-asociar.module').then( m => m.PreguntasAsociarPageModule)
+  },
+  {
+    path: 'crear-juego-elegir-emocion',
+    loadChildren: () => import('./interfaz-tutor/crear-juego-elegir-emocion/crear-juego-elegir-emocion.module').then( m => m.CrearJuegoElegirEmocionPageModule)
   }
-  
-  
 
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
 ];
 
 @NgModule({
