@@ -1,10 +1,21 @@
-import { Component, OnInit, AfterContentChecked, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, HostListener  } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterContentChecked,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  ViewChild,
+  HostListener,
+  inject
+} from '@angular/core';
 import { ActionSheetController, IonContent, IonSlides, MenuController, NavController, Platform } from '@ionic/angular';
 import { JuegoAsociar } from 'src/app/models/juego-asociar.model';
 import { JuegoBuscarIntruso } from 'src/app/models/juego-buscar-intruso.model';
 import { Juego } from 'src/app/models/juego.model';
 import { PreguntaAsociar } from 'src/app/models/pregunta-asociar.model';
 import { PreguntaBuscarIntruso } from 'src/app/models/pregunta-buscar-intruso.model';
+import {JuegoService} from "../../../services/juego.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-asociar-imagen',
@@ -12,6 +23,9 @@ import { PreguntaBuscarIntruso } from 'src/app/models/pregunta-buscar-intruso.mo
   styleUrls: ['./asociar-imagen.page.scss'],
 })
 export class AsociarImagenPage implements OnInit, AfterContentChecked {
+  juegoService = inject(JuegoService);
+  activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
 
 
   ejercicioTutorial : PreguntaAsociar[] = [];
@@ -30,7 +44,7 @@ export class AsociarImagenPage implements OnInit, AfterContentChecked {
   unidos : string[] = [];
   esRepetido = false;
   todosUnidosTutorial = false;
-  numEjercicios = 0; 
+  numEjercicios = 0;
   currentEj = [];
   currentEjNum = 1;
   tutorial = true;
@@ -41,12 +55,12 @@ export class AsociarImagenPage implements OnInit, AfterContentChecked {
   terminarVentana = false;
   audioAcertar = new Audio();
   correctaId = null;
-  
+
   audioFallar = new Audio();
   audioCompletar = new Audio();
   audioTocar = new Audio();
 
-  
+
   /*Configuración del usu*/
   preguntaFinal = '¿Cómo te sientes?'
   preguntasFinal = [{id: 1, img:'../../assets/feliz.png', texto:'Feliz'}, {id: 2, img:'../../assets/triste.png', texto:'Triste'}];
@@ -88,6 +102,7 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
   new PreguntaAsociar(15, '../../assets/feliz.png','Feliz', 'opcion_imagen', false, 1),
   ],
 ]);
+alumnoId ?: string;
 
 
 @ViewChild(IonContent, { static: true }) ionContent: IonContent;
@@ -95,10 +110,25 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
 
   constructor( private ptl : Platform, private cd: ChangeDetectorRef, private menu: MenuController) {
     this.buildSlides();
-    
+
    }
 
   ngOnInit() {
+
+    this.activatedRoute.paramMap.subscribe(params => {
+      let juegoId = params.get('juegoId');
+      this.alumnoId = params.get('alumnoId')
+      console.log('juegoId: ' + juegoId);
+      console.log(params);
+      /**
+       *      this.juegoService.getJuego(juegoId).subscribe(data => {
+       *
+       *         this.juego = data;
+       *         console.log(this.juego);
+       *       });
+       * */
+
+    });
     this.width = this.ptl.width;
     this.height = this.ptl.height;
 
@@ -136,11 +166,11 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
     this.ejercicioTutorial = this.shuffle(this.ejercicioTutorial);
 
     this.ejercicios = aux;
-    
+
     console.log(this.ejercicios);
     console.log(this.ejercicios.length);
 
-    
+
 
   }
   @HostListener('window:resize', ['$event'])
@@ -151,13 +181,13 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
     console.log('height: '+ height);
     this.botonSize(width, height);
   }
- 
+
 
 
   botonSize(width, height){
 
     this.claseBoton = 'botonImagen';
-    
+
     if(height < 1000 || width < 1200){
       this.claseBoton = 'botonImagenSmaller';
     }
@@ -215,15 +245,15 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
 
   }
 
-  
+
 
   buildSlides() {
     let slides = ['Tutorial'];
-    
+
     for(let i = 0; i < this.juego.ejercicios.length; i++){
       slides.push('Ejercicio_' + (i+1).toString());
     }
-    
+
     slides.push('Final');
     this.currentSlide = slides[0];
     console.log('currentSlide: ' + this.currentSlide);
@@ -257,13 +287,13 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
       this.currentEj.map(elem =>{
         this.unidos.push((elem.id + '+' + elem.tipo));
       });
-      
+
     }
     this.ionContent.scrollToTop();
   }
 
   onNextButtonTouched() {
-    
+
     console.log(this.currentSlide);
     if (this.currentSlide === 'Tutorial') {
 
@@ -276,19 +306,18 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
         this.resetJuego();
         console.log(this.currentSlide);
         this.tutorial = false;
-    } 
+    }
 
     else if(this.currentSlide === 'Final') {
       //route to inicio
-
-
+      this.router.navigate(['/login/alumno/'+this.alumnoId]);
     }
 
     else if(this.currentSlide === 'Resultados') {
       this.currentSlide = 'Final';
 
     }
-    
+
     else {
       console.log("elseeeee");
       let i = 0;
@@ -307,7 +336,7 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
               this.currentEjNum ++;
               this.currentEj = this.ejercicios[this.currentEjNum-1];
               this.currentSlide = ('Ejercicio_' + (this.currentEjNum).toString());
-              
+
           }
           else if(this.mostrarResultados){
               this.currentSlide = 'Resultados';
@@ -316,12 +345,12 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
           else{
             this.currentSlide = 'Final';
           }
-            
-            
+
+
             //this.ionSlides.slideNext();
             //this.ionContent.scrollToTop();
             this.resetJuego();
-            
+
             slide = true;
             console.log(this.currentSlide);
             console.log(this.resultados);
@@ -329,7 +358,7 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
         }
         i++;
       }
-    }  
+    }
   }
 
 
@@ -339,7 +368,7 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
 
       if(this.esRepetido)
       this.esRepetido = false;
-      
+
       if(this.isFallo)
         this.isFallo = false;
 
@@ -348,27 +377,27 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
 
       if(this.seleccionado1 == id)
         this.seleccionado1 = null;
-  
+
       else
         this.seleccionado1 = id;
-    
+
     }
 
     console.log('selecccionado111: ' + this.seleccionado1);
-    
+
   }
 
   seleccionarFinal(id: string){
 
-  
+
     if(this.seleccionadoFinal == id )
       this.seleccionadoFinal = null;
 
     else{
       this.seleccionadoFinal = id;
-    }    
+    }
   }
-  
+
 
   isSeleccionado(id : number){
 
@@ -394,9 +423,9 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
       clase = 'botonImagenSelectedCorrecto';
       this.seleccionadoClase1 = 'botonImagenSelectedCorrecto';
     }
- 
+
     return clase;
-  
+
 
   }
 
@@ -409,7 +438,7 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
           if(this.ejercicios[i][j].opcionCorrecta){
             correcta = true;
             this.correctaId = id;
-          
+
           }
 
         }
@@ -422,7 +451,7 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
           correcta = true;
           this.correctaId = id;
         }
-          
+
       }
     }
 
@@ -466,7 +495,7 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
     return num;
 
   }
-  
+
   fade(){
     if(this.audioAcertar.volume > 0){
       this.audioAcertar.volume -= 0.7;
@@ -478,7 +507,7 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
 
   resultado(){
 
-  
+
     if(this.estaUnido(this.seleccionado1)){
       this.encontrado = true;
       this.numAciertos ++;
@@ -495,43 +524,43 @@ new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false
     else{
       if( this.seleccionadoClase1 != 'botonImagenSelectedFallo' )
         this.numErrores++;
-      
+
       this.audioFallar.play();
       this.isFallo = true;
 
     }
-    
+
   }
 
 
   shuffle(array) {
     let currentIndex = array.length,  randomIndex;
-  
+
     // While there remain elements to shuffle.
     while (currentIndex != 0) {
-  
+
       // Pick a remaining element.
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-  
+
       // And swap it with the current element.
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
-  
+
     return array;
   }
 
 
   resultadoPicto(){
     let picto = '../../assets/pictoAcertar.png';
-    
+
     if(this.numErrores < 5)
       picto = '../../assets/pictoFallar.png';
 
     return picto;
   }
-  
+
 }
 
 export interface Conjunto{

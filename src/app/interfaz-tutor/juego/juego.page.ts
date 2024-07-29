@@ -15,6 +15,7 @@ export class JuegoPage implements OnInit {
   public juegos : Juego[] = [];
   public nombreJuego;
   public portada;
+  public tipo;
 
   constructor( private db : DatabaseService, private activatedRoute: ActivatedRoute) {
 
@@ -25,13 +26,18 @@ export class JuegoPage implements OnInit {
 
     this.activatedRoute.paramMap.subscribe(params => {
       let juegoId = params.get('juegoId');
+      let tipoJuego = params.get('tipojuego');
       console.log('juegoId: ' + juegoId);
+      console.log('tipoJuego: ' + tipoJuego);
 
-      this.juegoService.getJuego(juegoId).subscribe(data => {
+      this.juegoService.getJuego(juegoId, tipoJuego).subscribe(data => {
         this.nombreJuego = data.nombre;
         console.log('nombreJuego: ' + this.nombreJuego);
         this.portada = data.portada;
+        this.tipo = tipoJuego;
+        console.log(data);
         console.log('portada: ' + this.portada);
+        console.log('tipo: ' + this.tipo);
       });
     });
 

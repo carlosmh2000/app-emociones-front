@@ -1,8 +1,19 @@
-import { Component, OnInit, AfterContentChecked, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, HostListener  } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterContentChecked,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  ViewChild,
+  HostListener,
+  inject
+} from '@angular/core';
 import { ActionSheetController, IonContent, IonSlides, MenuController, NavController, Platform } from '@ionic/angular';
 import { JuegoBuscarIntruso } from 'src/app/models/juego-buscar-intruso.model';
 import { Juego } from 'src/app/models/juego.model';
 import { PreguntaBuscarIntruso } from 'src/app/models/pregunta-buscar-intruso.model';
+import {JuegoService} from "../../../services/juego.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-juego-buscar-intruso',
@@ -10,7 +21,10 @@ import { PreguntaBuscarIntruso } from 'src/app/models/pregunta-buscar-intruso.mo
   styleUrls: ['./juego-buscar-intruso.page.scss'],
 })
 export class JuegoBuscarIntrusoPage implements OnInit, AfterContentChecked  {
-
+  juegoService = inject(JuegoService);
+  activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
+  alumnoId ?: string;
   ejercicioTutorial : PreguntaBuscarIntruso[] = [];
   ejercicios : PreguntaBuscarIntruso[][] = [];
   seleccionado1 = null;
@@ -27,7 +41,7 @@ export class JuegoBuscarIntrusoPage implements OnInit, AfterContentChecked  {
   unidos : string[] = [];
   esRepetido = false;
   todosUnidosTutorial = false;
-  numEjercicios = 0; 
+  numEjercicios = 0;
   currentEj = [];
   currentEjNum = 1;
   tutorial = true;
@@ -38,12 +52,12 @@ export class JuegoBuscarIntrusoPage implements OnInit, AfterContentChecked  {
   terminarVentana = false;
   audioAcertar = new Audio();
   intrusoId = null;
-  
+
   audioFallar = new Audio();
   audioCompletar = new Audio();
   audioTocar = new Audio();
 
-  
+
   /*Configuración del usu*/
   preguntaFinal = '¿Cómo te sientes?'
   preguntasFinal = [{id: 1, img:'../../assets/feliz.png', texto:'Feliz'}, {id: 2, img:'../../assets/triste.png', texto:'Triste'}];
@@ -93,10 +107,25 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
 
   constructor( private ptl : Platform, private cd: ChangeDetectorRef, private menu: MenuController) {
     this.buildSlides();
-    
+
    }
 
   ngOnInit() {
+
+    this.activatedRoute.paramMap.subscribe(params => {
+      let juegoId = params.get('juegoId');
+      this.alumnoId = params.get('alumnoId')
+      console.log('juegoId: ' + juegoId);
+      console.log(params);
+      /**
+       *      this.juegoService.getJuego(juegoId).subscribe(data => {
+       *
+       *         this.juego = data;
+       *         console.log(this.juego);
+       *       });
+       * */
+
+    });
     this.width = this.ptl.width;
     this.height = this.ptl.height;
 
@@ -132,11 +161,11 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
     }
 
     this.ejercicios = aux;
-    
+
     console.log(this.ejercicios);
     console.log(this.ejercicios.length);
 
-    
+
 
   }
   @HostListener('window:resize', ['$event'])
@@ -147,13 +176,13 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
     console.log('height: '+ height);
     this.botonSize(width, height);
   }
- 
+
 
 
   botonSize(width, height){
 
     this.claseBoton = 'botonImagen';
-    
+
     if(height < 1000 || width < 1200){
       this.claseBoton = 'botonImagenSmaller';
     }
@@ -211,15 +240,15 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
 
   }
 
-  
+
 
   buildSlides() {
     let slides = ['Tutorial'];
-    
+
     for(let i = 0; i < this.juego.ejercicios.length; i++){
       slides.push('Ejercicio_' + (i+1).toString());
     }
-    
+
     slides.push('Final');
     this.currentSlide = slides[0];
     console.log('currentSlide: ' + this.currentSlide);
@@ -253,13 +282,13 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
       this.currentEj.map(elem =>{
         this.unidos.push((elem.id + '+' + elem.tipo));
       });
-      
+
     }
     this.ionContent.scrollToTop();
   }
 
   onNextButtonTouched() {
-    
+
     console.log(this.currentSlide);
     if (this.currentSlide === 'Tutorial') {
 
@@ -272,10 +301,11 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
         this.resetJuego();
         console.log(this.currentSlide);
         this.tutorial = false;
-    } 
+    }
 
     else if(this.currentSlide === 'Final') {
       //route to inicio
+      this.router.navigate(['/login/alumno/'+this.alumnoId]);
 
 
     }
@@ -284,7 +314,7 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
       this.currentSlide = 'Final';
 
     }
-    
+
     else {
       console.log("elseeeee");
       let i = 0;
@@ -303,7 +333,7 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
               this.currentEjNum ++;
               this.currentEj = this.ejercicios[this.currentEjNum-1];
               this.currentSlide = ('Ejercicio_' + (this.currentEjNum).toString());
-              
+
           }
           else if(this.mostrarResultados){
               this.currentSlide = 'Resultados';
@@ -312,12 +342,12 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
           else{
             this.currentSlide = 'Final';
           }
-            
-            
+
+
             //this.ionSlides.slideNext();
             //this.ionContent.scrollToTop();
             this.resetJuego();
-            
+
             slide = true;
             console.log(this.currentSlide);
             console.log(this.resultados);
@@ -325,7 +355,7 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
         }
         i++;
       }
-    }  
+    }
   }
 
 
@@ -335,7 +365,7 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
 
       if(this.esRepetido)
       this.esRepetido = false;
-      
+
       if(this.isFallo)
         this.isFallo = false;
 
@@ -344,27 +374,27 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
 
       if(this.seleccionado1 == id)
         this.seleccionado1 = null;
-  
+
       else
         this.seleccionado1 = id;
-    
+
     }
 
     console.log('selecccionado111: ' + this.seleccionado1);
-    
+
   }
 
   seleccionarFinal(id: string){
 
-  
+
     if(this.seleccionadoFinal == id )
       this.seleccionadoFinal = null;
 
     else{
       this.seleccionadoFinal = id;
-    }    
+    }
   }
-  
+
 
   isSeleccionado(id : number){
 
@@ -390,9 +420,9 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
       clase = 'botonImagenSelectedCorrecto';
       this.seleccionadoClase1 = 'botonImagenSelectedCorrecto';
     }
- 
+
     return clase;
-  
+
 
   }
 
@@ -405,7 +435,7 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
           if(this.ejercicios[i][j].intruso){
             intruso = true;
             this.intrusoId = id;
-          
+
           }
 
         }
@@ -418,7 +448,7 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
           intruso = true;
           this.intrusoId = id;
         }
-          
+
       }
     }
 
@@ -462,7 +492,7 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
     return num;
 
   }
-  
+
   fade(){
     if(this.audioAcertar.volume > 0){
       this.audioAcertar.volume -= 0.7;
@@ -474,7 +504,7 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
 
   resultado(){
 
-  
+
     if(this.estaUnido(this.seleccionado1)){
       this.encontrado = true;
       this.numAciertos ++;
@@ -491,43 +521,43 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
     else{
       if( this.seleccionadoClase1 != 'botonImagenSelectedFallo' )
         this.numErrores++;
-      
+
       this.audioFallar.play();
       this.isFallo = true;
 
     }
-    
+
   }
 
 
   shuffle(array) {
     let currentIndex = array.length,  randomIndex;
-  
+
     // While there remain elements to shuffle.
     while (currentIndex != 0) {
-  
+
       // Pick a remaining element.
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-  
+
       // And swap it with the current element.
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
-  
+
     return array;
   }
 
 
   resultadoPicto(){
     let picto = '../../assets/pictoAcertar.png';
-    
+
     if(this.numErrores < 5)
       picto = '../../assets/pictoFallar.png';
 
     return picto;
   }
-  
+
 }
 
 export interface Conjunto{

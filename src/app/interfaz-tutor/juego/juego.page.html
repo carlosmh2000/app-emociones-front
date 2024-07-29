@@ -1,9 +1,9 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>    
+  <ion-toolbar>
 
-    <ion-button href="/juego-tipo" slot="start"> <ion-icon name="arrow-back-outline"></ion-icon> </ion-button>
+    <ion-button href="/juegos/{{tipo}}" slot="start"> <ion-icon name="arrow-back-outline"></ion-icon> </ion-button>
     <ion-title class="ion-text-center"> {{this.nombreJuego}} </ion-title>
-    
+
   </ion-toolbar>
 </ion-header>
 
@@ -13,7 +13,7 @@
       <ion-col class="colCenter">
           <ion-img class="profileUser" src="../../assets/sinFoto.png" [hidden]="this.portada != null" ></ion-img>
           <ion-img class="profileUser" src={{this.portada}} [hidden]="this.portada === null"></ion-img>
-        
+
       </ion-col>
     </ion-row>
 
@@ -31,5 +31,5 @@
     </ion-row>
 
   </ion-grid>
- 
+
 </ion-content>

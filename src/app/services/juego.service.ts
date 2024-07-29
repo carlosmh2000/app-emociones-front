@@ -23,8 +23,8 @@ export class JuegoService {
     return this.http.get<any>(`${this.apiUrl}/${tipo}`);
   }
 
-  getJuego(id: string): Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  getJuego(id: string, tipo: string): Observable<Juego>{
+    return this.http.get<Juego>(`${this.apiUrl}/${id}/${tipo}`);
   }
 
   deleteJuego(id: number): Observable<any>{

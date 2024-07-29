@@ -1,10 +1,20 @@
-import { Component, OnInit, AfterContentChecked, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, HostListener  } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterContentChecked,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  ViewChild,
+  HostListener,
+  inject
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActionSheetController, IonContent, IonSlides, MenuController, NavController, Platform } from '@ionic/angular';
 import { JuegoUnir } from 'src/app/models/juego-unir.model';
 import { Juego } from 'src/app/models/juego.model';
 import { PreguntaUnir } from 'src/app/models/pregunta-unir.model';
 import { DatabaseService } from 'src/app/services/database.service';
+import {JuegoService} from "../../../services/juego.service";
 
 
 @Component({
@@ -16,6 +26,7 @@ import { DatabaseService } from 'src/app/services/database.service';
 
 export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
 
+  juegoService = inject(JuegoService);
   ejercicioTutorial : Conjunto[] = [];
   ejercicios : Conjunto[][] = [];
   seleccionado1 = null;
@@ -31,7 +42,7 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
   unidos : string[] = [];
   esRepetido = false;
   todosUnidosTutorial = false;
-  numEjercicios = 0; 
+  numEjercicios = 0;
   currentEj = [];
   currentEjNum = 1;
   tutorial = true;
@@ -42,10 +53,10 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
   terminarVentana = false;
   audioAcertar = new Audio();
   musicaSeleccionada = '';
-  
+
   audioFallar = new Audio();
   audioCompletar = new Audio();
-  
+
   /*Configuración del usuario*/
   preguntaFinal = '¿Cómo te sientes?'
   preguntasFinal = [{id: 1, img:'../../assets/feliz.png', texto:'Feliz'}, {id: 2, img:'../../assets/triste.png', texto:'Triste'}];
@@ -62,57 +73,63 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
 
 
   public juego : JuegoUnir = new JuegoUnir(1, 'Une el color', '../../assets/portadaJuegoUnirColor', 'UnirColor',
-  'Seleccionar la emoción adecuada para cada color', true, 'Seleccionar la emoción adecuada para cada color. Pruébalo en la izquierda', true,
-  ['../../assets/sonidoAcertar.mp3', '../../assets/sonidoFallar.mp3', '../../assets/sonidoTocar.mp3', '../../assets/sonidoCompletar.mp3'],
-  true, true, true, true, '../../assets/pictoAcertar.png', '../../assets/pictoFallar.png', true, '¿Cómo te sientes?', [],
-  [
-    new PreguntaUnir( 1, '../../assets/rojo.png', 'Rojo', '../../assets/enfadado.png', 'Enfadado', '../../assets/musicaEnfadado.mp3', 0),
-  new PreguntaUnir( 2, '../../assets/amarillo.png','Amarillo',  '../../assets/feliz.png', 'Feliz', '../../assets/musicaFeliz.mp3',  0),
-  new PreguntaUnir( 3, '../../assets/gris.png', 'Gris',  '../../assets/asustado.png', 'Asustado', '../../assets/musicaAsustado.mp3', 0),
-  new PreguntaUnir( 4, '../../assets/azul.png', 'Azul',  '../../assets/triste.png',  'Triste', '../../assets/musicaTriste.mp3', 0)
-  ], 
-  
-  [[
-  new PreguntaUnir( 5, '../../assets/gris.png', 'Gris',  '../../assets/asustado.png', 'Asustado', '../../assets/musicaAsustado.mp3',  1),
-  new PreguntaUnir( 6, '../../assets/azul.png', 'Azul',  '../../assets/triste.png',  'Triste', '../../assets/musicaTriste.mp3',  1),
-],
+    'Seleccionar la emoción adecuada para cada color', true, 'Seleccionar la emoción adecuada para cada color. Pruébalo en la izquierda', true,
+    ['../../assets/sonidoAcertar.mp3', '../../assets/sonidoFallar.mp3', '../../assets/sonidoTocar.mp3', '../../assets/sonidoCompletar.mp3'],
+    true, true, true, true, '../../assets/pictoAcertar.png', '../../assets/pictoFallar.png', true, '¿Cómo te sientes?', [],
+    [
+      new PreguntaUnir( 1, '../../assets/rojo.png', 'Rojo', '../../assets/enfadado.png', 'Enfadado', '../../assets/musicaEnfadado.mp3', 0),
+      new PreguntaUnir( 2, '../../assets/amarillo.png','Amarillo',  '../../assets/feliz.png', 'Feliz', '../../assets/musicaFeliz.mp3',  0),
+      new PreguntaUnir( 3, '../../assets/gris.png', 'Gris',  '../../assets/asustado.png', 'Asustado', '../../assets/musicaAsustado.mp3', 0),
+      new PreguntaUnir( 4, '../../assets/azul.png', 'Azul',  '../../assets/triste.png',  'Triste', '../../assets/musicaTriste.mp3', 0)
+    ],
 
-[
-  new PreguntaUnir( 7, '../../assets/amarillo.png',  'Amarillo',  '../../assets/feliz.png', 'Feliz', '../../assets/musicaFeliz.mp3',  2),
-  new PreguntaUnir( 8, '../../assets/gris.png', 'Gris',  '../../assets/asustado.png', 'Asustado', '../../assets/musicaAsustado.mp3',  2),
-  new PreguntaUnir( 9, '../../assets/azul.png', 'Azul',  '../../assets/triste.png',  'Triste', '../../assets/musicaTriste.mp3',  2),
-],
-]);
+    [[
+      new PreguntaUnir( 5, '../../assets/gris.png', 'Gris',  '../../assets/asustado.png', 'Asustado', '../../assets/musicaAsustado.mp3',  1),
+      new PreguntaUnir( 6, '../../assets/azul.png', 'Azul',  '../../assets/triste.png',  'Triste', '../../assets/musicaTriste.mp3',  1),
+    ],
+
+      [
+        new PreguntaUnir( 7, '../../assets/amarillo.png',  'Amarillo',  '../../assets/feliz.png', 'Feliz', '../../assets/musicaFeliz.mp3',  2),
+        new PreguntaUnir( 8, '../../assets/gris.png', 'Gris',  '../../assets/asustado.png', 'Asustado', '../../assets/musicaAsustado.mp3',  2),
+        new PreguntaUnir( 9, '../../assets/azul.png', 'Azul',  '../../assets/triste.png',  'Triste', '../../assets/musicaTriste.mp3',  2),
+      ],
+    ]);
 
 
 
 @ViewChild(IonContent, { static: true }) ionContent: IonContent;
-@ViewChild(IonSlides, { static: false }) ionSlides: IonSlides;
+  @ViewChild(IonSlides, { static: false }) ionSlides: IonSlides;
 
+  alumnoId?: string;
   constructor(  private db : DatabaseService, private activatedRoute: ActivatedRoute, private ptl : Platform, private cd: ChangeDetectorRef, private menu: MenuController, private router: Router) {
     this.buildSlides();
-    
-   }
+
+  }
 
   ngOnInit() {
 
 
-/*-----------  Problemas a la hora de obtener el juego con la base de datos -------
     this.activatedRoute.paramMap.subscribe(params => {
       let juegoId = params.get('juegoId');
+      this.alumnoId = params.get('alumnoId')
       console.log('juegoId: ' + juegoId);
+      console.log(params);
+    /**
+     *
+     *       this.juegoService.getJuego(juegoId).subscribe(data => {
+     *
+     *         this.juego = data;
+     *         console.log(this.juego);
+     *       });
+     *
+     * */
 
-      this.db.getJuegoUnirColor(juegoId).then(data => {
-
-        this.juego = data;
-      });
     });
 
-*/
     this.width = this.ptl.width;
     this.height = this.ptl.height;
 
-    
+
     this.audioFallar.src = '../../assets/fallar.mp3';
     this.audioCompletar.src = '../../assets/completar.mp3';
 
@@ -129,20 +146,20 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
       this.ejercicioTutorial.push({id: this.juego.pregunta_tutorial[i].id, img: this.juego.pregunta_tutorial[i].asociada, texto: this.juego.pregunta_tutorial[i].texto_asociada, tipo:'asociada',  musica: this.juego.pregunta_tutorial[i].musica});
     }
 
-  
+
     for(let i = 0; i < this.juego.ejercicios.length; i++){
       let aux = [];
       for(let j = 0; j < this.juego.ejercicios[i].length; j++){
-      
+
       aux.push({id: this.juego.ejercicios[i][j].id, img: this.juego.ejercicios[i][j].color, texto: this.juego.ejercicios[i][j].texto_color, tipo:'color',  musica: this.juego.ejercicios[i][j].musica});
       aux.push({id: this.juego.ejercicios[i][j].id, img: this.juego.ejercicios[i][j].asociada, texto: this.juego.ejercicios[i][j].texto_asociada, tipo:'asociada',  musica: this.juego.ejercicios[i][j].musica});
-      
+
     }
     this.ejercicios.push(aux);
   }
 
 
-     
+
 
   }
   @HostListener('window:resize', ['$event'])
@@ -153,13 +170,13 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
     console.log('height: '+ height);
     this.botonSize(width, height);
   }
- 
+
 
 
   botonSize(width, height){
 
     this.claseBoton = 'botonImagen';
-    
+
     if(height < 1000 || width < 1200){
       this.claseBoton = 'botonImagenSmaller';
     }
@@ -222,15 +239,15 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
 
   }
 
-  
+
 
   buildSlides() {
     let slides = ['Tutorial'];
-    
+
     for(let i = 0; i < this.juego.ejercicios.length; i++){
       slides.push('Ejercicio_' + (i+1).toString());
     }
-    
+
     slides.push('Final');
     this.currentSlide = slides[0];
     console.log('currentSlide: ' + this.currentSlide);
@@ -264,13 +281,13 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
       this.currentEj.map(elem =>{
         this.unidos.push((elem.id + '+' + elem.tipo));
       });
-      
+
     }
     this.ionContent.scrollToTop();
   }
 
   onNextButtonTouched() {
-    
+
     console.log(this.currentSlide);
     if (this.currentSlide === 'Tutorial') {
 
@@ -281,10 +298,11 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
         this.resetJuego();
         console.log(this.currentSlide);
         this.tutorial = false;
-    } 
+    }
 
     else if(this.currentSlide === 'Final') {
       //route to inicio
+      this.router.navigate(['/login/alumno/'+this.alumnoId]);
 
 
     }
@@ -293,9 +311,9 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
       this.currentSlide = 'Final';
 
     }
-    
+
     else {
-    
+
       let i = 0;
       let slide = false;
       console.log('Number: ' + Number(this.currentSlide.split('_')[1]));
@@ -304,14 +322,14 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
 
         if (this.currentSlide === ('Ejercicio_' + (i+1).toString())) {
 
-  
+
 
           this.resultados.push({numErrores: this.numErrores, numAciertos: this.numAciertos, numEjer: this.currentEjNum});
           if(this.currentEjNum != this.ejercicios.length){
               this.currentEjNum ++;
               this.currentEj = this.ejercicios[this.currentEjNum-1];
               this.currentSlide = ('Ejercicio_' + (this.currentEjNum).toString());
-              
+
           }
           else if(this.mostrarResultados){
               this.currentSlide = 'Resultados';
@@ -323,18 +341,18 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
           else{
             this.currentSlide = 'Final';
           }
-            
-       
+
+
             this.resetJuego();
-            
+
             slide = true;
             console.log(this.currentSlide);
             console.log(this.resultados);
-         
+
         }
         i++;
       }
-    }  
+    }
   }
 
 
@@ -344,7 +362,7 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
 
       if(this.esRepetido)
       this.esRepetido = false;
-      
+
       if(this.isFallo)
         this.isFallo = false;
 
@@ -354,41 +372,41 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
       if(this.seleccionado1 == null ){
         if(this.seleccionado2 == id)
           this.seleccionado2 = null;
-  
+
         else
           this.seleccionado1 = id;
       }
 
       else if(this.seleccionado1 == id)
         this.seleccionado1 = null;
-  
+
       else if(this.seleccionado2 == id)
         this.seleccionado2 = null;
-  
+
       else
         this.seleccionado2 = id;
-    
+
     }
-    
+
   }
 
   seleccionarFinal(id: string){
 
-  
+
     if(this.seleccionadoFinal == id )
       this.seleccionadoFinal = null;
 
     else{
       this.seleccionadoFinal = id;
-    }    
+    }
   }
-  
+
 
   isSeleccionado(id : string, musica : string){
 
-    
+
     let clase = 'botonImagen';
-    
+
     if(this.seleccionadoFinal == id){
       clase = 'botonImagenSelected';
       this.audioCompletar.play();
@@ -397,11 +415,11 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
 
     //si no está ya unido correctamente
     else if (!this.estaUnido(id)){
-  
+
     if(this.seleccionado1 == id){
-  
+
       if(this.seleccionado2 != null){
- 
+
         this.resultado(this.seleccionado1, this.seleccionado2, musica);
         if(this.isFallo){
           this.seleccionadoClase1 = 'botonImagenSelectedFallo';
@@ -409,7 +427,7 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
 
           clase = 'botonImagenSelectedFallo';
         }
-          
+
         else if(this.isCorrecto){
           this.seleccionadoClase1 = 'botonImagenSelectedCorrecto';
           this.seleccionadoClase2 = 'botonImagenSelectedCorrecto';
@@ -427,21 +445,21 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
     if(this.seleccionado2 == id ){
 
       if(this.seleccionado1 != null){
-      
+
         this.resultado(this.seleccionado1, this.seleccionado2, musica);
         if(this.isFallo){
           this.seleccionadoClase1 = 'botonImagenSelectedFallo';
           this.seleccionadoClase2 = 'botonImagenSelectedFallo';
           clase = 'botonImagenSelectedFallo';
         }
-          
+
         else if(this.isCorrecto){
           this.seleccionadoClase1 = 'botonImagenSelectedCorrecto';
           this.seleccionadoClase2 = 'botonImagenSelectedCorrecto';
 
           clase = 'botonImagenSelectedCorrecto';
         }
-          
+
       }
 
       else{
@@ -452,7 +470,7 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
 
   }
 
-  else if (this.estaUnido(id)){ 
+  else if (this.estaUnido(id)){
     this.seleccionadoClase1 = 'botonImagenSelectedCorrecto';
     this.seleccionadoClase2 = 'botonImagenSelectedCorrecto';
     clase = 'botonImagenSelectedCorrecto';
@@ -466,7 +484,7 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
 
   console.log('CLASEEE2 : ' + clase);
   return clase;
-  
+
 
   }
 
@@ -517,7 +535,7 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
     return num;
 
   }
-  
+
   fade(){
     if(this.audioAcertar.volume > 0){
       this.audioAcertar.volume -= 0.7;
@@ -533,8 +551,8 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
     const id2 = seleccionado2.split("+")[0];
 
     if(id1 == id2){
-    
-      
+
+
       this.isCorrecto = true;
       this.numAciertos ++;
       this.unidos.push(seleccionado1);
@@ -546,8 +564,8 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
       this.audioAcertar.load();
 
       if((this.tutorial && this.ejercicioTutorial.length == this.unidos.length) || this.currentEj.length == this.unidos.length ){
-        
-        
+
+
         this.audioAcertar.play().then(async _ =>{
           const delay = ms => new Promise(res => setTimeout(res, ms));
           await delay(5000);
@@ -556,7 +574,7 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
           this.todosUnidosTutorial = true;
           this.audioCompletar.play();
         });
-        
+
       }
 
       else{
@@ -565,33 +583,33 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
           await delay(6000);
           this.audioAcertar.pause();
         });
-      
-      
+
+
       }
-      
+
     }
 
     else if(id1 != id2){
       if( this.seleccionadoClase2 != 'botonImagenSelectedFallo' ||  this.seleccionadoClase1 != 'botonImagenSelectedFallo' ){
         this.numErrores++;
-        
+
       }
 
       this.audioFallar.play();
       this.isFallo = true;
-      
+
     }
   }
 
   resultadoPicto(){
     let picto = '../../assets/pictoAcertar.png';
-    
+
     if(this.numErrores < 5)
       picto = '../../assets/pictoFallar.png';
 
     return picto;
   }
-  
+
 }
 
 export interface Conjunto{

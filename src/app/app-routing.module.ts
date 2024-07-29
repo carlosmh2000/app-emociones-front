@@ -128,6 +128,31 @@ const routes: Routes = [
           },
 
           {
+            path: 'juego-asociar-imagen/:juegoId',
+            loadChildren: () => import('./interfaz-alumno/juegos/asociar-imagen/asociar-imagen.module').then( m => m.AsociarImagenPageModule)
+          },
+
+          {
+            path: 'juego-unir-pareja/:juegoId',
+            loadChildren: () => import('./interfaz-alumno/juegos/juego-unir-pareja/juego-unir-pareja.module').then( m => m.JuegoUnirParejaPageModule)
+          },
+
+          {
+            path: 'juego-buscar-intruso/:juegoId',
+            loadChildren: () => import('./interfaz-alumno/juegos/juego-buscar-intruso/juego-buscar-intruso.module').then( m => m.JuegoBuscarIntrusoPageModule)
+          },
+
+          {
+            path: 'juego-asociar-frase/:juegoId',
+            loadChildren: () => import('./interfaz-alumno/juegos/juego-asociar-frase/juego-asociar-frase.module').then( m => m.JuegoAsociarFrasePageModule)
+          },
+
+          {
+            path: 'juego-asociar-emocion/:juegoId',
+            loadChildren: () => import('./interfaz-alumno/juegos/juego-asociar-emocion/juego-asociar-emocion.module').then( m => m.JuegoAsociarEmocionPageModule)
+          },
+
+          {
             path: 'perfil',
             loadChildren: () => import('./interfaz-alumno/perfil/perfil.module').then( m => m.PerfilPageModule)
           },

@@ -6,6 +6,7 @@ import { Juego } from 'src/app/models/juego.model';
 import { CamaraService } from 'src/app/services/camara.service';
 import { DatabaseService } from 'src/app/services/database.service';
 import {AlumnoService} from "../../services/alumno.service";
+import {JuegoService} from "../../services/juego.service";
 
 @Component({
   selector: 'app-homepage',
@@ -14,6 +15,7 @@ import {AlumnoService} from "../../services/alumno.service";
 })
 export class HomepagePage implements OnInit {
   private alumnoService = inject(AlumnoService);
+  private juegoService = inject(JuegoService);
 
   public alumnos : Alumno[] = [];
   public alumno : Alumno;
@@ -33,7 +35,6 @@ export class HomepagePage implements OnInit {
 
       //obtenemos el alumno de la base de datos
       this.alumnoService.getAlumno(alumnoId).subscribe(data => {
-
         this.nombreAlumno = data.nombre;
         this.profilePhoto = data.fotoPerfil;
         this.alumno = data;
@@ -41,25 +42,50 @@ export class HomepagePage implements OnInit {
     });
 
     //obtenemos la lista de juegos de la base de datos
-    this.db.getDatabaseState().subscribe(listo => {
-      if (listo) {
-        this.db.getJuegosUnirColor().subscribe(juegos => {
-          this.juegos = juegos;
-        })
-      }
+    this.juegoService.getJuegos('unirColor').subscribe(unirColor => {
+      this.juegos = unirColor.items;
+      this.juegoService.getJuegos('asociarImagen').subscribe(asociarImagen => {
+        this.juegos = this.juegos.concat(asociarImagen.items);
+        this.juegoService.getJuegos('unirFrase').subscribe(unirFrase => {
+          this.juegos = this.juegos.concat(unirFrase.items);
+          this.juegoService.getJuegos('elegirEmocion').subscribe(elegirEmocion => {
+            this.juegos = this.juegos.concat(elegirEmocion.items);
+            this.juegoService.getJuegos('hacerPareja').subscribe(hacerPareja => {
+              this.juegos = this.juegos.concat(hacerPareja.items);
+              this.juegoService.getJuegos('buscarIntruso').subscribe(buscarIntruso => {
+                this.juegos = this.juegos.concat(buscarIntruso.items);
+                console.log(buscarIntruso.items);
+                console.log(this.juegos);
+              });
+            });
+          });
+        });
+      });
     });
   }
 
   //Función para obtener la ruta del tipo de juego
   jugarJuegoTipo(tipo : string) : string{
 
-    if(tipo = 'unirColor')
+    if(tipo == 'unirColor')
       return 'juego-unir-color';
 
-    else if(tipo = 'asociarImagen')
+    else if(tipo == 'asociarImagen')
       return 'juego-asociar-imagen';
 
-     return 'juego-unir-color';
+    else if(tipo == 'hacerPareja')
+      return 'juego-unir-pareja';
+
+    else if(tipo == 'buscarIntruso')
+      return 'juego-buscar-intruso';
+
+    else if(tipo == 'unirFrase')
+      return 'juego-asociar-frase';
+
+    else if(tipo == 'elegirEmocion')
+      return 'juego-asociar-emocion';
+
+    return 'juego-unir-color';
 
   }
 

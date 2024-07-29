@@ -1,10 +1,10 @@
 <ion-header >
-  <ion-toolbar> 
-    
+  <ion-toolbar>
+
     <ion-button slot="start" fill="clear" class="botonHeaderTransparente" (click)="this.terminarVentana = true"  *ngIf="this.currentSlide != 'Tutorial' && this.currentSlide != 'Final' && this.currentSlide != 'Resultados'" ></ion-button>
 
-      <ion-button color="azul" class="botonHeader" slot="start" href="./" *ngIf="this.currentSlide === 'Tutorial'"> <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon> </ion-button>
-         
+      <ion-button color="azul" class="botonHeader" slot="start" href="/login/alumno/{{alumnoId}}" *ngIf="this.currentSlide === 'Tutorial'"> <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon> </ion-button>
+
       <ion-button color="morado" class="botonHeader" (click)="onNextButtonTouched()" slot="end" *ngIf="this.currentSlide === 'Tutorial'"> Comenzar </ion-button>
 
 
@@ -49,7 +49,7 @@
     </ion-title>
     </div>
 
-    
+
 
     <ion-button slot="end" color="morado" class="botonHeader" (click)="onNextButtonTouched()" *ngIf="this.currentSlide != 'Tutorial' && this.currentSlide != 'Final'" > <ion-icon name="arrow-forward-outline" slot="icon-only"></ion-icon></ion-button>
 
@@ -69,32 +69,32 @@
       <ion-slide>
 
         <div class="center" *ngIf="this.currentSlide === 'Tutorial'">
-          
+
           <div class="middleEjercicio">
             <div class="inner">
               <div [ngClass]="getClaseOrganImg(this.ejercicioTutorial.length)">
                 <div class="elemento" *ngFor="let elem of ejercicioTutorial, index as i">
-         
-                  <ion-button [ngClass]="this.esRepetido ? 'botonImagen' : isSeleccionado((elem.id + '+' + elem.tipo), elem.musica)" (click)="seleccionar(elem.id + '+' + elem.tipo)" slot="start"> 
+
+                  <ion-button [ngClass]="this.esRepetido ? 'botonImagen' : isSeleccionado((elem.id + '+' + elem.tipo), elem.musica)" (click)="seleccionar(elem.id + '+' + elem.tipo)" slot="start">
                     <ion-grid>
                       <ion-row>
                         <ion-col class="colCenter">
                           <ion-img class="imagen" src={{elem.img}} ></ion-img>
                         </ion-col>
                       </ion-row>
-    
+
                       <div *ngIf="this.texto" >
                         <ion-row>
                           <ion-col class="colCenter">
                             <ion-text class="textoImg">{{elem.texto}}</ion-text>
                           </ion-col>
-                        </ion-row>  
+                        </ion-row>
                       </div>
-                      
+
                     </ion-grid>
-                    
+
                   </ion-button>
-    
+
                 </div>
               </div>
 
@@ -117,21 +117,21 @@
 
 
       <div class="center" *ngIf="this.currentSlide == ('Ejercicio_' + (this.currentEjNum).toString())">
-        
+
         <div class="middleEjercicio">
           <div class="inner">
             <div [ngClass]="this.terminarVentana ? 'repetir' : 'norepetir'">
               <div [ngClass]="getClaseOrganImg(this.currentEj.length)">
                 <div class="elemento" *ngFor="let elem of this.currentEj">
-        
-                  <ion-button [ngClass]="this.esRepetido ? 'botonImagen' : isSeleccionado((elem.id + '+' + elem.tipo), elem.musica)" (click)="seleccionar(elem.id + '+' + elem.tipo)" slot="start"> 
+
+                  <ion-button [ngClass]="this.esRepetido ? 'botonImagen' : isSeleccionado((elem.id + '+' + elem.tipo), elem.musica)" (click)="seleccionar(elem.id + '+' + elem.tipo)" slot="start">
                     <ion-grid>
                       <ion-row>
                         <ion-col class="colCenter">
                           <ion-img class="imagen" src={{elem.img}} ></ion-img>
                         </ion-col>
                       </ion-row>
-      
+
                       <div *ngIf="this.texto" >
                         <ion-row>
                           <ion-col class="colCenter">
@@ -140,9 +140,9 @@
                         </ion-row>
                       </div>
                     </ion-grid>
-                    
+
                   </ion-button>
-      
+
                 </div>
               </div>
             </div>
@@ -151,34 +151,34 @@
       </div>
 
       <div class="center" *ngIf="this.currentSlide == 'Resultados'">
-        
+
         <div class="middleEjercicio">
           <div class="inner">
-            
-    
+
+
             <div *ngIf="this.juego.resultadoNum" >
             <div class="elementos">
-    
+
                 <div class="elemento" *ngIf="this.resultadosNegativos">
                 <ion-button class='botonImagen' slot="start">
                 <ion-grid>
                   <ion-row>
-                    
+
                       <ion-col class="colCenter">
                         <div *ngIf="this.juego.resultadoPicto">
                           <ion-img class="imagen" src="../../assets/pictoFallar.png" ></ion-img>
                         </div>
-      
+
                         <div *ngIf="!this.juego.resultadoPicto">
                           <ion-text class="titulo">
                             Fallos
                           </ion-text>
                         </div>
                       </ion-col>
-                  
+
                   </ion-row>
-              
-                  
+
+
                   <div *ngIf="this.texto" >
                     <ion-row>
                       <ion-col class="colCenter">
@@ -186,14 +186,14 @@
                       </ion-col>
                     </ion-row>
                   </div>
-    
-                  
-    
+
+
+
                 </ion-grid>
               </ion-button>
-    
+
             </div>
-    
+
               <div class="elemento" *ngIf="this.resultadosPositivos">
               <ion-button class='botonImagen' slot="start">
                     <ion-grid>
@@ -202,7 +202,7 @@
                       <div *ngIf="this.juego.resultadoPicto">
                         <ion-img class="imagen" src="../../assets/pictoAcertar.png" ></ion-img>
                       </div>
-    
+
                       <div *ngIf="!this.juego.resultadoPicto">
                         <ion-text class="titulo">
                           Aciertos
@@ -210,7 +210,7 @@
                       </div>
                     </ion-col>
                   </ion-row>
-    
+
                   <div *ngIf="this.texto" >
                     <ion-row>
                       <ion-col class="colCenter">
@@ -218,17 +218,17 @@
                       </ion-col>
                     </ion-row>
                   </div>
-    
-                
+
+
                 </ion-grid>
               </ion-button>
-    
+
             </div>
-    
+
               </div>
-    
+
               <div *ngIf="!this.juego.resultadoNum">
-    
+
                 <div class="elemento">
                   <ion-row>
                     <ion-col class="colCenter">
@@ -236,30 +236,30 @@
                     </ion-col>
                   </ion-row>
                 </div>
-              </div>   
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      
+
 
       <div class="center" *ngIf="this.currentSlide == 'Final'">
-        
+
         <div class="middleEjercicio">
           <div class="inner">
-            
+
             <div [ngClass]="getClaseOrganImg(this.preguntasFinal.length)">
               <div class="elemento" *ngFor="let elem of this.preguntasFinal">
-        
-                <ion-button [ngClass]="this.isSeleccionado(elem.id.toString(), '')" (click)="seleccionarFinal(elem.id.toString())" slot="start"> 
+
+                <ion-button [ngClass]="this.isSeleccionado(elem.id.toString(), '')" (click)="seleccionarFinal(elem.id.toString())" slot="start">
                     <ion-grid>
                       <ion-row>
                         <ion-col class="colCenter">
                           <ion-img class="imagen" src={{elem.img}} ></ion-img>
                         </ion-col>
                       </ion-row>
-      
+
                       <div *ngIf="this.texto" >
                         <ion-row>
                           <ion-col class="colCenter">
@@ -268,17 +268,17 @@
                         </ion-row>
                       </div>
                     </ion-grid>
-                    
+
                   </ion-button>
-      
+
                 </div>
               </div>
             </div>
-         
+
         </div>
       </div>
 
-         
+
 
     </ion-slide>
   </ng-container>
@@ -290,7 +290,7 @@
   <ion-toolbar>
 
     <div *ngIf="this.juego.refNegativo && this.isFallo && !this.terminarVentana  && this.currentSlide != 'Final'" class="colCenter">
-      
+
       <div *ngIf="this.texto" >
         <ion-text class="refuerzoNegativo">
             Selección incorrecta. Inténtalo de nuevo.
@@ -304,8 +304,8 @@
 
     </div>
 
-    <div *ngIf="this.juego.refPositivo && !this.todosUnidosTutorial && this.currentSlide != 'Final' && this.isCorrecto && !this.terminarVentana" class="colCenter">  
-      
+    <div *ngIf="this.juego.refPositivo && !this.todosUnidosTutorial && this.currentSlide != 'Final' && this.isCorrecto && !this.terminarVentana" class="colCenter">
+
       <div *ngIf="this.texto" >
 
         <ion-text class="refuerzoPositivo">
@@ -322,7 +322,7 @@
     </div>
 
     <div *ngIf="this.todosUnidosTutorial && this.currentSlide != 'Tutorial' && this.isCorrecto && this.currentSlide != 'Final' && !this.terminarVentana" class="colCenter">
-      
+
       <div *ngIf="this.texto" >
         <ion-text class="refuerzoPositivo" >
             ¡Ejercicio conseguido! ¡Muy bien!
@@ -337,23 +337,23 @@
     </div>
 
     <div *ngIf="this.todosUnidosTutorial && this.currentSlide == 'Tutorial'" class="colCenter">
-      
+
       <ion-button color="verdeClaro" slot="center" class="botonHeaderRepetir" (click)="repetirEjTutorial()"> <ion-icon name="refresh-outline" slot="start"></ion-icon> Repetir </ion-button>
-   
+
     </div>
 
     <div *ngIf="this.terminarVentana " class="colCenter">
         <ion-button class="botonHeaderRepetir" (click)="botonTerminar()">
           NO
         </ion-button>
-  
+
         <ion-button class="botonHeaderRepetir" (click)="this.terminar()">
           SI
         </ion-button>
     </div>
 
-    
 
-          
+
+
   </ion-toolbar>
 </ion-footer>
