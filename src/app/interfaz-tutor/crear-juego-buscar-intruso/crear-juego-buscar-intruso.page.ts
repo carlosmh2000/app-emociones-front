@@ -17,6 +17,7 @@ import { PreguntaBuscarIntruso } from 'src/app/models/pregunta-buscar-intruso.mo
 import { PreguntasBuscarIntrusoPage } from '../preguntas-buscar-intruso/preguntas-buscar-intruso.page';
 import {Juego} from "../../models/juego.model";
 import {JuegoService} from "../../services/juego.service";
+import {JuegoBuscarIntruso} from "../../models/juego-buscar-intruso.model";
 
 
 @Component({
@@ -287,12 +288,12 @@ export class CrearJuegoBuscarIntrusoPage implements OnInit {
     console.log('ejercicios: ' + this.ejercicios);
     console.log('opcionesCuestionarioFinal: ' + this.opcionesCuestionario);
     console.log('sonidos ' + this.sonidos );
-    const juego = new Juego(undefined, this.nombreJuego, this.portadaJuego, this.tipoJuego, this.juegoInstruc,
+    const juego = new JuegoBuscarIntruso(undefined, this.nombreJuego, this.portadaJuego, this.tipoJuego, this.juegoInstruc,
       this.visualizarTutorial, this.tutorialDescrip, this.efectosSonido, this.sonidos, this.refPositivo, this.refNegativo,
-      this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo);
+      this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo, this.cuestionarioFinal, this.preguntaCuestionario, this.opcionesCuestionario, this.ejercicioTutorial, this.ejercicios);
     console.log(this.sonidos);
     console.log(this.opcionesCuestionario);
-    this.juegoService.addJuego(juego).subscribe(juego =>{
+    this.juegoService.addJuegoBuscarIntruso(juego).subscribe(juego =>{
         console.log(juego);
          this.router.navigate(['/juegos/buscarIntruso']);
       }

@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Alumno } from 'src/app/models/alumno.model';
 import { Juego } from 'src/app/models/juego.model';
@@ -16,6 +16,8 @@ import {JuegoService} from "../../services/juego.service";
 export class HomepagePage implements OnInit {
   private alumnoService = inject(AlumnoService);
   private juegoService = inject(JuegoService);
+
+  private router = inject(Router);
 
   public alumnos : Alumno[] = [];
   public alumno : Alumno;
@@ -65,28 +67,22 @@ export class HomepagePage implements OnInit {
   }
 
   //Función para obtener la ruta del tipo de juego
-  jugarJuegoTipo(tipo : string) : string{
-
-    if(tipo == 'unirColor')
-      return 'juego-unir-color';
-
-    else if(tipo == 'asociarImagen')
-      return 'juego-asociar-imagen';
-
-    else if(tipo == 'hacerPareja')
-      return 'juego-unir-pareja';
-
-    else if(tipo == 'buscarIntruso')
-      return 'juego-buscar-intruso';
-
-    else if(tipo == 'unirFrase')
-      return 'juego-asociar-frase';
-
-    else if(tipo == 'elegirEmocion')
-      return 'juego-asociar-emocion';
-
-    return 'juego-unir-color';
-
+jugarJuegoTipo(tipo: string, id?: number): void {
+  if (tipo === 'unirColor') {
+    this.router.navigate(['/juego-unir-color']);
+  } else if (tipo === 'asociarImagen') {
+    this.router.navigate(['/juego-asociar-imagen']);
+  } else if (tipo === 'hacerPareja') {
+    this.router.navigate([`/login/alumno/${this.alumno.id}/juego-unir-pareja/${id}`]);
+  } else if (tipo === 'buscarIntruso') {
+    this.router.navigate(['/juego-buscar-intruso']);
+  } else if (tipo === 'unirFrase') {
+    this.router.navigate(['/juego-asociar-frase']);
+  } else if (tipo === 'elegirEmocion') {
+    this.router.navigate(['/juego-asociar-emocion']);
+  } else {
+    this.router.navigate(['/juego-unir-color']);
   }
+}
 
 }

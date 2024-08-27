@@ -117,13 +117,12 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
       this.alumnoId = params.get('alumnoId')
       console.log('juegoId: ' + juegoId);
       console.log(params);
-      /**
-       *      this.juegoService.getJuego(juegoId).subscribe(data => {
-       *
-       *         this.juego = data;
-       *         console.log(this.juego);
-       *       });
-       * */
+
+      this.juegoService.getJuego(juegoId, 'buscarIntruso').subscribe(data => {
+        //this.juego = data;
+        console.log(this.juego);
+      });
+
 
     });
     this.width = this.ptl.width;

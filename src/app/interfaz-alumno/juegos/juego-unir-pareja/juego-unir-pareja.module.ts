@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { JuegoUnirParejaPageRoutingModule } from './juego-unir-pareja-routing.module';
 
 import { JuegoUnirParejaPage } from './juego-unir-pareja.page';
+import {HomepagePageModule} from "../../homepage/homepage.module";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    JuegoUnirParejaPageRoutingModule
+    JuegoUnirParejaPageRoutingModule,
+    HomepagePageModule
   ],
   declarations: [JuegoUnirParejaPage]
 })

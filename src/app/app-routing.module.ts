@@ -185,7 +185,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'juego-unir-pareja',
+    path: 'juego-unir-pareja/:juegoId',
     loadChildren: () => import('./interfaz-alumno/juegos/juego-unir-pareja/juego-unir-pareja.module').then( m => m.JuegoUnirParejaPageModule)
   },
   {
@@ -202,7 +202,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'preguntas-unir-pareja',
+    path: 'preguntas-unir-pareja/:idJuego',
     loadChildren: () => import('./interfaz-tutor/preguntas-unir-pareja/preguntas-unir-pareja.module').then( m => m.PreguntasUnirParejaPageModule)
   },
 
