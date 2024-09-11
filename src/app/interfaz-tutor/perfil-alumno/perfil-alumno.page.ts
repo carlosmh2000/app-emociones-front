@@ -1,7 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import { Alumno } from 'src/app/models/alumno.model';
 import { Juego } from 'src/app/models/juego.model';
-import { DatabaseService } from 'src/app/services/database.service';
 import { ActivatedRoute } from '@angular/router';
 import {AlumnoService} from "../../services/alumno.service";
 
@@ -18,7 +17,7 @@ export class PerfilAlumnoPage implements OnInit {
   public nombreAlumno;
   public foto;
 
-  constructor( private db : DatabaseService, private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute) {
 
    }
 

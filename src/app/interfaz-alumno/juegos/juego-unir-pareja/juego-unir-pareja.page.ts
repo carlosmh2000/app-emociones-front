@@ -13,7 +13,6 @@ import { ActionSheetController, IonContent, IonSlides, MenuController, NavContro
 import { JuegoUnir } from 'src/app/models/juego-unir.model';
 import { Juego } from 'src/app/models/juego.model';
 import { PreguntaUnir } from 'src/app/models/pregunta-unir.model';
-import { DatabaseService } from 'src/app/services/database.service';
 import {JuegoService} from "../../../services/juego.service";
 
 @Component({
@@ -103,7 +102,7 @@ init = false
 @ViewChild(IonContent, { static: true }) ionContent: IonContent;
 @ViewChild(IonSlides, { static: false }) ionSlides: IonSlides;
 
-  constructor(  private db : DatabaseService, private activatedRoute: ActivatedRoute, private ptl : Platform, private menu: MenuController) {
+  constructor( private activatedRoute: ActivatedRoute, private ptl : Platform, private menu: MenuController) {
     this.activatedRoute.paramMap.subscribe(params => {
       let juegoId = params.get('juegoId');
       console.log('juegoId: ' + juegoId);
@@ -114,7 +113,6 @@ init = false
             data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal,
             data.pregunta_tutorial, data.ejercicios);
           this.buildSlides();
-          debugger
           this.width = this.ptl.width;
           this.height = this.ptl.height;
 
@@ -132,25 +130,27 @@ init = false
           this.audioCompletar.volume -= 0.4;
           this.audioTocar.volume -= 0.4;
 
-          this.numEjercicios = this.juego.ejercicios.length;
-          for(let i = 0; i < this.juego.pregunta_tutorial.length; i++){
-            this.ejercicioTutorial.push({id: this.juego.pregunta_tutorial[i].id, img: this.juego.pregunta_tutorial[i].color, texto: this.juego.pregunta_tutorial[i].texto_color, tipo:'color', musica: this.juego.pregunta_tutorial[i].musica});
-            this.ejercicioTutorial.push({id: this.juego.pregunta_tutorial[i].id, img: this.juego.pregunta_tutorial[i].asociada, texto: this.juego.pregunta_tutorial[i].texto_asociada, tipo:'asociada',  musica: this.juego.pregunta_tutorial[i].musica});
+        this.numEjercicios = this.juego.ejercicios.length - 1;
+
+        for(let j = 0; j < this.juego.ejercicios[0].length; j++){
+          this.ejercicioTutorial.push({id: this.juego.ejercicios[0][j].id, img: this.juego.ejercicios[0][j].img_1, texto: this.juego.ejercicios[0][j].texto_1, tipo:'color',  musica: this.juego.ejercicios[0][j].musica});
+          this.ejercicioTutorial.push({id: this.juego.ejercicios[0][j].id, img: this.juego.ejercicios[0][j].img_2, texto: this.juego.ejercicios[0][j].texto_2, tipo:'asociada',  musica: this.juego.ejercicios[0][j].musica});
+        }
+
+
+        for(let i = 1; i < this.juego.ejercicios.length; i++){
+          let aux = [];
+          for(let j = 0; j < this.juego.ejercicios[i].length; j++){
+            aux.push({id: this.juego.ejercicios[i][j].id, img: this.juego.ejercicios[i][j].img_1, texto: this.juego.ejercicios[i][j].texto_1, tipo:'color',  musica: this.juego.ejercicios[i][j].musica});
+            aux.push({id: this.juego.ejercicios[i][j].id, img: this.juego.ejercicios[i][j].img_2, texto: this.juego.ejercicios[i][j].texto_2, tipo:'asociada',  musica: this.juego.ejercicios[i][j].musica});
           }
-
-          for(let i = 0; i < this.juego.ejercicios.length; i++){
-            let aux = [];
-            for(let j = 0; j < this.juego.ejercicios[i].length; j++){
-              aux.push({id: this.juego.ejercicios[i][j].id, img: this.juego.ejercicios[i][j].color, texto: this.juego.ejercicios[i][j].texto_color, tipo:'color',  musica: this.juego.ejercicios[i][j].musica});
-              aux.push({id: this.juego.ejercicios[i][j].id, img: this.juego.ejercicios[i][j].asociada, texto: this.juego.ejercicios[i][j].texto_asociada, tipo:'asociada',  musica: this.juego.ejercicios[i][j].musica});
-            }
-            this.ejercicios.push(aux);
-          }
+          this.ejercicios.push(aux);
+        }
 
 
-          this.ejercicioTutorial = this.shuffle(this.ejercicioTutorial);
+        this.ejercicioTutorial = this.shuffle(this.ejercicioTutorial);
 
-          this.ejercicios = this.shuffle(this.ejercicios);
+        this.ejercicios = this.shuffle(this.ejercicios);
       });
     });
   }
@@ -162,14 +162,12 @@ init = false
       let juegoId = params.get('juegoId');
       console.log('juegoId: ' + juegoId);
       this.juegoService.getJuegoUnirPareja(juegoId).subscribe(data => {
-        debugger
         this.juego = new JuegoUnir(data.id, data.nombre, data.portada, data.tipo,
             data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
             data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
             data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal,
             data.pregunta_tutorial, data.ejercicios);
           this.buildSlides();
-          debugger
           this.width = this.ptl.width;
           this.height = this.ptl.height;
 
@@ -188,20 +186,42 @@ init = false
           this.audioTocar.volume -= 0.4;
 
           this.numEjercicios = this.juego.ejercicios.length;
-          for(let i = 0; i < this.juego.pregunta_tutorial.length; i++){
-            this.ejercicioTutorial.push({id: this.juego.pregunta_tutorial[i].id, img: this.juego.pregunta_tutorial[i].color, texto: this.juego.pregunta_tutorial[i].texto_color, tipo:'color', musica: this.juego.pregunta_tutorial[i].musica});
-            this.ejercicioTutorial.push({id: this.juego.pregunta_tutorial[i].id, img: this.juego.pregunta_tutorial[i].asociada, texto: this.juego.pregunta_tutorial[i].texto_asociada, tipo:'asociada',  musica: this.juego.pregunta_tutorial[i].musica});
-          }
+      // Assign the first exercise to ejercicioTutorial
+      this.ejercicioTutorial = this.juego.ejercicios[0].map(ejercicio => ({
+        id: ejercicio.id,
+        img: ejercicio.img_1,
+        texto: ejercicio.texto_1,
+        tipo: 'color',
+        musica: ejercicio.musica
+      })).concat(this.juego.ejercicios[0].map(ejercicio => ({
+        id: ejercicio.id,
+        img: ejercicio.img_2,
+        texto: ejercicio.texto_2,
+        tipo: 'asociada',
+        musica: ejercicio.musica
+      })));
 
-          for(let i = 0; i < this.juego.ejercicios.length; i++){
-            let aux = [];
-            for(let j = 0; j < this.juego.ejercicios[i].length; j++){
-              aux.push({id: this.juego.ejercicios[i][j].id, img: this.juego.ejercicios[i][j].color, texto: this.juego.ejercicios[i][j].texto_color, tipo:'color',  musica: this.juego.ejercicios[i][j].musica});
-              aux.push({id: this.juego.ejercicios[i][j].id, img: this.juego.ejercicios[i][j].asociada, texto: this.juego.ejercicios[i][j].texto_asociada, tipo:'asociada',  musica: this.juego.ejercicios[i][j].musica});
-            }
-            this.ejercicios.push(aux);
-          }
-
+      // Assign the remaining exercises to ejercicios
+      for (let i = 1; i < this.juego.ejercicios.length; i++) {
+        let aux = [];
+        for (let j = 0; j < this.juego.ejercicios[i].length; j++) {
+          aux.push({
+            id: this.juego.ejercicios[i][j].id,
+            img: this.juego.ejercicios[i][j].img_1,
+            texto: this.juego.ejercicios[i][j].texto_1,
+            tipo: 'color',
+            musica: this.juego.ejercicios[i][j].musica
+          });
+          aux.push({
+            id: this.juego.ejercicios[i][j].id,
+            img: this.juego.ejercicios[i][j].img_2,
+            texto: this.juego.ejercicios[i][j].texto_2,
+            tipo: 'asociada',
+            musica: this.juego.ejercicios[i][j].musica
+          });
+        }
+        this.ejercicios.push(aux);
+      }
 
           this.ejercicioTutorial = this.shuffle(this.ejercicioTutorial);
 
@@ -335,7 +355,6 @@ init = false
 
         //this.ionSlides.slideNext();
         this.currentEj = this.ejercicios[0];
-        debugger
         this.currentSlide = 'Ejercicio_1';
         console.log("this.ejercicios[0] " + this.ejercicios[0]);
         console.log("thisCurrent " + this.currentEj);

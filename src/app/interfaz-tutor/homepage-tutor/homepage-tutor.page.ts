@@ -1,6 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
 import * as $ from "jquery";
-import { DatabaseService } from '../../services/database.service';
 import { Alumno } from 'src/app/models/alumno.model';
 import { Observable } from 'rxjs';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
@@ -30,7 +29,7 @@ export class HomepageTutorPage implements OnInit {
 
   selectedView = 'devs';
 
-  constructor(private db: DatabaseService, private screenOrientation : ScreenOrientation) { }
+  constructor(private screenOrientation : ScreenOrientation) { }
 
   ngOnInit() {
 
@@ -78,45 +77,7 @@ export class HomepageTutorPage implements OnInit {
   }
 
   borrar(){
-    this.db.deleteJuegoUnirColor(1).then(_ => {
 
-    })
-
-    this.db.deleteJuegoUnirColor(2).then(_ => {
-
-    })
-
-    this.db.deleteJuegoUnirColor(3).then(_ => {
-
-    })
-
-    this.db.deleteJuegoUnirColor(4).then(_ => {
-
-    })
-
-    this.db.deleteJuegoUnirColor(5).then(_ => {
-
-    })
-
-    this.db.deleteJuegoUnirColor(6).then(_ => {
-
-    })
-
-    this.db.deleteJuegoUnirColor(7).then(_ => {
-
-    })
-
-    this.db.deleteJuegoUnirColor(8).then(_ => {
-
-    })
-
-    this.db.deleteJuegoUnirColor(9).then(_ => {
-
-    })
-
-    this.db.deleteJuegoUnirColor(10).then(_ => {
-
-    })
 
   }
 }

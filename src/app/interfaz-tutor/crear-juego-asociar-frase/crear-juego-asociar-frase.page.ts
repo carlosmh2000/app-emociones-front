@@ -7,7 +7,6 @@ import {PreguntaAsociar} from "../../models/pregunta-asociar.model";
 import {OpcionCuestionarioFinal} from "../../models/opcion-cuestionario-final.model";
 import {ActionSheetController, IonContent, IonSlides, ModalController, NavController} from "@ionic/angular";
 import {AudioService} from "../../services/audio.service";
-import {DatabaseService} from "../../services/database.service";
 import {CamaraService} from "../../services/camara.service";
 import {PreguntasAsociarPage} from "../preguntas-asociar/preguntas-asociar.page";
 import {OpcionCuestionarioFinalPage} from "../opcion-cuestionario-final/opcion-cuestionario-final.page";
@@ -71,7 +70,7 @@ export class CrearJuegoAsociarFrasePage implements OnInit {
   @ViewChild('sonidoFormRef', { static: false }) sonidoFormRef: NgForm;
   @ViewChild('resultFormRef', { static: false }) resultFormRef: NgForm;
 
-  constructor(public audioService: AudioService, private db : DatabaseService, public photoService : CamaraService, private modalController: ModalController,  private activatedRoute : ActivatedRoute, private actionSheetCtrl: ActionSheetController, private navCtrl: NavController, private sanitizer: DomSanitizer) { }
+  constructor(public audioService: AudioService, public photoService : CamaraService, private modalController: ModalController,  private activatedRoute : ActivatedRoute, private actionSheetCtrl: ActionSheetController, private navCtrl: NavController, private sanitizer: DomSanitizer) { }
 
   ngOnInit(){
 

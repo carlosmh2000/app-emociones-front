@@ -1,6 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
 import { Alumno } from 'src/app/models/alumno.model';
-import { DatabaseService } from 'src/app/services/database.service';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import {AlumnoService} from "../../services/alumno.service";
 
@@ -14,7 +13,7 @@ export class LoginPage implements OnInit {
 
   public alumnos : Alumno[] = [];
 
-  constructor( private screenOrientation : ScreenOrientation, private db : DatabaseService){
+  constructor( private screenOrientation : ScreenOrientation){
 
   }
 

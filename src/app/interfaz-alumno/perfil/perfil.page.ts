@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Alumno } from 'src/app/models/alumno.model';
 import { CamaraService } from 'src/app/services/camara.service';
-import { DatabaseService } from 'src/app/services/database.service';
 import {AlumnoService} from "../../services/alumno.service";
 
 @Component({
@@ -15,7 +14,7 @@ export class PerfilPage implements OnInit {
   private alumnoService = inject(AlumnoService);
   public alumno : Alumno;
 
-  constructor( private db : DatabaseService, private screenOrientation : ScreenOrientation, public photoService: CamaraService, private activatedRoute: ActivatedRoute) { }
+  constructor(private screenOrientation : ScreenOrientation, public photoService: CamaraService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.lockToLandscape();

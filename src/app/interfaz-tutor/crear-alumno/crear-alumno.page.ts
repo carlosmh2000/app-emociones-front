@@ -2,7 +2,6 @@ import {Component, inject, OnInit} from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from "@angular/forms";
 import { ActionSheetController, ToastController } from '@ionic/angular';
-import { DatabaseService } from 'src/app/services/database.service';
 import { CamaraService } from 'src/app/services/camara.service';
 import { Router } from '@angular/router';
 import {AlumnoService} from "../../services/alumno.service";
@@ -20,7 +19,7 @@ export class CrearAlumnoPage implements OnInit {
 
 
 
-  constructor(private toast: ToastController, public router : Router, public camaraService : CamaraService, private db : DatabaseService, private actionSheetCtrl: ActionSheetController, private formBuilder: FormBuilder) {
+  constructor(private toast: ToastController, public router : Router, public camaraService : CamaraService, private actionSheetCtrl: ActionSheetController, private formBuilder: FormBuilder) {
 
   }
 

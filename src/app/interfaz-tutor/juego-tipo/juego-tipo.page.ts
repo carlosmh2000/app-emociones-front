@@ -4,7 +4,6 @@ import { JuegoAsociar } from 'src/app/models/juego-asociar.model';
 import { JuegoBuscarIntruso } from 'src/app/models/juego-buscar-intruso.model';
 import { JuegoUnirPareja } from 'src/app/models/juego-unir-pareja.model';
 import { JuegoUnir } from 'src/app/models/juego-unir.model';
-import { DatabaseService } from 'src/app/services/database.service';
 import {JuegoService} from "../../services/juego.service";
 import {JuegoElegirEmocion} from "../../models/juego-elegir-emocion.model";
 import {JuegoAsociarFrase} from "../../models/juego-asociar-frase.model";
@@ -24,7 +23,7 @@ export class JuegoTipoPage implements OnInit {
   public juegosAsociarFrase : JuegoAsociarFrase[] = [];
   public tipoJuego;
 
-  constructor( private db : DatabaseService, private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute) {
 
   }
 

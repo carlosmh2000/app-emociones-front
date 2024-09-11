@@ -13,7 +13,6 @@ import { ActionSheetController, IonContent, IonSlides, MenuController, NavContro
 import { JuegoUnir } from 'src/app/models/juego-unir.model';
 import { Juego } from 'src/app/models/juego.model';
 import { PreguntaUnir } from 'src/app/models/pregunta-unir.model';
-import { DatabaseService } from 'src/app/services/database.service';
 import {JuegoService} from "../../../services/juego.service";
 
 
@@ -101,66 +100,84 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
   @ViewChild(IonSlides, { static: false }) ionSlides: IonSlides;
 
   alumnoId?: string;
-  constructor(  private db : DatabaseService, private activatedRoute: ActivatedRoute, private ptl : Platform, private cd: ChangeDetectorRef, private menu: MenuController, private router: Router) {
+  constructor(private activatedRoute: ActivatedRoute, private ptl : Platform, private cd: ChangeDetectorRef, private menu: MenuController, private router: Router) {
     this.buildSlides();
 
   }
 
   ngOnInit() {
-
-
     this.activatedRoute.paramMap.subscribe(params => {
+
+
       let juegoId = params.get('juegoId');
-      this.alumnoId = params.get('alumnoId')
       console.log('juegoId: ' + juegoId);
-      console.log(params);
-    /**
-     *
-     *       this.juegoService.getJuego(juegoId).subscribe(data => {
-     *
-     *         this.juego = data;
-     *         console.log(this.juego);
-     *       });
-     *
-     * */
+      this.juegoService.getJuegoUnirPareja(juegoId).subscribe(data => {
+        this.juego = new JuegoUnir(data.id, data.nombre, data.portada, data.tipo,
+            data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
+            data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
+            data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal,
+            data.pregunta_tutorial, data.ejercicios);
+          this.buildSlides();
+          this.width = this.ptl.width;
+          this.height = this.ptl.height;
 
+          //this.audioAcertar.src = '../../assets/acertar.mp3';
+          this.audioFallar.src = '../../assets/fallar.mp3';
+          this.audioCompletar.src = '../../assets/completar.mp3';
+          //this.audioTocar.src = '../../assets/tocar.mp3';
+
+          //this.audioAcertar.load();
+          this.audioFallar.load();
+          this.audioCompletar.load();
+          //this.audioTocar.load();
+
+          this.audioFallar.volume -= 0.4;
+          this.audioCompletar.volume -= 0.4;
+          //this.audioTocar.volume -= 0.4;
+
+          this.numEjercicios = this.juego.ejercicios.length;
+      // Assign the first exercise to ejercicioTutorial
+      this.ejercicioTutorial = this.juego.ejercicios[0].map(ejercicio => ({
+        id: ejercicio.id,
+        img: ejercicio.img_1,
+        texto: ejercicio.texto_1,
+        tipo: 'color',
+        musica: ejercicio.musica
+      })).concat(this.juego.ejercicios[0].map(ejercicio => ({
+        id: ejercicio.id,
+        img: ejercicio.img_2,
+        texto: ejercicio.texto_2,
+        tipo: 'asociada',
+        musica: ejercicio.musica
+      })));
+
+      // Assign the remaining exercises to ejercicios
+      for (let i = 1; i < this.juego.ejercicios.length; i++) {
+        let aux = [];
+        for (let j = 0; j < this.juego.ejercicios[i].length; j++) {
+          aux.push({
+            id: this.juego.ejercicios[i][j].id,
+            img: this.juego.ejercicios[i][j].img_1,
+            texto: this.juego.ejercicios[i][j].texto_1,
+            tipo: 'color',
+            musica: this.juego.ejercicios[i][j].musica
+          });
+          aux.push({
+            id: this.juego.ejercicios[i][j].id,
+            img: this.juego.ejercicios[i][j].img_2,
+            texto: this.juego.ejercicios[i][j].texto_2,
+            tipo: 'asociada',
+            musica: this.juego.ejercicios[i][j].musica
+          });
+        }
+        this.ejercicios.push(aux);
+      }
+
+          //this.ejercicioTutorial = this.shuffle(this.ejercicioTutorial);
+
+          //this.ejercicios = this.shuffle(this.ejercicios);
+      });
     });
-
-    this.width = this.ptl.width;
-    this.height = this.ptl.height;
-
-
-    this.audioFallar.src = '../../assets/fallar.mp3';
-    this.audioCompletar.src = '../../assets/completar.mp3';
-
-
-    this.audioFallar.load();
-    this.audioCompletar.load();
-
-    this.audioFallar.volume -= 0.4;
-    this.audioCompletar.volume -= 0.4;
-
-    this.numEjercicios = this.juego.ejercicios.length;
-    for(let i = 0; i < this.juego.pregunta_tutorial.length; i++){
-      this.ejercicioTutorial.push({id: this.juego.pregunta_tutorial[i].id, img: this.juego.pregunta_tutorial[i].color, texto: this.juego.pregunta_tutorial[i].texto_color, tipo:'color', musica: this.juego.pregunta_tutorial[i].musica});
-      this.ejercicioTutorial.push({id: this.juego.pregunta_tutorial[i].id, img: this.juego.pregunta_tutorial[i].asociada, texto: this.juego.pregunta_tutorial[i].texto_asociada, tipo:'asociada',  musica: this.juego.pregunta_tutorial[i].musica});
-    }
-
-
-    for(let i = 0; i < this.juego.ejercicios.length; i++){
-      let aux = [];
-      for(let j = 0; j < this.juego.ejercicios[i].length; j++){
-
-      aux.push({id: this.juego.ejercicios[i][j].id, img: this.juego.ejercicios[i][j].color, texto: this.juego.ejercicios[i][j].texto_color, tipo:'color',  musica: this.juego.ejercicios[i][j].musica});
-      aux.push({id: this.juego.ejercicios[i][j].id, img: this.juego.ejercicios[i][j].asociada, texto: this.juego.ejercicios[i][j].texto_asociada, tipo:'asociada',  musica: this.juego.ejercicios[i][j].musica});
-
-    }
-    this.ejercicios.push(aux);
-  }
-
-
-
-
   }
   @HostListener('window:resize', ['$event'])
   private onResize(event){

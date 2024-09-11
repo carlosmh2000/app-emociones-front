@@ -4,7 +4,6 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Alumno } from 'src/app/models/alumno.model';
 import { Juego } from 'src/app/models/juego.model';
 import { CamaraService } from 'src/app/services/camara.service';
-import { DatabaseService } from 'src/app/services/database.service';
 import {AlumnoService} from "../../services/alumno.service";
 import {JuegoService} from "../../services/juego.service";
 
@@ -26,7 +25,7 @@ export class HomepagePage implements OnInit {
   public profilePhoto : string;
 
 
-  constructor(private db : DatabaseService, private screenOrientation : ScreenOrientation, public photoService: CamaraService, private activatedRoute: ActivatedRoute) { }
+  constructor(private screenOrientation : ScreenOrientation, public photoService: CamaraService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(){
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
@@ -69,7 +68,7 @@ export class HomepagePage implements OnInit {
   //Función para obtener la ruta del tipo de juego
 jugarJuegoTipo(tipo: string, id?: number): void {
   if (tipo === 'unirColor') {
-    this.router.navigate(['/juego-unir-color']);
+    this.router.navigate([`/login/alumno/${this.alumno.id}/juego-unir-color/${id}`]);
   } else if (tipo === 'asociarImagen') {
     this.router.navigate(['/juego-asociar-imagen']);
   } else if (tipo === 'hacerPareja') {

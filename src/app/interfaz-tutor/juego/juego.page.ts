@@ -1,7 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Juego } from 'src/app/models/juego.model';
-import { DatabaseService } from 'src/app/services/database.service';
 import {JuegoService} from "../../services/juego.service";
 
 @Component({
@@ -17,7 +16,7 @@ export class JuegoPage implements OnInit {
   public portada;
   public tipo;
 
-  constructor( private db : DatabaseService, private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute) {
 
    }
 

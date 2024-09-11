@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ActionSheetController, ToastController } from '@ionic/angular';
 import { Alumno } from 'src/app/models/alumno.model';
 import { CamaraService } from 'src/app/services/camara.service';
-import { DatabaseService } from 'src/app/services/database.service';
 import { Validators } from '@angular/forms';
 import {AlumnoService} from "../../services/alumno.service";
 
@@ -22,7 +21,7 @@ export class ConfiguracionAlumnoPage implements OnInit {
   public formulario;
 
 
-  constructor(private toast: ToastController, private db : DatabaseService, private formBuilder: FormBuilder, private actionSheetCtrl: ActionSheetController, public camaraService: CamaraService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private toast: ToastController, private formBuilder: FormBuilder, private actionSheetCtrl: ActionSheetController, public camaraService: CamaraService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   async ngOnInit() {
 

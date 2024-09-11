@@ -5,7 +5,6 @@ import { AbstractControl, FormControl, FormGroup, NgForm, Validators } from '@an
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ModalController } from '@ionic/angular';
 import { CamaraService } from 'src/app/services/camara.service';
-import { DatabaseService } from 'src/app/services/database.service';
 import { PreguntasUnirColorPage } from '../preguntas-unir-color/preguntas-unir-color.page';
 import { AudioService } from 'src/app/services/audio.service';
 import { OpcionCuestionarioFinal } from 'src/app/models/opcion-cuestionario-final.model';
@@ -75,7 +74,7 @@ export class CrearJuegoAsociarImagenPage implements OnInit {
   @ViewChild('sonidoFormRef', { static: false }) sonidoFormRef: NgForm;
   @ViewChild('resultFormRef', { static: false }) resultFormRef: NgForm;
 
-  constructor(public audioService: AudioService, private db : DatabaseService, public photoService : CamaraService, private modalController: ModalController,  private activatedRoute : ActivatedRoute, private actionSheetCtrl: ActionSheetController, private navCtrl: NavController, private sanitizer: DomSanitizer) { }
+  constructor(public audioService: AudioService, public photoService : CamaraService, private modalController: ModalController,  private activatedRoute : ActivatedRoute, private actionSheetCtrl: ActionSheetController, private navCtrl: NavController, private sanitizer: DomSanitizer) { }
 
   ngOnInit(){
 
