@@ -46,6 +46,10 @@ export class JuegoService {
     return this.http.get<JuegoUnir>(`${this.apiUrl}/unirPareja/${id}`);
   }
 
+  getJuegoUnirColor(id: string): Observable<JuegoUnir>{
+    return this.http.get<JuegoUnir>(`${this.apiUrl}/unirColor/${id}`);
+  }
+
 
   deleteJuego(id: number): Observable<any>{
     return this.http.delete<any>(`${this.apiUrl}/${id}`);

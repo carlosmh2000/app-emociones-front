@@ -111,7 +111,7 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
 
       let juegoId = params.get('juegoId');
       console.log('juegoId: ' + juegoId);
-      this.juegoService.getJuegoUnirPareja(juegoId).subscribe(data => {
+      this.juegoService.getJuegoUnirColor(juegoId).subscribe(data => {
         this.juego = new JuegoUnir(data.id, data.nombre, data.portada, data.tipo,
             data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
             data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
