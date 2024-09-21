@@ -368,7 +368,7 @@ init = false
 
     else if(this.currentSlide === 'Final') {
       //route to inicio
-      this.router.navigate('/login/alumno/', this.alumnoId)
+       this.router.navigate(['/login/alumno/'+this.alumnoId]);
 
     }
 
