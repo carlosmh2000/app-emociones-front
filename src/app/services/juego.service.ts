@@ -50,6 +50,10 @@ export class JuegoService {
     return this.http.get<JuegoUnir>(`${this.apiUrl}/unirColor/${id}`);
   }
 
+  getJuegoBuscarIntruso(id: string): Observable<JuegoBuscarIntruso>{
+    return this.http.get<JuegoBuscarIntruso>(`${this.apiUrl}/buscarIntruso/${id}`);
+  }
+
 
   deleteJuego(id: number): Observable<any>{
     return this.http.delete<any>(`${this.apiUrl}/${id}`);

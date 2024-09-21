@@ -20,7 +20,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   templateUrl: './juego-buscar-intruso.page.html',
   styleUrls: ['./juego-buscar-intruso.page.scss'],
 })
-export class JuegoBuscarIntrusoPage implements OnInit, AfterContentChecked  {
+export class JuegoBuscarIntrusoPage implements OnInit  {
   juegoService = inject(JuegoService);
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
@@ -73,8 +73,8 @@ export class JuegoBuscarIntrusoPage implements OnInit, AfterContentChecked  {
   public isBeginning: boolean = true;
   public isEnd: boolean = false;
 
-
-juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../assets/portadaJuegoUnirColor', 'UnirColor',
+juego?: JuegoBuscarIntruso;
+juego2 : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../assets/portadaJuegoUnirColor', 'UnirColor',
   'Seleccionar la emoción adecuada para cada color', true, 'Seleccionar la emoción adecuada para cada color. Pruébalo en la izquierda', true,
   ['../../assets/sonidoAcertar.mp3', '../../assets/sonidoFallar.mp3', '../../assets/sonidoTocar.mp3', '../../assets/sonidoCompletar.mp3'],
   true, true, true, true, '../../assets/pictoAcertar.png', '../../assets/pictoFallar.png', true, '¿Cómo te sientes?', [],
@@ -106,67 +106,75 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
 @ViewChild(IonSlides, { static: false }) ionSlides: IonSlides;
 
   constructor( private ptl : Platform, private cd: ChangeDetectorRef, private menu: MenuController) {
-    this.buildSlides();
-
    }
 
-  ngOnInit() {
+ngOnInit() {
+  this.activatedRoute.paramMap.subscribe(params => {
+    let juegoId = params.get('juegoId');
+    this.alumnoId = params.get('alumnoId');
+    console.log('Fetching game data for juegoId:', juegoId);
+    this.juegoService.getJuegoBuscarIntruso(juegoId).subscribe(data => {
+      console.log('Game data fetched:', data);
+      this.juego = new JuegoBuscarIntruso(data.id, data.nombre, data.portada, data.tipo,
+        data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
+        data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
+        data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal,
+        data.pregunta_tutorial, data.ejercicios);
 
-    this.activatedRoute.paramMap.subscribe(params => {
-      let juegoId = params.get('juegoId');
-      this.alumnoId = params.get('alumnoId')
-      console.log('juegoId: ' + juegoId);
-      console.log(params);
+      this.buildSlides();
+      console.log(this.slides);
+      console.log(this.currentSlide);
+      this.width = this.ptl.width;
+      this.height = this.ptl.height;
 
-      this.juegoService.getJuego(juegoId, 'buscarIntruso').subscribe(data => {
-        //this.juego = data;
-        console.log(this.juego);
-      });
+      this.audioAcertar.src = '../../assets/acertar.mp3';
+      this.audioFallar.src = '../../assets/fallar.mp3';
+      this.audioCompletar.src = '../../assets/completar.mp3';
+      this.audioTocar.src = '../../assets/tocar.mp3';
 
+      this.audioAcertar.load();
+      this.audioFallar.load();
+      this.audioCompletar.load();
+      this.audioTocar.load();
 
+      this.audioFallar.volume -= 0.4;
+      this.audioCompletar.volume -= 0.4;
+      this.audioTocar.volume -= 0.4;
+
+      this.numEjercicios = this.juego.ejercicios.length;
+
+      // Assign the first exercise to ejercicioTutorial
+      this.ejercicioTutorial = this.juego.ejercicios[0].map(ejercicio => ({
+        id: ejercicio.id,
+        img: ejercicio.img,
+        texto: ejercicio.texto,
+        intruso: ejercicio.intruso,
+        numEjer: ejercicio.numEjer,
+      }));
+
+      // Assign the remaining exercises to ejercicios
+      for (let i = 1; i < this.juego.ejercicios.length; i++) {
+        let aux = [];
+        for (let j = 0; j < this.juego.ejercicios[i].length; j++) {
+          aux.push({
+            id: this.juego.ejercicios[i][j].id,
+            img: this.juego.ejercicios[i][j].img,
+            texto: this.juego.ejercicios[i][j].texto,
+            intruso: this.juego.ejercicios[i][j].intruso,
+            numEjer: this.juego.ejercicios[i][j].numEjer,
+          });
+        }
+        console.log(this.juego.ejercicios[i].length);
+        this.ejercicios.push(aux);
+      }
+
+      console.log(this.ejercicios);
+      console.log(this.ejercicios.length);
+    }, error => {
+      console.error('Error fetching game data:', error);
     });
-    this.width = this.ptl.width;
-    this.height = this.ptl.height;
-
-    this.audioAcertar.src = '../../assets/acertar.mp3';
-    this.audioFallar.src = '../../assets/fallar.mp3';
-    this.audioCompletar.src = '../../assets/completar.mp3';
-    this.audioTocar.src = '../../assets/tocar.mp3';
-
-    this.audioAcertar.load();
-    this.audioFallar.load();
-    this.audioCompletar.load();
-    this.audioTocar.load();
-
-    this.audioFallar.volume -= 0.4;
-    this.audioCompletar.volume -= 0.4;
-    this.audioTocar.volume -= 0.4;
-
-    this.numEjercicios = this.juego.ejercicios.length;
-
-    this.ejercicioTutorial = this.juego.pregunta_tutorial;
-
-    console.log(this.ejercicioTutorial);
-    console.log(this.ejercicioTutorial.length);
-
-    this.ejercicios = this.juego.ejercicios;
-
-  console.log('ejercicios: ' + this.ejercicios );
-
-    let aux : PreguntaBuscarIntruso[][] = [];
-
-    for(let i = 0; i < this.ejercicios.length; i++){
-      aux.push(this.shuffle(this.ejercicios[i]));
-    }
-
-    this.ejercicios = aux;
-
-    console.log(this.ejercicios);
-    console.log(this.ejercicios.length);
-
-
-
-  }
+  });
+}
   @HostListener('window:resize', ['$event'])
   private onResize(event){
     const width = event.target.innerWidth;
@@ -186,11 +194,6 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
       this.claseBoton = 'botonImagenSmaller';
     }
 
-  }
-
-
-  ngAfterContentChecked() : void {
-    this.cd.detectChanges();
   }
 
   public slidesOpts = {
@@ -400,6 +403,12 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
     let clase = 'botonImagen';
     this.seleccionadoClase1 = 'botonImagen';
 
+    if(this.seleccionadoFinal == id){
+      clase = 'botonImagenSelected';
+      this.audioCompletar.play();
+
+    }
+
     if (!this.encontrado && this.seleccionado1 == id){
       this.resultado();
       if(this.encontrado){
@@ -509,11 +518,7 @@ juego : JuegoBuscarIntruso = new JuegoBuscarIntruso(1, 'Une el color', '../../as
       this.numAciertos ++;
       this.seleccionado1 = null;
 
-      this.audioAcertar.play().then(async _ =>{
-        const delay = ms => new Promise(res => setTimeout(res, ms));
-        delay(6000);
-        this.audioAcertar.pause();
-      });
+      this.audioAcertar.play();
 
     }
 
