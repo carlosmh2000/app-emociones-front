@@ -14,6 +14,7 @@ import { JuegoUnir } from 'src/app/models/juego-unir.model';
 import { Juego } from 'src/app/models/juego.model';
 import { PreguntaUnir } from 'src/app/models/pregunta-unir.model';
 import {JuegoService} from "../../../services/juego.service";
+import {delay} from "rxjs/operators";
 
 
 @Component({
@@ -50,7 +51,8 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
   resultados : Resultado[] = [];
   seleccionadoFinal = null;
   terminarVentana = false;
-  audioAcertar = new Audio();
+  audioAcertar = new Audio('../../assets/acertar.mp3');
+  audioTocar = new Audio();
   musicaSeleccionada = '';
 
   audioFallar = new Audio();
@@ -70,7 +72,7 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
   public isBeginning: boolean = true;
   public isEnd: boolean = false;
 
-
+  sonidosJuego = ['../../assets/sonidoAcertar.mp3', '../../assets/sonidoFallar.mp3', '../../assets/sonidoTocar.mp3', '../../assets/sonidoCompletar.mp3']
   public juego : JuegoUnir = new JuegoUnir(1, 'Une el color', '../../assets/portadaJuegoUnirColor', 'UnirColor',
     'Seleccionar la emoción adecuada para cada color', true, 'Seleccionar la emoción adecuada para cada color. Pruébalo en la izquierda', true,
     ['../../assets/sonidoAcertar.mp3', '../../assets/sonidoFallar.mp3', '../../assets/sonidoTocar.mp3', '../../assets/sonidoCompletar.mp3'],
@@ -101,7 +103,7 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
 
   alumnoId?: string;
   constructor(private activatedRoute: ActivatedRoute, private ptl : Platform, private cd: ChangeDetectorRef, private menu: MenuController, private router: Router) {
-    this.buildSlides();
+    //this.buildSlides();
 
   }
 
@@ -110,68 +112,70 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
 
 
       let juegoId = params.get('juegoId');
+      //this.alumnoId = params.get('alumnoId') ? parseInt(params.get('alumnoId')) : null;
       console.log('juegoId: ' + juegoId);
       this.juegoService.getJuegoUnirColor(juegoId).subscribe(data => {
         this.juego = new JuegoUnir(data.id, data.nombre, data.portada, data.tipo,
-            data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
-            data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
-            data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal,
-            data.pregunta_tutorial, data.ejercicios);
-          this.buildSlides();
-          this.width = this.ptl.width;
-          this.height = this.ptl.height;
+          data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
+          this.sonidosJuego, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
+          data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal,
+          data.pregunta_tutorial, data.ejercicios);
+        this.buildSlides();
+        this.width = this.ptl.width;
+        this.height = this.ptl.height;
+        console.log(this.juego.ejercicios);
+        console.log(data.ejercicios);
+        this.audioFallar.src = '../../assets/fallar.mp3';
+        this.audioCompletar.src = '../../assets/completar.mp3';
+        this.audioTocar.src = '../../assets/tocar.mp3';
 
-          //this.audioAcertar.src = '../../assets/acertar.mp3';
-          this.audioFallar.src = '../../assets/fallar.mp3';
-          this.audioCompletar.src = '../../assets/completar.mp3';
-          //this.audioTocar.src = '../../assets/tocar.mp3';
+        this.audioAcertar.load();
+        this.audioFallar.load();
+        this.audioCompletar.load();
+        this.audioTocar.load();
 
-          //this.audioAcertar.load();
-          this.audioFallar.load();
-          this.audioCompletar.load();
-          //this.audioTocar.load();
+        this.audioFallar.volume -= 0.4;
+        this.audioAcertar.volume -= 0.4;
+        this.audioCompletar.volume -= 0.4;
+        //this.audioTocar.volume -= 0.4;
 
-          this.audioFallar.volume -= 0.4;
-          this.audioCompletar.volume -= 0.4;
-          //this.audioTocar.volume -= 0.4;
+        this.numEjercicios = this.juego.ejercicios.length;
+        // Assign the first exercise to ejercicioTutorial
+        this.ejercicioTutorial = this.juego.ejercicios[0].map(ejercicio => ({
+          id: ejercicio.id,
+          img: ejercicio.img_1,
+          texto: ejercicio.texto_1,
+          tipo: 'color',
+          musica: ejercicio.musica
+        })).concat(this.juego.ejercicios[0].map(ejercicio => ({
+          id: ejercicio.id,
+          img: ejercicio.img_2,
+          texto: ejercicio.texto_2,
+          tipo: 'asociada',
+          musica: ejercicio.musica
+        })));
 
-          this.numEjercicios = this.juego.ejercicios.length;
-      // Assign the first exercise to ejercicioTutorial
-      this.ejercicioTutorial = this.juego.ejercicios[0].map(ejercicio => ({
-        id: ejercicio.id,
-        img: ejercicio.img_1,
-        texto: ejercicio.texto_1,
-        tipo: 'color',
-        musica: ejercicio.musica
-      })).concat(this.juego.ejercicios[0].map(ejercicio => ({
-        id: ejercicio.id,
-        img: ejercicio.img_2,
-        texto: ejercicio.texto_2,
-        tipo: 'asociada',
-        musica: ejercicio.musica
-      })));
-
-      // Assign the remaining exercises to ejercicios
-      for (let i = 1; i < this.juego.ejercicios.length; i++) {
-        let aux = [];
-        for (let j = 0; j < this.juego.ejercicios[i].length; j++) {
-          aux.push({
-            id: this.juego.ejercicios[i][j].id,
-            img: this.juego.ejercicios[i][j].img_1,
-            texto: this.juego.ejercicios[i][j].texto_1,
-            tipo: 'color',
-            musica: this.juego.ejercicios[i][j].musica
-          });
-          aux.push({
-            id: this.juego.ejercicios[i][j].id,
-            img: this.juego.ejercicios[i][j].img_2,
-            texto: this.juego.ejercicios[i][j].texto_2,
-            tipo: 'asociada',
-            musica: this.juego.ejercicios[i][j].musica
-          });
+        // Assign the remaining exercises to ejercicios
+        for (let i = 1; i < this.juego.ejercicios.length; i++) {
+          let aux = [];
+          for (let j = 0; j < this.juego.ejercicios[i].length; j++) {
+            aux.push({
+              id: this.juego.ejercicios[i][j].id,
+              img: this.juego.ejercicios[i][j].img_1,
+              texto: this.juego.ejercicios[i][j].texto_1,
+              tipo: 'color',
+              musica: this.juego.ejercicios[i][j].musica
+            });
+            aux.push({
+              id: this.juego.ejercicios[i][j].id,
+              img: this.juego.ejercicios[i][j].img_2,
+              texto: this.juego.ejercicios[i][j].texto_2,
+              tipo: 'asociada',
+              musica: this.juego.ejercicios[i][j].musica
+            });
+          }
+          this.ejercicios.push(aux);
         }
-        this.ejercicios.push(aux);
-      }
 
           //this.ejercicioTutorial = this.shuffle(this.ejercicioTutorial);
 
@@ -183,8 +187,6 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
   private onResize(event){
     const width = event.target.innerWidth;
     const height = event.target.innerHeight;
-    console.log('width: ' + width);
-    console.log('height: '+ height);
     this.botonSize(width, height);
   }
 
@@ -198,9 +200,6 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
       this.claseBoton = 'botonImagenSmaller';
     }
 
-    console.log(' CLASEEE: ' + this.claseBoton);
-    console.log(' WIDTHHH: ' + this.width);
-    console.log(' HEIGHTTT: ' + this.height);
   }
 
 
@@ -499,7 +498,6 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
     this.seleccionadoClase2 = 'botonImagen';
   }
 
-  console.log('CLASEEE2 : ' + clase);
   return clase;
 
 
@@ -562,7 +560,7 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
     }
 }
 
-  resultado(seleccionado1, seleccionado2, musica){
+ async resultado(seleccionado1, seleccionado2, musica){
 
     const id1 = seleccionado1.split("+")[0];
     const id2 = seleccionado2.split("+")[0];
@@ -582,24 +580,19 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
 
       if((this.tutorial && this.ejercicioTutorial.length == this.unidos.length) || this.currentEj.length == this.unidos.length ){
 
-
-        this.audioAcertar.play().then(async _ =>{
-          const delay = ms => new Promise(res => setTimeout(res, ms));
-          await delay(5000);
-          this.audioAcertar.pause();
-          await delay(200);
-          this.todosUnidosTutorial = true;
-          this.audioCompletar.play();
-        });
+        console.log('ACERTAR');
+        this.audioAcertar.play();
+        await delay(1000);
+        this.audioAcertar.pause();
+        this.todosUnidosTutorial = true;
+        this.audioCompletar.play();
 
       }
 
       else{
-        this.audioAcertar.play().then(async _ =>{
-          const delay = ms => new Promise(res => setTimeout(res, ms));
-          await delay(6000);
-          this.audioAcertar.pause();
-        });
+        console.log('ACERTAR 2');
+        console.log(this.audioAcertar.src);
+        this.audioAcertar.play();
 
 
       }

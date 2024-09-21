@@ -14,6 +14,7 @@ import { JuegoUnir } from 'src/app/models/juego-unir.model';
 import { Juego } from 'src/app/models/juego.model';
 import { PreguntaUnir } from 'src/app/models/pregunta-unir.model';
 import {JuegoService} from "../../../services/juego.service";
+import {delay} from "rxjs/operators";
 
 @Component({
   selector: 'app-juego-unir-pareja',
@@ -64,6 +65,7 @@ export class JuegoUnirParejaPage implements OnInit {
   mostrarResultados = true;
   resultadosPositivos = true;
   resultadosNegativos = true;
+  alumnoId ?: string;
   public juego?: JuegoUnir;
 
   public slides: string[];
@@ -116,12 +118,12 @@ init = false
           this.width = this.ptl.width;
           this.height = this.ptl.height;
 
-          //this.audioAcertar.src = '../../assets/acertar.mp3';
+          this.audioAcertar.src = '../../assets/acertar.mp3';
           this.audioFallar.src = '../../assets/fallar.mp3';
           this.audioCompletar.src = '../../assets/completar.mp3';
           this.audioTocar.src = '../../assets/tocar.mp3';
 
-          //this.audioAcertar.load();
+          this.audioAcertar.load();
           this.audioFallar.load();
           this.audioCompletar.load();
           this.audioTocar.load();
@@ -366,7 +368,7 @@ init = false
 
     else if(this.currentSlide === 'Final') {
       //route to inicio
-
+      this.router.navigate('/login/alumno/', this.alumnoId)
 
     }
 
@@ -481,7 +483,6 @@ init = false
     if(this.seleccionado1 == id){
 
       if(this.seleccionado2 != null){
-
         this.resultado(this.seleccionado1, this.seleccionado2, musica);
         if(this.isFallo){
           this.seleccionadoClase1 = 'botonImagenSelectedFallo';
@@ -607,7 +608,7 @@ init = false
     }
 }
 
-  resultado(seleccionado1, seleccionado2, musica){
+ async resultado(seleccionado1, seleccionado2, musica){
 
     const id1 = seleccionado1.split("+")[0];
     const id2 = seleccionado2.split("+")[0];
@@ -621,32 +622,25 @@ init = false
       this.unidos.push(seleccionado2);
       this.seleccionado1 = null;
       this.seleccionado2 = null;
-      console.log('unidos: '+ this.unidos);
 
-      this.audioAcertar.src = musica;
-      console.log('MUSICAAAAA: ' + this.audioAcertar.src);
-      this.audioAcertar.load();
+      //this.audioAcertar.src = musica;
+      //this.audioAcertar.load();
 
       if((this.tutorial && this.ejercicioTutorial.length == this.unidos.length) || this.currentEj.length == this.unidos.length ){
 
-
-        this.audioAcertar.play().then(async _ =>{
-          const delay = ms => new Promise(res => setTimeout(res, ms));
-          await delay(5000);
-          this.audioAcertar.pause();
-          await delay(200);
-          this.todosUnidosTutorial = true;
-          this.audioCompletar.play();
-        });
+        console.log('ACERTAR');
+        this.audioAcertar.play();
+        await delay(1000);
+        this.audioAcertar.pause();
+        this.todosUnidosTutorial = true;
+        this.audioCompletar.play();
 
       }
 
       else{
-        this.audioAcertar.play().then(async _ =>{
-          const delay = ms => new Promise(res => setTimeout(res, ms));
-          await delay(6000);
-          this.audioAcertar.pause();
-        });
+        console.log('ACERTAR 2');
+        console.log(this.audioAcertar.src);
+        this.audioAcertar.play();
 
 
       }
@@ -654,11 +648,12 @@ init = false
     }
 
     else if(id1 != id2){
+      console.log('FAIL');
       if( this.seleccionadoClase2 != 'botonImagenSelectedFallo' ||  this.seleccionadoClase1 != 'botonImagenSelectedFallo' ){
         this.numErrores++;
 
       }
-
+      console.log(this.audioFallar.src);
       this.audioFallar.play();
       this.isFallo = true;
 
