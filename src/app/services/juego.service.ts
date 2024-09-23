@@ -41,6 +41,7 @@ export class JuegoService {
   }
 
   getJuego(id: string, tipo: string): Observable<Juego>{
+    if (tipo == 'hacerPareja') tipo = 'unirPareja';
     return this.http.get<Juego>(`${this.apiUrl}/${id}/${tipo}`);
   }
   getJuegoUnirPareja(id: string): Observable<JuegoUnir>{
@@ -60,8 +61,9 @@ export class JuegoService {
   }
 
 
-  deleteJuego(id: number): Observable<any>{
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  deleteJuego(id: number, tipo: string): Observable<any>{
+    if (tipo == 'hacerPareja') tipo = 'unirPareja';
+    return this.http.delete<any>(`${this.apiUrl}/${id}/${tipo}`);
   }
 
   updateJuego(juego: Juego): Observable<Juego>{

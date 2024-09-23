@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Juego } from 'src/app/models/juego.model';
 import {JuegoService} from "../../services/juego.service";
 
@@ -10,9 +10,11 @@ import {JuegoService} from "../../services/juego.service";
 })
 export class JuegoPage implements OnInit {
   juegoService = inject(JuegoService);
+  router = inject(Router);
 
   public juegos : Juego[] = [];
   public nombreJuego;
+  public juegoId
   public portada;
   public tipo;
 
@@ -24,12 +26,12 @@ export class JuegoPage implements OnInit {
 
 
     this.activatedRoute.paramMap.subscribe(params => {
-      let juegoId = params.get('juegoId');
+      this.juegoId = params.get('juegoId');
       let tipoJuego = params.get('tipojuego');
-      console.log('juegoId: ' + juegoId);
+      console.log('juegoId: ' + this.juegoId);
       console.log('tipoJuego: ' + tipoJuego);
 
-      this.juegoService.getJuego(juegoId, tipoJuego).subscribe(data => {
+      this.juegoService.getJuego(this.juegoId, tipoJuego).subscribe(data => {
         this.nombreJuego = data.nombre;
         console.log('nombreJuego: ' + this.nombreJuego);
         this.portada = data.portada;
@@ -40,6 +42,13 @@ export class JuegoPage implements OnInit {
       });
     });
 
+  }
+
+  redirectToConfig(): void {
+    console.log('Redirecting to configuracion-juego');
+    this.router.navigate([`/juegos/${this.tipo}/juego/${this.juegoId}/configuracion-juego`], {
+      queryParams: {juegoId: this.juegoId, tipo: this.tipo}
+    });
   }
 
 }
