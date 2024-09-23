@@ -1,4 +1,4 @@
-@font-face { font-family: Escolar; src: url('/assets/fonts/escolar.ttf'); } 
+@font-face { font-family: Escolar; src: url('/assets/fonts/escolar.ttf'); }
 
  ion-toolbar{
    --background: #ebd4ab;
@@ -37,7 +37,7 @@ ion-slides, ng-container, ion-slide{
   object-fit: cover;
   overflow: hidden;
   height: 90px;
-  max-width: 100%; 
+  max-width: 100%;
   align-items: center;
   display: flex;
   justify-content: center;
@@ -61,7 +61,7 @@ ion-slides, ng-container, ion-slide{
   color: green;
   vertical-align: middle;
   line-height: 45px;
-  display: flex; 
+  display: flex;
   justify-content: center;
 }
 
@@ -75,7 +75,7 @@ ion-slides, ng-container, ion-slide{
   color:red;
   vertical-align: middle;
   line-height: 45px;
-  display: flex; 
+  display: flex;
   justify-content: center;
 }
 
@@ -95,11 +95,12 @@ ion-slides, ng-container, ion-slide{
 
 .middleEjercicio {
   flex: 1;
-  vertical-align: middle;
-  text-align: center;
+  display: flex;
   align-items: center;
   height: 100%;
-
+  min-width: 80%;
+  justify-content: space-between;
+  padding-left: 20px;
 }
 
 .middleTutorial {
@@ -175,7 +176,7 @@ ion-slides, ng-container, ion-slide{
 
 @media(max-width: 1200px) {
 
-  
+
 .botonHeader{
   width: 150px;
   height: 85px;
@@ -219,7 +220,7 @@ ion-slides, ng-container, ion-slide{
   cursor: pointer;
   overflow: hidden;
   outline: none;
-  
+
 }
 
   ion-icon{
@@ -232,7 +233,7 @@ ion-slides, ng-container, ion-slide{
     font-weight: bold;
     text-align: center;
     color: black;
-    
+
   }
 
   .textoImg{
@@ -242,7 +243,7 @@ ion-slides, ng-container, ion-slide{
     color:black;
     overflow-wrap: break-word;
   }
-  
+
   .imagen{
     width:100%;
     height:100%;
@@ -254,32 +255,37 @@ ion-slides, ng-container, ion-slide{
     align-items: center;
     display: flex;
     justify-content: center;
-  
+
   }
 
   .elemento {
+      flex: 1;
+  max-width: 50%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
     height: 100%;
     min-width: 80px;
     min-height: 80px;
     padding: 7px 7px;
     justify-content: center;
     align-items: center;
-    
+
   }
 
   .elementoImg {
     height: 100%;
     min-width: 80px;
     min-height: 80px;
-    justify-content: center;
-    align-items: center;
-
-    position: relative;
-    max-width: 1080px;
+    justify-content: flex-start;
+    align-items: self-start;
+    flex: 1;
+    width: 50%;
+    display: flex;
     margin: auto;
     padding: 80px 30px;
     box-sizing: content-box;
-    
+
   }
 
   .elementos {
@@ -297,13 +303,13 @@ ion-slides, ng-container, ion-slide{
     box-sizing: content-box;
     min-width: 0;
     height: 100%;
-  
+
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    
-    
+
+
   }
-  
+
   .elementos6 {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -311,19 +317,19 @@ ion-slides, ng-container, ion-slide{
     flex-direction: row;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
-    justify-content: space-between;
+    justify-content: flex-end;
     position: relative;
-    max-width: 1080px;
+    max-width: 720px;
     margin: auto;
-    padding: 0 20px;
+    padding: 0 15px;
     box-sizing: content-box;
     min-width: 0;
     height: 100%;
-  
+
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    
-    
+
+
   }
 
   .elementos8 {
@@ -341,11 +347,11 @@ ion-slides, ng-container, ion-slide{
     box-sizing: content-box;
     min-width: 0;
     height: 100%;
-    
-  
+
+
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    
+
   }
 
 
@@ -367,6 +373,18 @@ ion-slides, ng-container, ion-slide{
 
 
 @media(min-width: 1200px) {
+  .elementoImg {
+    width: 270px;
+    height: 200px;
+    justify-content: flex-start;
+    align-items: self-start;
+    flex: 1;
+    display: flex;
+    margin: auto;
+    margin-left: 0;
+    box-sizing: content-box;
+
+  }
 
   .botonHeader{
     width: 150px;
@@ -383,8 +401,8 @@ ion-slides, ng-container, ion-slide{
     text-align: center;
     line-height: 40px;
   }
-  
-  
+
+
   .botonHeaderRepetir{
     width: 150px;
     height: 85px;
@@ -402,7 +420,7 @@ ion-slides, ng-container, ion-slide{
     justify-content: center;
     overflow: hidden;
   }
-  
+
   .botonHeaderTransparente{
     width: 70px;
     height: 85px;
@@ -413,13 +431,13 @@ ion-slides, ng-container, ion-slide{
     cursor: pointer;
     overflow: hidden;
     outline: none;
-    
+
   }
-  
+
     ion-icon{
       width: 100%;
     }
-  
+
     .titulo{
       margin-left: 20px;
       font-family: Escolar;
@@ -427,9 +445,9 @@ ion-slides, ng-container, ion-slide{
       font-weight: bold;
       text-align: center;
       color: black;
-      
+
     }
-  
+
     .textoImg{
       font-family: Escolar;
       font-size: 20px;
@@ -437,7 +455,7 @@ ion-slides, ng-container, ion-slide{
       color:black;
       overflow-wrap: break-word;
     }
-    
+
     .imagen{
       width:100%;
       height:100%;
@@ -449,20 +467,32 @@ ion-slides, ng-container, ion-slide{
       align-items: center;
       display: flex;
       justify-content: center;
-    
+
     }
-  
-    .elemento {
-      height: 100%;
-      min-width: 80px;
-      min-height: 80px;
-      padding: 7px 7px;
-      justify-content: center;
-      align-items: center;
-      
-    }
-    .elementos2 {
-      -webkit-box-orient: horizontal;
+
+  .elemento {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 220px;
+    height: 220px;
+    margin-left: 100px;
+    margin-top: 50px;
+
+  }
+
+  .elementoResultado {
+    height: 100%;
+    min-width: 80px;
+    min-height: 80px;
+    padding: 7px 7px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .elementos2 {
+    -webkit-box-orient: horizontal;
       -webkit-box-direction: normal;
       -ms-flex-direction: row;
       flex-direction: row;
@@ -476,13 +506,13 @@ ion-slides, ng-container, ion-slide{
       box-sizing: content-box;
       min-width: 0;
       height: 100%;
-    
+
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-      
-      
+
+
     }
-  
+
     .elementos {
       -webkit-box-orient: horizontal;
       -webkit-box-direction: normal;
@@ -498,13 +528,13 @@ ion-slides, ng-container, ion-slide{
       box-sizing: content-box;
       min-width: 0;
       height: 100%;
-    
+
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-      
-      
+
+
     }
-    
+
     .elementos6 {
       -webkit-box-orient: horizontal;
       -webkit-box-direction: normal;
@@ -514,19 +544,17 @@ ion-slides, ng-container, ion-slide{
       -ms-flex-pack: justify;
       justify-content: space-between;
       position: relative;
-      max-width: 1080px;
-      margin: auto;
-      padding: 0 20px;
+      max-width: 720px;
       box-sizing: content-box;
       min-width: 0;
       height: 100%;
-    
+      margin-right: 0;
+      padding-right: 0;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      
-      
+
     }
-  
+
     .elementos8 {
       -webkit-box-orient: horizontal;
       -webkit-box-direction: normal;
@@ -542,15 +570,15 @@ ion-slides, ng-container, ion-slide{
       box-sizing: content-box;
       min-width: 0;
       height: 100%;
-      
-    
+
+
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      
+
     }
-  
-  
-  
+
+
+
 }
 
 
@@ -610,3 +638,9 @@ ion-slides, ng-container, ion-slide{
   --ion-color-shade: var(--ion-color-azul-shade);
   --ion-color-tint: var(--ion-color-azul-tint);
 }
+
+.row{
+  display: flex;
+  flex-direction: row;
+}
+

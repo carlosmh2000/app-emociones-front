@@ -6,6 +6,7 @@ import {JuegoBuscarIntruso} from "../models/juego-buscar-intruso.model";
 import {JuegoUnirPareja} from "../models/juego-unir-pareja.model";
 import {JuegoUnircolor} from "../models/juego-unircolor.model";
 import {JuegoUnir} from "../models/juego-unir.model";
+import {JuegoAsociar} from "../models/juego-asociar.model";
 
 
 
@@ -48,6 +49,10 @@ export class JuegoService {
 
   getJuegoUnirColor(id: string): Observable<JuegoUnir>{
     return this.http.get<JuegoUnir>(`${this.apiUrl}/unirColor/${id}`);
+  }
+
+  getJuegoAsociarImagen(id: string): Observable<JuegoAsociar>{
+    return this.http.get<JuegoAsociar>(`${this.apiUrl}/asociarImagen/${id}`);
   }
 
   getJuegoBuscarIntruso(id: string): Observable<JuegoBuscarIntruso>{

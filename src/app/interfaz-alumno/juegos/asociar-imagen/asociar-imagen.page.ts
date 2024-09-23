@@ -46,6 +46,8 @@ export class AsociarImagenPage implements OnInit, AfterContentChecked {
   todosUnidosTutorial = false;
   numEjercicios = 0;
   currentEj = [];
+  currentImg;
+  currentOpts;
   currentEjNum = 1;
   tutorial = true;
   numErrores = 0;
@@ -76,42 +78,42 @@ export class AsociarImagenPage implements OnInit, AfterContentChecked {
   public isBeginning: boolean = true;
   public isEnd: boolean = false;
 
+  juego?: JuegoAsociar;
+  juego2 : JuegoAsociar = new JuegoAsociar(1, 'Une el color', '../../assets/portadaJuegoUnirColor', 'UnirColor',
+    'Seleccionar la emoción adecuada para cada color', true, 'Seleccionar la emoción adecuada para cada color. Pruébalo en la izquierda', true,
+    ['../../assets/sonidoAcertar.mp3', '../../assets/sonidoFallar.mp3', '../../assets/sonidoTocar.mp3', '../../assets/sonidoCompletar.mp3'],
+    true, true, true, true, '../../assets/pictoAcertar.png', '../../assets/pictoFallar.png', true, '¿Cómo te sientes?', [],
+    [new PreguntaAsociar(1, '../../assets/azul.png','Azul', 'imagen', false, 0),
+      new PreguntaAsociar(2, '../../assets/triste.png','Triste', 'opcion_imagen', true, 0),
+      new PreguntaAsociar(3, '../../assets/enfadado.png','Enfadado', 'opcion_imagen', false, 0),
+      new PreguntaAsociar(4, '../../assets/asustado.png','Asustado', 'opcion_imagen', false, 0),
+      new PreguntaAsociar(5, '../../assets/feliz.png','Feliz', 'opcion_imagen', false, 0),
+    ],
 
-juego : JuegoAsociar = new JuegoAsociar(1, 'Une el color', '../../assets/portadaJuegoUnirColor', 'UnirColor',
-  'Seleccionar la emoción adecuada para cada color', true, 'Seleccionar la emoción adecuada para cada color. Pruébalo en la izquierda', true,
-  ['../../assets/sonidoAcertar.mp3', '../../assets/sonidoFallar.mp3', '../../assets/sonidoTocar.mp3', '../../assets/sonidoCompletar.mp3'],
-  true, true, true, true, '../../assets/pictoAcertar.png', '../../assets/pictoFallar.png', true, '¿Cómo te sientes?', [],
-  [new PreguntaAsociar(1, '../../assets/azul.png','Azul', 'imagen', false, 0),
-  new PreguntaAsociar(2, '../../assets/triste.png','Triste', 'opcion_imagen', true, 0),
-  new PreguntaAsociar(3, '../../assets/enfadado.png','Enfadado', 'opcion_imagen', false, 0),
-  new PreguntaAsociar(4, '../../assets/asustado.png','Asustado', 'opcion_imagen', false, 0),
-  new PreguntaAsociar(5, '../../assets/feliz.png','Feliz', 'opcion_imagen', false, 0),
-  ],
+    [[new PreguntaAsociar(6, '../../assets/azul.png','Azul', 'imagen', false, 1),
+      new PreguntaAsociar(7, '../../assets/triste.png','Triste', 'opcion_imagen', true, 1),
+      new PreguntaAsociar(8, '../../assets/enfadado.png','Enfadado', 'opcion_imagen', false, 1),
+      new PreguntaAsociar(9, '../../assets/asustado.png','Asustado', 'opcion_imagen', false, 1),
+      new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false, 1),
+    ],
 
-[[new PreguntaAsociar(6, '../../assets/azul.png','Azul', 'imagen', false, 1),
-new PreguntaAsociar(7, '../../assets/triste.png','Triste', 'opcion_imagen', true, 1),
-new PreguntaAsociar(8, '../../assets/enfadado.png','Enfadado', 'opcion_imagen', false, 1),
-new PreguntaAsociar(9, '../../assets/asustado.png','Asustado', 'opcion_imagen', false, 1),
-new PreguntaAsociar(10, '../../assets/feliz.png','Feliz', 'opcion_imagen', false, 1),
-],
-
-[new PreguntaAsociar(11, '../../assets/azul.png','Azul', 'imagen', false, 1),
-  new PreguntaAsociar(12, '../../assets/triste.png','Triste', 'opcion_imagen', true, 1),
-  new PreguntaAsociar(13, '../../assets/enfadado.png','Enfadado', 'opcion_imagen', false, 1),
-  new PreguntaAsociar(14, '../../assets/asustado.png','Asustado', 'opcion_imagen', false, 1),
-  new PreguntaAsociar(15, '../../assets/feliz.png','Feliz', 'opcion_imagen', false, 1),
-  ],
-]);
-alumnoId ?: string;
+      [new PreguntaAsociar(11, '../../assets/azul.png','Azul', 'imagen', false, 1),
+        new PreguntaAsociar(12, '../../assets/triste.png','Triste', 'opcion_imagen', true, 1),
+        new PreguntaAsociar(13, '../../assets/enfadado.png','Enfadado', 'opcion_imagen', false, 1),
+        new PreguntaAsociar(14, '../../assets/asustado.png','Asustado', 'opcion_imagen', false, 1),
+        new PreguntaAsociar(15, '../../assets/feliz.png','Feliz', 'opcion_imagen', false, 1),
+      ],
+    ]);
+  alumnoId ?: string;
 
 
 @ViewChild(IonContent, { static: true }) ionContent: IonContent;
-@ViewChild(IonSlides, { static: false }) ionSlides: IonSlides;
+  @ViewChild(IonSlides, { static: false }) ionSlides: IonSlides;
 
   constructor( private ptl : Platform, private cd: ChangeDetectorRef, private menu: MenuController) {
-    this.buildSlides();
 
-   }
+
+  }
 
   ngOnInit() {
 
@@ -120,58 +122,67 @@ alumnoId ?: string;
       this.alumnoId = params.get('alumnoId')
       console.log('juegoId: ' + juegoId);
       console.log(params);
-      /**
-       *      this.juegoService.getJuego(juegoId).subscribe(data => {
-       *
-       *         this.juego = data;
-       *         console.log(this.juego);
-       *       });
-       * */
+
+      this.juegoService.getJuegoAsociarImagen(juegoId).subscribe(data => {
+        this.juego = new JuegoAsociar(data.id, data.nombre, data.portada, data.tipo,
+          data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
+          data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
+          data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal,
+          data.pregunta_tutorial, data.ejercicios);
+        this.buildSlides();
+        this.width = this.ptl.width;
+        this.height = this.ptl.height;
+
+        this.audioAcertar.src = '../../assets/acertar.mp3';
+        this.audioFallar.src = '../../assets/fallar.mp3';
+        this.audioCompletar.src = '../../assets/completar.mp3';
+        this.audioTocar.src = '../../assets/tocar.mp3';
+
+        this.audioAcertar.load();
+        this.audioFallar.load();
+        this.audioCompletar.load();
+        this.audioTocar.load();
+
+        this.audioFallar.volume -= 0.4;
+        this.audioCompletar.volume -= 0.4;
+        this.audioTocar.volume -= 0.4;
+
+        this.numEjercicios = this.juego.ejercicios.length;
+
+           // Assign the first exercise to ejercicioTutorial
+      this.ejercicioTutorial = this.juego.ejercicios[0].map(ejercicio => ({
+        id: ejercicio.id,
+        img: ejercicio.img,
+        texto: ejercicio.texto,
+        tipo: ejercicio.tipo,
+        opcionCorrecta: ejercicio.opcionCorrecta,
+        numEjer: ejercicio.numEjer,
+      }));
+
+      // Assign the remaining exercises to ejercicios
+      for (let i = 1; i < this.juego.ejercicios.length; i++) {
+        let aux = [];
+        for (let j = 0; j < this.juego.ejercicios[i].length; j++) {
+          aux.push({
+            id: this.juego.ejercicios[i][j].id,
+            img: this.juego.ejercicios[i][j].img,
+            texto: this.juego.ejercicios[i][j].texto,
+            tipo: this.juego.ejercicios[i][j].tipo,
+            opcionCorrecta: this.juego.ejercicios[i][j].opcionCorrecta,
+            numEjer: this.juego.ejercicios[i][j].numEjer,
+          });
+        }
+        console.log(this.juego.ejercicios[i].length);
+        this.ejercicios.push(aux);
+      }
+
+        console.log(this.ejercicios);
+        console.log(this.ejercicios.length);
+
+
+      });
 
     });
-    this.width = this.ptl.width;
-    this.height = this.ptl.height;
-
-    this.audioAcertar.src = '../../assets/acertar.mp3';
-    this.audioFallar.src = '../../assets/fallar.mp3';
-    this.audioCompletar.src = '../../assets/completar.mp3';
-    this.audioTocar.src = '../../assets/tocar.mp3';
-
-    this.audioAcertar.load();
-    this.audioFallar.load();
-    this.audioCompletar.load();
-    this.audioTocar.load();
-
-    this.audioFallar.volume -= 0.4;
-    this.audioCompletar.volume -= 0.4;
-    this.audioTocar.volume -= 0.4;
-
-    this.numEjercicios = this.juego.ejercicios.length;
-
-    this.ejercicioTutorial = this.juego.pregunta_tutorial;
-
-    console.log(this.ejercicioTutorial);
-    console.log(this.ejercicioTutorial.length);
-
-    this.ejercicios = this.juego.ejercicios;
-
-  console.log('ejercicios: ' + this.ejercicios );
-
-    let aux : PreguntaAsociar[][] = [];
-
-    for(let i = 0; i < this.ejercicios.length; i++){
-      aux.push(this.shuffle(this.ejercicios[i]));
-    }
-
-    this.ejercicioTutorial = this.shuffle(this.ejercicioTutorial);
-
-    this.ejercicios = aux;
-
-    console.log(this.ejercicios);
-    console.log(this.ejercicios.length);
-
-
-
   }
   @HostListener('window:resize', ['$event'])
   private onResize(event){
@@ -282,6 +293,8 @@ alumnoId ?: string;
     else{
       this.currentEjNum--;
       this.currentEj = this.ejercicios[this.currentEjNum-1];
+      this.currentImg = this.currentEj.filter(elem => elem.tipo === 'imagen')[0];
+      this.currentOpts = this.currentEj.filter(elem => elem.tipo !== 'imagen');
       this.currentSlide == ('Ejercicio_' + (this.currentEjNum).toString());
       this.resetJuego();
       this.currentEj.map(elem =>{
@@ -297,15 +310,17 @@ alumnoId ?: string;
     console.log(this.currentSlide);
     if (this.currentSlide === 'Tutorial') {
 
-        //this.ionSlides.slideNext();
-        this.currentEj = this.ejercicios[0];
-        this.currentSlide = 'Ejercicio_1';
-        console.log("this.ejercicios[0] " + this.ejercicios[0]);
-        console.log("thisCurrent " + this.currentEj);
-        //this.ionContent.scrollToTop();
-        this.resetJuego();
-        console.log(this.currentSlide);
-        this.tutorial = false;
+      //this.ionSlides.slideNext();
+      this.currentEj = this.ejercicios[0];
+      this.currentImg = this.currentEj.filter(elem => elem.tipo === 'imagen')[0];
+      this.currentOpts = this.currentEj.filter(elem => elem.tipo !== 'imagen');
+      this.currentSlide = 'Ejercicio_1';
+      console.log("this.ejercicios[0] " + this.ejercicios[0]);
+      console.log("thisCurrent " + this.currentEj);
+      //this.ionContent.scrollToTop();
+      this.resetJuego();
+      console.log(this.currentSlide);
+      this.tutorial = false;
     }
 
     else if(this.currentSlide === 'Final') {
@@ -332,14 +347,18 @@ alumnoId ?: string;
          //if(this.todosUnidosTutorial){
 
           this.resultados.push({numErrores: this.numErrores, numAciertos: this.numAciertos, numEjer: this.currentEjNum});
+          console.log(`ERRORES DEL EJERCICIO ${1+i}: ${this.numErrores}`);
           if(this.currentEjNum != this.ejercicios.length){
-              this.currentEjNum ++;
-              this.currentEj = this.ejercicios[this.currentEjNum-1];
-              this.currentSlide = ('Ejercicio_' + (this.currentEjNum).toString());
+            this.currentEjNum ++;
+            this.currentEj = this.ejercicios[this.currentEjNum-1];
+            this.currentImg = this.currentEj.filter(elem => elem.tipo === 'imagen')[0];
+            this.currentOpts = this.currentEj.filter(elem => elem.tipo !== 'imagen');
+            console.log(`LA FOTO DEL EJERCICIO: \n${this.currentImg}`);
+            this.currentSlide = ('Ejercicio_' + (this.currentEjNum).toString());
 
           }
           else if(this.mostrarResultados){
-              this.currentSlide = 'Resultados';
+            this.currentSlide = 'Resultados';
           }
 
           else{
@@ -347,13 +366,13 @@ alumnoId ?: string;
           }
 
 
-            //this.ionSlides.slideNext();
-            //this.ionContent.scrollToTop();
-            this.resetJuego();
+          //this.ionSlides.slideNext();
+          //this.ionContent.scrollToTop();
+          this.resetJuego();
 
-            slide = true;
-            console.log(this.currentSlide);
-            console.log(this.resultados);
+          slide = true;
+          console.log(this.currentSlide);
+          console.log(this.resultados);
           //}
         }
         i++;
@@ -367,7 +386,7 @@ alumnoId ?: string;
     if(!this.encontrado){
 
       if(this.esRepetido)
-      this.esRepetido = false;
+        this.esRepetido = false;
 
       if(this.isFallo)
         this.isFallo = false;
@@ -403,6 +422,12 @@ alumnoId ?: string;
 
     let clase = 'botonImagen';
     this.seleccionadoClase1 = 'botonImagen';
+
+    if(this.seleccionadoFinal == id){
+      clase = 'botonImagenSelected';
+      this.audioCompletar.play();
+
+    }
 
     if (!this.encontrado && this.seleccionado1 == id){
       this.resultado();
@@ -513,17 +538,14 @@ alumnoId ?: string;
       this.numAciertos ++;
       this.seleccionado1 = null;
 
-      this.audioAcertar.play().then(async _ =>{
-        const delay = ms => new Promise(res => setTimeout(res, ms));
-        delay(6000);
-        this.audioAcertar.pause();
-      });
+      this.audioAcertar.play().then();
 
     }
 
     else{
       if( this.seleccionadoClase1 != 'botonImagenSelectedFallo' )
-        this.numErrores++;
+        console.log('ERROR');
+      this.numErrores++;
 
       this.audioFallar.play();
       this.isFallo = true;
