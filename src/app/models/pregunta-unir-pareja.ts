@@ -7,8 +7,9 @@ export class PreguntaUnirPareja {
     public img_2: string;
     public texto_2: string;
     public numEjer : number;
-  
-    constructor(id = null, img_1 = null, texto_1 = '', img_2 = null, texto_2 = '', numEjer = null) 
+    public musica: string;
+
+    constructor(id = null, img_1 = null, texto_1 = '', img_2 = null, texto_2 = '', numEjer = null, musica = '')
     {
 
       this.id = id;
@@ -17,6 +18,7 @@ export class PreguntaUnirPareja {
       this.img_2 = img_2;
       this.texto_2 = texto_2;
       this.numEjer = numEjer;
+      this.musica = musica;
     }
-  
+
   }
