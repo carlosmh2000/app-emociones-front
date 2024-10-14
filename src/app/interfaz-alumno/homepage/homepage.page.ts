@@ -71,7 +71,7 @@ jugarJuegoTipo(tipo: string, id?: number): void {
     this.router.navigate([`/login/alumno/${this.alumno.id}/juego-unir-color/${id}`]);
   } else if (tipo === 'asociarImagen') {
     this.router.navigate([`/login/alumno/${this.alumno.id}/juego-asociar-imagen/${id}`]);
-  } else if (tipo === 'hacerPareja') {
+  } else if (tipo === 'unirPareja' || tipo === 'hacerPareja') {
     this.router.navigate([`/login/alumno/${this.alumno.id}/juego-unir-pareja/${id}`]);
   } else if (tipo === 'buscarIntruso') {
     this.router.navigate([`/login/alumno/${this.alumno.id}/juego-buscar-intruso/${id}`]);

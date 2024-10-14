@@ -42,7 +42,7 @@ export class JuegoService {
 
   getJuego(id: string, tipo: string): Observable<Juego>{
     if (tipo == 'hacerPareja') tipo = 'unirPareja';
-    return this.http.get<Juego>(`${this.apiUrl}/${id}/${tipo}`);
+    return this.http.get<Juego>(`${this.apiUrl}/${tipo}/${id}`);
   }
   getJuegoUnirPareja(id: string): Observable<JuegoUnir>{
     return this.http.get<JuegoUnir>(`${this.apiUrl}/unirPareja/${id}`);
