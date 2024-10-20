@@ -16,6 +16,7 @@ export class PerfilAlumnoPage implements OnInit {
   public alumno : Alumno;
   public nombreAlumno;
   public foto;
+  public idAlumno ;
 
   constructor(private activatedRoute: ActivatedRoute) {
 
@@ -33,6 +34,7 @@ export class PerfilAlumnoPage implements OnInit {
         this.nombreAlumno = data.nombre;
         console.log('nombreAlumno: ' + this.nombreAlumno);
         this.foto = data.fotoPerfil;
+        this.idAlumno = data.id
 
         console.log('profilePhoto: ' + this.foto);
       });

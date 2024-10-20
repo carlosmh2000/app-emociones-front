@@ -7,6 +7,7 @@ import { JuegoUnir } from 'src/app/models/juego-unir.model';
 import {JuegoService} from "../../services/juego.service";
 import {JuegoElegirEmocion} from "../../models/juego-elegir-emocion.model";
 import {JuegoAsociarFrase} from "../../models/juego-asociar-frase.model";
+import {AlumnoService} from "../../services/alumno.service";
 
 @Component({
   selector: 'app-juego-tipo',
@@ -15,6 +16,7 @@ import {JuegoAsociarFrase} from "../../models/juego-asociar-frase.model";
 })
 export class JuegoTipoPage implements OnInit {
   juegoService = inject(JuegoService);
+  alumnoService = inject(AlumnoService)
   public juegos : JuegoUnir[] = [];
   public juegosBuscarIntruso : JuegoBuscarIntruso[] = [];
   public juegosAsociar : JuegoAsociar[] = [];
@@ -22,8 +24,10 @@ export class JuegoTipoPage implements OnInit {
   public juegosElegirEmocion : JuegoElegirEmocion[] = [];
   public juegosAsociarFrase : JuegoAsociarFrase[] = [];
   public tipoJuego;
+  asignandoJuegos = false;
+  idAlumno = ''
 
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) {
 
   }
 
@@ -33,7 +37,10 @@ export class JuegoTipoPage implements OnInit {
       if(!paramMap.has('tipojuego')){
         return;
       }
-
+      this.asignandoJuegos = this.router.url.includes('asignar-juego');
+      this.idAlumno = paramMap.get('alumnoId');
+      console.log(this.idAlumno);
+      console.log(this.asignandoJuegos);
       const tipoJuego = paramMap.get('tipojuego');
       this.tipoJuego = tipoJuego;
       this.juegoService.getJuegos(this.tipoJuego).subscribe(juegos => {
@@ -47,6 +54,14 @@ export class JuegoTipoPage implements OnInit {
 
       })
     });
+  }
+
+  asignarJuego(juegoId: number, tipoJuego: string){
+    if(this.asignandoJuegos){
+      this.alumnoService.asignarJuego(juegoId, tipoJuego, this.idAlumno).subscribe(() => {
+        this.router.navigate(['/homepage-tutor/alumno/' + this.idAlumno]);
+      });
+    }
   }
 
 }

@@ -34,4 +34,8 @@ export class AlumnoService {
   updateAlumno(alumno: Alumno): Observable<Alumno>{
     return this.http.patch<Alumno>(`${this.apiUrl}/${alumno.id}`, {nombre: alumno.nombre, fotoPerfil: alumno.fotoPerfil} );
   }
+
+  asignarJuego(juegoId: number, tipoJuego: string, alumnoId: string): Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/${alumnoId}/asignar`, {juegoId: juegoId, tipoJuego: tipoJuego});
+  }
 }

@@ -35,6 +35,19 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'homepage-tutor/alumno/:alumnoId/asignar-juego',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./interfaz-tutor/juegos/juegos.module').then(m => m.JuegosPageModule)
+      },
+      {
+        path: ':tipojuego',
+        loadChildren: () => import('./interfaz-tutor/juego-tipo/juego-tipo.module').then(m => m.JuegoTipoPageModule)
+      }
+    ],
+  },
+  {
     path: 'crear-alumno',
     loadChildren: () => import('./interfaz-tutor/crear-alumno/crear-alumno.module').then( m => m.CrearAlumnoPageModule)
   },

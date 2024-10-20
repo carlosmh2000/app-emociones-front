@@ -16,7 +16,7 @@
 
   <div class="juegos" *ngIf="this.tipoJuego == 'unirColor'">
 
-    <div class="juego" *ngFor="let juego of juegos" >
+    <div class="juego" *ngFor="let juego of juegos" (click)="asignarJuego(juego.id, juego.tipo)">
 
       <ion-grid >
         <ion-row class="colCenter" >
