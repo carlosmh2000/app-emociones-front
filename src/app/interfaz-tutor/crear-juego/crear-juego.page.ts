@@ -12,6 +12,7 @@ import { OpcionCuestionarioFinalPage } from '../opcion-cuestionario-final/opcion
 import { PreguntaUnir } from 'src/app/models/pregunta-unir.model';
 import {Juego} from "../../models/juego.model";
 import {JuegoService} from "../../services/juego.service";
+import {JuegoUnircolor} from "../../models/juego-unircolor.model";
 
 
 @Component({
@@ -175,7 +176,7 @@ export class CrearJuegoPage implements OnInit {
   }
 
   buildSlides() {
-    const slides = ['Presentacion', 'Tutorial', 'Juego', 'Sonido', 'Resultados'];
+    const slides = ['Presentacion', 'Tutorial', 'Juego', 'Refuerzos', 'Resultados'];
     this.currentSlide = slides[0];
     this.slides = slides;
   }
@@ -281,12 +282,12 @@ export class CrearJuegoPage implements OnInit {
     console.log('ejercicios: ' + this.ejercicios);
     console.log('opcionesCuestionarioFinal: ' + this.opcionesCuestionario);
     console.log('sonidos ' + this.sonidos );
-    const juego = new Juego(undefined, this.nombreJuego, this.portadaJuego, this.tipoJuego, this.juegoInstruc,
+    const juego = new JuegoUnircolor(undefined, this.nombreJuego, this.portadaJuego, this.tipoJuego, this.juegoInstruc,
       this.visualizarTutorial, this.tutorialDescrip, this.efectosSonido, this.sonidos, this.refPositivo, this.refNegativo,
-      this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo);
+      this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo, this.cuestionarioFinal, '', [], [], this.ejercicios);
     console.log(this.sonidos);
     console.log(this.opcionesCuestionario);
-    this.juegoService.addJuego(juego).subscribe(juego =>{
+    this.juegoService.addJuegoUnircolor(juego).subscribe(juego =>{
         console.log(juego);
         this.router.navigate(['/juegos/unirColor'])
       }
@@ -328,10 +329,7 @@ export class CrearJuegoPage implements OnInit {
         this.ionContent.scrollToTop();
       }
 
-    } else if (this.currentSlide === 'Juego') {
-
-      this.juegoFormRef.onSubmit(undefined);
-
+    } else if (this.currentSlide === 'Refuerzos' && this.efectosSonido) {
       if (this.juegoForm.valid) {
 
         this.juegoInstruc = this.juegoForm.value.instrucciones;
@@ -339,8 +337,6 @@ export class CrearJuegoPage implements OnInit {
         this.ionSlides.slideNext();
         this.ionContent.scrollToTop();
       }
-
-    } else if (this.currentSlide === 'Sonido' && this.efectosSonido) {
 
       this.sonidoFormRef.onSubmit(undefined);
 
