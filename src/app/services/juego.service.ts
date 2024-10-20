@@ -40,6 +40,10 @@ export class JuegoService {
     return this.http.get<any>(`${this.apiUrl}/${tipo}`);
   }
 
+  getJuegosAlumno(tipo: string, alumnoId: number): Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/${tipo}/alumno/${alumnoId}`);
+  }
+
   getJuego(id: string, tipo: string): Observable<Juego>{
     if (tipo == 'hacerPareja') tipo = 'unirPareja';
     return this.http.get<Juego>(`${this.apiUrl}/${tipo}/${id}`);

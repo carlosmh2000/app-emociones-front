@@ -18,8 +18,8 @@ ion-grid{
   object-fit: cover;
   border-radius: 40px !important;
   overflow: hidden;
-  height: 15vw; 
-  width: 15vw; 
+  height: 15vw;
+  width: 15vw;
   margin-bottom: 3%;
 }
 
@@ -29,7 +29,7 @@ ion-grid{
 }
 
 .portada{
-  width: 60%;
+  width:10rem;
   border-color: black;
   border-width: 1px;
   border-radius: 100%;
@@ -45,7 +45,7 @@ ion-grid{
 .nombreJuego{
   font-weight: bold;
   align-items: center;
-  
+
 }
 
 .botonSection{
@@ -77,14 +77,15 @@ ion-grid{
 
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  
+
 }
 
 .juego {
   min-width: 80px;
+  max-width: 40%;
   padding: 10px 0;
   justify-content: center;
   align-items: center;
   margin: 1rem;
-  
+
 }
