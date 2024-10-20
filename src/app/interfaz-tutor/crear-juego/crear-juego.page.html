@@ -18,7 +18,7 @@
         <form [formGroup]="presentacionForm" #presentacionFormRef="ngForm" novalidate *ngIf="slide === 'Presentacion'">
 
           <ion-list-header>
-            <ion-label color="primary"> Presentación </ion-label>
+            <ion-label color="primary" class="tituloSlide"> Presentación </ion-label>
           </ion-list-header>
 
           <ion-grid>
@@ -70,7 +70,7 @@
 
         <form [formGroup]="tutorialForm" #tutorialFormRef="ngForm" novalidate *ngIf="slide === 'Tutorial'">
           <ion-list-header>
-            <ion-label color="primary"> Tutorial </ion-label>
+            <ion-label color="primary" class="tituloSlide"> Tutorial </ion-label>
           </ion-list-header>
 
           <ion-col>
@@ -167,7 +167,7 @@
         <form [formGroup]="juegoForm" #juegoFormRef="ngForm" novalidate *ngIf="slide === 'Juego'">
 
           <ion-list-header *ngIf="presentacionForm.controls.nombre.value">
-            <ion-label color="primary"> {{presentacionForm.controls.nombre.value}} </ion-label>
+            <ion-label color="primary" class="tituloSlide"> {{presentacionForm.controls.nombre.value}} </ion-label>
           </ion-list-header>
 
           <ion-grid>
@@ -298,7 +298,7 @@
         </form>
         <form  [formGroup]="juegoForm" #juegoFormRef="ngForm" novalidate *ngIf="slide === 'Refuerzos'">
           <ion-list-header>
-            <ion-label color="primary"> Refuerzos </ion-label>
+            <ion-label color="primary" class="tituloSlide"> Refuerzos </ion-label>
           </ion-list-header>
           <ion-grid>
             <ion-row>
@@ -376,7 +376,7 @@
         </form>
         <form [formGroup]="resultForm" #resultFormRef="ngForm" novalidate *ngIf="slide === 'Resultados'">
           <ion-list-header>
-            <ion-label color="primary"> Resultados </ion-label>
+            <ion-label color="primary" class="tituloSlide"> Resultados </ion-label>
           </ion-list-header>
 
           <ion-grid>
