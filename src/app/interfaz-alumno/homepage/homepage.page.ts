@@ -33,36 +33,39 @@ export class HomepagePage implements OnInit {
     //obtenermos el id del alumno de la ruta
     this.activatedRoute.paramMap.subscribe(params => {
       let alumnoId = params.get('alumnoId');
+      let idAlumno = parseInt(alumnoId);
 
       //obtenemos el alumno de la base de datos
       this.alumnoService.getAlumno(alumnoId).subscribe(data => {
         this.nombreAlumno = data.nombre;
         this.profilePhoto = data.fotoPerfil;
         this.alumno = data;
-      });
-    });
 
-    //obtenemos la lista de juegos de la base de datos
-    this.juegoService.getJuegos('unirColor').subscribe(unirColor => {
-      this.juegos = unirColor.items;
-      this.juegoService.getJuegos('asociarImagen').subscribe(asociarImagen => {
-        this.juegos = this.juegos.concat(asociarImagen.items);
-        this.juegoService.getJuegos('unirFrase').subscribe(unirFrase => {
-          this.juegos = this.juegos.concat(unirFrase.items);
-          this.juegoService.getJuegos('elegirEmocion').subscribe(elegirEmocion => {
-            this.juegos = this.juegos.concat(elegirEmocion.items);
-            this.juegoService.getJuegos('hacerPareja').subscribe(hacerPareja => {
-              this.juegos = this.juegos.concat(hacerPareja.items);
-              this.juegoService.getJuegos('buscarIntruso').subscribe(buscarIntruso => {
-                this.juegos = this.juegos.concat(buscarIntruso.items);
-                console.log(buscarIntruso.items);
-                console.log(this.juegos);
+
+        //obtenemos la lista de juegos de la base de datos
+        this.juegoService.getJuegosAlumno('unirColor', idAlumno).subscribe(unirColor => {
+          this.juegos = unirColor.items;
+          this.juegoService.getJuegosAlumno('asociarImagen', idAlumno).subscribe(asociarImagen => {
+            this.juegos = this.juegos.concat(asociarImagen.items);
+            this.juegoService.getJuegosAlumno('unirFrase', idAlumno).subscribe(unirFrase => {
+              this.juegos = this.juegos.concat(unirFrase.items);
+              this.juegoService.getJuegosAlumno('elegirEmocion', idAlumno).subscribe(elegirEmocion => {
+                this.juegos = this.juegos.concat(elegirEmocion.items);
+                this.juegoService.getJuegosAlumno('hacerPareja', idAlumno).subscribe(hacerPareja => {
+                  this.juegos = this.juegos.concat(hacerPareja.items);
+                  this.juegoService.getJuegosAlumno('buscarIntruso', idAlumno).subscribe(buscarIntruso => {
+                    this.juegos = this.juegos.concat(buscarIntruso.items);
+                    console.log(buscarIntruso.items);
+                    console.log(this.juegos);
+                  });
+                });
               });
             });
           });
         });
       });
     });
+
   }
 
   //Función para obtener la ruta del tipo de juego
