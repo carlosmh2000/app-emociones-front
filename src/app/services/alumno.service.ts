@@ -2,6 +2,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Alumno} from "../models/alumno.model";
 import {Injectable} from "@angular/core";
+import {environment} from "../../environments/environment";
 
 
 
@@ -14,7 +15,7 @@ export class AlumnoService {
     this.http = http;
   }
 
-  apiUrl = 'http://localhost:5000/api/alumno';
+  apiUrl = environment.apiUrl+'/api/alumno';
   addAlumno(nombre: string, fotoPerfil: string): Observable<Alumno>{
     return this.http.post<Alumno>(this.apiUrl, {nombre: nombre, fotoPerfil: fotoPerfil});
   }

@@ -7,6 +7,7 @@ import {JuegoUnirPareja} from "../models/juego-unir-pareja.model";
 import {JuegoUnircolor} from "../models/juego-unircolor.model";
 import {JuegoUnir} from "../models/juego-unir.model";
 import {JuegoAsociar} from "../models/juego-asociar.model";
+import {environment} from "../../environments/environment";
 
 
 
@@ -19,7 +20,7 @@ export class JuegoService {
     this.http = http;
   }
 
-  apiUrl = 'http://localhost:5000/api/juego';
+  apiUrl = environment.apiUrl+'/api/juego';
   addJuego(juego: Juego): Observable<Juego>{
     return this.http.post<Juego>(this.apiUrl, juego);
   }
