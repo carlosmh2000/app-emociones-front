@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { ConfiguracionJuegoPageRoutingModule } from './configuracion-juego-routing.module';
 
 import { ConfiguracionJuegoPage } from './configuracion-juego.page';
+import {CrearJuegoAsociarFrasePageModule} from "../crear-juego-asociar-frase/crear-juego-asociar-frase.module";
+import {CrearJuegoUnirParejaPageModule} from "../crear-juego-unir-pareja/crear-juego-unir-pareja.module";
 
 @NgModule({
     imports: [
@@ -14,7 +16,9 @@ import { ConfiguracionJuegoPage } from './configuracion-juego.page';
         FormsModule,
         IonicModule,
         ConfiguracionJuegoPageRoutingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        CrearJuegoAsociarFrasePageModule,
+        CrearJuegoUnirParejaPageModule
     ],
   declarations: [ConfiguracionJuegoPage]
 })

@@ -17,10 +17,13 @@
       </ion-col>
     </ion-row>
 
-      <ion-row >
-        <ion-col class="colCenter">
-          <ion-button class="botonConfiguracion" (click)="redirectToConfig()"> Configuración </ion-button>
-        </ion-col>
+    <ion-row >
+      <ion-col class="colCenter">
+        <ion-button class="botonConfiguracion" (click)="redirectToConfig()"> Configuración </ion-button>
+      </ion-col>
+      <ion-col class="colCenter">
+        <ion-button color="danger" (click)="eliminarJuego()"> <ion-icon name="trash-outline" slot="start"></ion-icon> Eliminar alumno </ion-button>
+      </ion-col>
     </ion-row>
 
     <ion-row>

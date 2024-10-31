@@ -19,10 +19,11 @@ import { OpcionCuestionarioFinal } from "./opcion-cuestionario-final.model";
     public cuestionarioFinal : boolean;
     public cuestionarioFinalPregunta : string;
     public opcionesCuestionarioFinal : OpcionCuestionarioFinal[];
+    public ejercicios: any;
 
 
     constructor(id, nombre = '', portada =  '', tipo = '', instrucciones = '', tutorial = true, descrip_tutorial = '', efectos_sonido = true, sonidos = [], refPositivo = true, refNegativo = true,  resultadoNum = true, resultadoPicto = false,
-    imgRefPositivo = '', imgRefNegativo = '',  cuestionarioFinal = true, cuestionarioFinalPregunta = '', opcionesCuestionarioFinal = [])
+    imgRefPositivo = '', imgRefNegativo = '',  cuestionarioFinal = true, cuestionarioFinalPregunta = '', opcionesCuestionarioFinal = [], ejercicios = [])
     {
       this.id = id;
       this.nombre = nombre;
@@ -42,6 +43,7 @@ import { OpcionCuestionarioFinal } from "./opcion-cuestionario-final.model";
       this.cuestionarioFinal = cuestionarioFinal;
       this.cuestionarioFinalPregunta = cuestionarioFinalPregunta;
       this.opcionesCuestionarioFinal = opcionesCuestionarioFinal;
+      this.ejercicios = ejercicios;
     }
 
   }

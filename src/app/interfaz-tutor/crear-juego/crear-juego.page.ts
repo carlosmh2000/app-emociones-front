@@ -284,7 +284,7 @@ export class CrearJuegoPage implements OnInit {
     console.log('sonidos ' + this.sonidos );
     const juego = new JuegoUnircolor(undefined, this.nombreJuego, this.portadaJuego, this.tipoJuego, this.juegoInstruc,
       this.visualizarTutorial, this.tutorialDescrip, this.efectosSonido, this.sonidos, this.refPositivo, this.refNegativo,
-      this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo, this.cuestionarioFinal, '', [], [], this.ejercicios);
+      this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo, this.cuestionarioFinal, this.preguntaCuestionario, this.opcionesCuestionario, [], this.ejercicios);
     console.log(this.sonidos);
     console.log(this.opcionesCuestionario);
     this.juegoService.addJuegoUnircolor(juego).subscribe(juego =>{

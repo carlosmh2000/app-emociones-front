@@ -93,7 +93,7 @@ export class CrearAlumnoPage implements OnInit {
 
   async crearAlumno(formulario) {
 
-      //añadimos el alumno con esa personalización
+    //añadimos el alumno con esa personalización
         await this.alumnoService.addAlumno(formulario.value.nombre, this.fotoUrl).subscribe(async _ => {
 
           //volvemos a la página inicial del tutor

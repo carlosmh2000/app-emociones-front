@@ -9,13 +9,16 @@ import { CrearJuegoUnirParejaPageRoutingModule } from './crear-juego-unir-pareja
 import { CrearJuegoUnirParejaPage } from './crear-juego-unir-pareja.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonicModule,
-    CrearJuegoUnirParejaPageRoutingModule
-  ],
-  declarations: [CrearJuegoUnirParejaPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        IonicModule,
+        CrearJuegoUnirParejaPageRoutingModule
+    ],
+    exports: [
+        CrearJuegoUnirParejaPage
+    ],
+    declarations: [CrearJuegoUnirParejaPage]
 })
 export class CrearJuegoUnirParejaPageModule {}

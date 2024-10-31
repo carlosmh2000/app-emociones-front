@@ -4,6 +4,8 @@ import { PreguntaUnir } from "./pregunta-unir.model";
 export class JuegoUnir extends Juego{
 
     public pregunta_tutorial : PreguntaUnir[] = [];
+        // @ts-ignore
+
     public ejercicios : PreguntaUnir[][] = [];
 
     constructor(id, nombre = '', portada =  '', tipo = '', instrucciones = '', tutorial = true, descrip_tutorial = '', efectos_sonido = true, sonidos = [], refPositivo = true, refNegativo = true,  resultadoNum = true, resultadoPicto = false, imgRefPositivo = '', imgRefNegativo = '',  cuestionarioFinal = true, cuestionarioFinalPregunta = '', opcionesCuestionarioFinal = [], pregunta_tutorial = [] , ejercicios = [])

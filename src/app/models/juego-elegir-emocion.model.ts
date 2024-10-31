@@ -7,6 +7,8 @@ import {PreguntaElegirEmocion} from "./pregunta-elegir-emocion";
   export class JuegoElegirEmocion extends Juego{
 
     public pregunta_tutorial : PreguntaElegirEmocion[] = [];
+        // @ts-ignore
+
     public ejercicios : PreguntaElegirEmocion[][] = [];
 
     constructor(id, nombre = '', portada =  '', tipo = '', instrucciones = '', tutorial = true, descrip_tutorial = '', efectos_sonido = true, sonidos = [], refPositivo = true, refNegativo = true,  resultadoNum = true, resultadoPicto = false, imgRefPositivo = '', imgRefNegativo = '',  cuestionarioFinal = true, cuestionarioFinalPregunta = '', opcionesCuestionarioFinal = [], pregunta_tutorial = [] , ejercicios = [])

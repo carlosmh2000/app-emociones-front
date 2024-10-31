@@ -51,4 +51,12 @@ export class JuegoPage implements OnInit {
     });
   }
 
+    async eliminarJuego(){
+
+    await this.juegoService.deleteJuego(this.juegoId, this.tipo).subscribe(async _ => {
+        //volvemos a la vista de juegos
+        await this.router.navigate(['./juegos/'+this.tipo]);
+    });
+
+  }
 }

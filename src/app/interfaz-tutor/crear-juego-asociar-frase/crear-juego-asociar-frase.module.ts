@@ -16,6 +16,9 @@ import { CrearJuegoAsociarFrasePage } from './crear-juego-asociar-frase.page';
         CrearJuegoAsociarFrasePageRoutingModule,
         ReactiveFormsModule
     ],
-  declarations: [CrearJuegoAsociarFrasePage]
+    exports: [
+        CrearJuegoAsociarFrasePage
+    ],
+    declarations: [CrearJuegoAsociarFrasePage]
 })
 export class CrearJuegoAsociarFrasePageModule {}

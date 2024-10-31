@@ -4,8 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ActionSheetController, ToastController } from '@ionic/angular';
 import { Juego } from 'src/app/models/juego.model';
 import { CamaraService } from 'src/app/services/camara.service';
-import {AlumnoService} from "../../services/alumno.service";
 import {JuegoService} from "../../services/juego.service";
+import {JuegoUnir} from "../../models/juego-unir.model";
+import {JuegoAsociar} from "../../models/juego-asociar.model";
 
 @Component({
   selector: 'app-configuracion-juego',
@@ -15,7 +16,7 @@ import {JuegoService} from "../../services/juego.service";
 export class ConfiguracionJuegoPage implements OnInit {
 
   private juegoService = inject(JuegoService);
-  juego : Juego;
+  juego : any;
   juegoId : number;
   public foto : string;
   public nombre : string;
@@ -29,48 +30,45 @@ export class ConfiguracionJuegoPage implements OnInit {
     this.activatedRoute.queryParamMap.subscribe( params => {
       let juegoId = params.get('juegoId');
       console.log(params);
-
       this.juegoService.getJuego(juegoId, params.get('tipo')).subscribe( data => {
-        this.juego = new Juego(data.id, data.nombre, data.portada, data.tipo,
-        data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
-        data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
-        data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal);
-        this.nombre = data.nombre;
+        switch (data.tipo) {
+          case 'unirPareja':
+            this.juego = new JuegoUnir(data.id, data.nombre, data.portada, data.tipo,
+              data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
+              data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
+              data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal, data.ejercicios);
+            break;
+          case 'hacerPareja':
+            this.juego = new JuegoUnir(data.id, data.nombre, data.portada, data.tipo,
+              data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
+              data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
+              data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal, data.ejercicios);
+            break;
+          case 'unirColor':
+            this.juego = new JuegoUnir(data.id, data.nombre, data.portada, data.tipo,
+              data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
+              data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
+              data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal, data.ejercicios);
+            break;
+          case 'asociarImagen':
+            this.juego = new JuegoAsociar(data.id, data.nombre, data.portada, data.tipo,
+              data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
+              data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
+              data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal, data.ejercicios);
+            break;
+          default:
+            this.juego = new Juego(data.id, data.nombre, data.portada, data.tipo,
+              data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
+              data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
+              data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal, data.ejercicios);
+            break;
+        }
         this.juegoId = data.id;
         this.foto = data.portada;
         if(this.foto == null || this.foto == '')
           this.foto = "../../assets/sinFoto.png";
-
-
       });
     });
-
-    this.formulario = this.formBuilder.group({
-      nombre: [this.nombre, [Validators.required, Validators.minLength(2)]]
-   })
-
-
-  }
-
-
-  async enviarFormulario(){
-    if (!this.formulario.valid) {
-
-      let toast = await this.toast.create({
-        message: 'Se debe de introducir todos los datos',
-        duration: 3000
-      });
-      toast.present();
-
-      return false;
-
-    }
-
-    else{
-      await this.editarJuego();
-      return true;
-    }
-
 
   }
 
@@ -130,4 +128,5 @@ export class ConfiguracionJuegoPage implements OnInit {
 
   }
 
+  protected readonly JuegoUnir = JuegoUnir;
 }

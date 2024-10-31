@@ -44,9 +44,9 @@ export class JuegoService {
     return this.http.get<any>(`${this.apiUrl}/${tipo}/alumno/${alumnoId}`);
   }
 
-  getJuego(id: string, tipo: string): Observable<Juego>{
+  getJuego(id: string, tipo: string): Observable<any>{
     if (tipo == 'hacerPareja') tipo = 'unirPareja';
-    return this.http.get<Juego>(`${this.apiUrl}/${tipo}/${id}`);
+    return this.http.get<any>(`${this.apiUrl}/${tipo}/${id}`);
   }
   getJuegoUnirPareja(id: string): Observable<JuegoUnir>{
     return this.http.get<JuegoUnir>(`${this.apiUrl}/unirPareja/${id}`);
@@ -70,7 +70,7 @@ export class JuegoService {
     return this.http.delete<any>(`${this.apiUrl}/${id}/${tipo}`);
   }
 
-  updateJuego(juego: Juego): Observable<Juego>{
-    return this.http.patch<Juego>(`${this.apiUrl}/${juego.id}`, juego );
+  updateJuego(juego: Juego): Observable<void>{
+    return this.http.patch<void>(`${this.apiUrl}/${juego.id}`, juego );
   }
 }
