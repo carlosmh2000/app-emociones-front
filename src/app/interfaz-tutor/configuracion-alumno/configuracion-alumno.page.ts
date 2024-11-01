@@ -64,22 +64,22 @@ export class ConfiguracionAlumnoPage implements OnInit {
     }
 
     else{
-      await this.editarAlumno();
+      this.editarAlumno();
       return true;
     }
 
 
   }
 
-  async editarAlumno(){
+   editarAlumno(){
 
     this.nombre = this.formulario.value.nombre;
 
       const alumno = new Alumno(this.alumnoId, this.nombre, this.foto);
 
-      this.alumnoService.updateAlumno(alumno).subscribe(async _ => {
+      this.alumnoService.updateAlumno(alumno).subscribe( _ => {
           //volvemos a la página inicial del tutor
-          await this.router.navigate(['..']);
+          this.router.navigate(['./homepage-tutor']);
       });
   }
   async eliminarAlumno(){

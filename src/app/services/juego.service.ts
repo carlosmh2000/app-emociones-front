@@ -19,8 +19,8 @@ export class JuegoService {
   constructor(http: HttpClient) {
     this.http = http;
   }
-
-  apiUrl = environment.apiUrl+'/api/juego';
+  apiurl = 'https://6792-90-164-58-246.ngrok-free.app'
+  apiUrl = this.apiurl+'/api/juego';
   addJuego(juego: Juego): Observable<Juego>{
     return this.http.post<Juego>(this.apiUrl, juego);
   }
