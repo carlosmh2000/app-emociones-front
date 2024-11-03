@@ -82,8 +82,12 @@ export class CrearJuegoAsociarFrasePage implements OnInit {
       if(this.juego){
         this.portadaJuego = this.juego.portada ?? '../assets/sinFoto.png';
         this.ejercicios = this.juego.ejercicios ?? [];
+        this.ejercicioTutorial = this.ejercicios[0] ?? [];
         this.preguntaCuestionario = this.juego.cuestionarioFinalPregunta ?? '';
         this.opcionesCuestionario = this.juego.opcionesCuestionarioFinal ?? [];
+        this.resultNum = this.juego.resultadoNum ?? false;
+        this.resultPicto = this.juego.resultadoPicto ?? false;
+        this.cuestionarioFinal = this.juego.cuestionarioFinal ?? false;
       }else{
         this.portadaJuego = '../assets/sinFoto.png';
         this.ejercicios = [];
@@ -122,7 +126,7 @@ export class CrearJuegoAsociarFrasePage implements OnInit {
           }
 
           else if(tipo == 'tutorial'){
-            this.ejercicioTutorial = data[0].data;
+            this.ejercicios.push(data[0].data);
             console.log(data[0].data);
             console.log(this.ejercicioTutorial);
           }
@@ -188,7 +192,7 @@ export class CrearJuegoAsociarFrasePage implements OnInit {
   }
 
   buildSlides() {
-    const slides = ['Presentacion', 'Tutorial', 'Juego', 'Sonido', 'Resultados'];
+    const slides = ['Presentacion', 'Tutorial', 'Juego', 'Refuerzos', 'Resultados'];
     this.currentSlide = slides[0];
     this.slides = slides;
   }
