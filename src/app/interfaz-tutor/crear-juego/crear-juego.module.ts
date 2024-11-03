@@ -9,13 +9,16 @@ import { CrearJuegoPageRoutingModule } from './crear-juego-routing.module';
 import { CrearJuegoPage } from './crear-juego.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ReactiveFormsModule,
-    CrearJuegoPageRoutingModule
-  ],
-  declarations: [CrearJuegoPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        ReactiveFormsModule,
+        CrearJuegoPageRoutingModule
+    ],
+    exports: [
+        CrearJuegoPage
+    ],
+    declarations: [CrearJuegoPage]
 })
 export class CrearJuegoPageModule {}

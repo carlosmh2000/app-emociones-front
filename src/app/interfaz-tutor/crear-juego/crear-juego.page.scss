@@ -43,6 +43,13 @@ ion-grid {
   justify-content: space-between;
 }
 
+.vertical-line {
+  border-right: 1px solid #000;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+}
+
 ion-row {
   flex: 1 !important;
   display: flex;

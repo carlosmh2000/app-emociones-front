@@ -15,8 +15,9 @@ export class AlumnoService {
     this.http = http;
   }
   apiurl = 'https://6792-90-164-58-246.ngrok-free.app'
+  localUrl = 'http://localhost:5000'
 
-  apiUrl = this.apiurl+'/api/alumno';
+  apiUrl = this.localUrl+'/api/alumno';
   addAlumno(nombre: string, fotoPerfil: string): Observable<Alumno>{
     return this.http.post<Alumno>(this.apiUrl, {nombre: nombre, fotoPerfil: fotoPerfil});
   }

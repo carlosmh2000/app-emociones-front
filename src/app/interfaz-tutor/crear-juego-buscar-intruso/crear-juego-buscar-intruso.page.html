@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar>
     <ion-button href=".." slot="start"> <ion-icon name="arrow-back-outline"></ion-icon> </ion-button>
-    <ion-title class="ion-title-center">Nuevo juego de {{tipoJuego}}</ion-title>
-
+    <ion-title *ngIf="!editando">Nuevo juego de buscar al intruso</ion-title>
+    <ion-title *ngIf="editando">Editar juego:  {{this.presentacionForm.controls.nombre.value}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,9 +14,9 @@
   <ng-container *ngFor="let slide of slides">
     <ion-slide>
 
-      
+
       <form [formGroup]="presentacionForm" #presentacionFormRef="ngForm" novalidate *ngIf="slide === 'Presentacion'">
-        
+
         <ion-list-header>
           <ion-label color="primary"> Presentación </ion-label>
         </ion-list-header>
@@ -41,15 +41,15 @@
           <ion-row>
             <ion-item lines="none">
               <ion-col>
-                  <ion-label>Portada</ion-label>              
+                  <ion-label>Portada</ion-label>
               </ion-col>
-                
+
             </ion-item>
           </ion-row>
-  
+
           <ion-row class="rowCenter">
             <ion-col class="rowCenter">
-      
+
               <ion-button strong shape="round" color="primary" size="small" (click)="presentActionSheet('portada')">
                 Seleccionar
               </ion-button>
@@ -57,15 +57,15 @@
             </ion-col>
           </ion-row>
 
-        
+
           <ion-row class="rowCenter">
             <ion-col class="rowCenter">
-                <img class="img-thumb" [src]="this.portadaJuego" *ngIf="this.portadaJuego.length != 0">            
+                <img class="img-thumb" [src]="this.portadaJuego" *ngIf="this.portadaJuego.length != 0">
               </ion-col>
-            
+
           </ion-row>
       </ion-grid>
-    
+
       </form>
 
       <form [formGroup]="tutorialForm" #tutorialFormRef="ngForm" novalidate *ngIf="slide === 'Tutorial'">
@@ -96,11 +96,11 @@
           <ion-row>
             <ion-item lines="none">
               <ion-col size="6">
-                  <ion-label>Ejercicio de prueba</ion-label>              
+                  <ion-label>Ejercicio de prueba</ion-label>
               </ion-col>
 
               <ion-col size="6" *ngIf="this.ejercicioTutorial.length == 0">
-                <ion-button class="botonCrear" color="dark" (click)="initModalEjercicio('tutorial')" > 
+                <ion-button class="botonCrear" color="dark" (click)="initModalEjercicio('tutorial')" >
                   <ion-icon [name]="'add-circle-outline'"></ion-icon>
                 </ion-button>
               </ion-col>
@@ -110,7 +110,7 @@
               </ion-col>
 
             </ion-item>
-          </ion-row>          
+          </ion-row>
 
           <ion-row>
             <ion-col text-center>
@@ -121,30 +121,30 @@
                       <ion-col>
                         <ion-title>Pregunta {{i+1}}</ion-title>
                       </ion-col>
-      
+
                     </ion-row>
-      
+
                     <ion-row>
                       <ion-col>
                         <ion-label>Imagen</ion-label>
                       </ion-col>
-      
+
                     </ion-row>
-                  
-      
+
+
                   <ion-row>
                       <ion-col>
                         <img class="img-thumb" [src]="pregunta.img">
                       </ion-col>
                   </ion-row>
-      
+
                   <ion-row>
                     <ion-col>
                       <ion-text>{{pregunta.texto}}</ion-text>
                     </ion-col>
                   </ion-row>
-      
-      
+
+
                   <ion-row>
                     <ion-col *ngIf="pregunta.intruso">
                       <ion-text> Es el intruso </ion-text>
@@ -161,7 +161,7 @@
       </form>
 
       <form [formGroup]="juegoForm" #juegoFormRef="ngForm" novalidate *ngIf="slide === 'Juego'">
-        
+
         <ion-list-header>
           <ion-label color="primary"> Juego </ion-label>
         </ion-list-header>
@@ -185,7 +185,7 @@
           <ion-row>
             <ion-item lines="none">
               <ion-col>
-                  <ion-label>Refuerzo negativo</ion-label>              
+                  <ion-label>Refuerzo negativo</ion-label>
               </ion-col>
 
               <ion-col>
@@ -197,15 +197,15 @@
           <ion-row *ngIf="this.refNegativo">
             <ion-item lines="none">
               <ion-col>
-                  <ion-text>Imagen</ion-text>              
+                  <ion-text>Imagen</ion-text>
               </ion-col>
-                
+
             </ion-item>
           </ion-row>
-  
+
           <ion-row class="rowCenter" *ngIf="this.refNegativo">
             <ion-col class="rowCenter">
-      
+
               <ion-button strong shape="round" color="primary" size="small" (click)="presentActionSheet('imgRefNegativo')">
                 Seleccionar
               </ion-button>
@@ -213,17 +213,17 @@
             </ion-col>
           </ion-row>
 
-        
+
           <ion-row class="rowCenter" *ngIf="this.refNegativo">
             <ion-col class="rowCenter">
-                <img class="img-thumb" [src]="this.imgRefNegativo" *ngIf="this.imgRefNegativo.length != 0">            
+                <img class="img-thumb" [src]="this.imgRefNegativo" *ngIf="this.imgRefNegativo.length != 0">
             </ion-col>
           </ion-row>
 
           <ion-row>
             <ion-item lines="none">
               <ion-col>
-                  <ion-label>Refuerzo positivo</ion-label>              
+                  <ion-label>Refuerzo positivo</ion-label>
               </ion-col>
 
               <ion-col>
@@ -235,15 +235,15 @@
           <ion-row *ngIf="this.refPositivo">
             <ion-item lines="none">
               <ion-col>
-                  <ion-text>Imagen</ion-text>              
+                  <ion-text>Imagen</ion-text>
               </ion-col>
-                
+
             </ion-item>
           </ion-row>
-  
+
           <ion-row class="rowCenter" *ngIf="this.refPositivo">
             <ion-col class="rowCenter">
-      
+
               <ion-button strong shape="round" color="primary" size="small" (click)="presentActionSheet('imgRefPositivo')">
                 Seleccionar
               </ion-button>
@@ -253,18 +253,18 @@
 
           <ion-row class="rowCenter" *ngIf="this.refPositivo">
             <ion-col class="rowCenter">
-                <img class="img-thumb" [src]="this.imgRefPositivo" *ngIf="this.imgRefPositivo.length != 0">            
+                <img class="img-thumb" [src]="this.imgRefPositivo" *ngIf="this.imgRefPositivo.length != 0">
             </ion-col>
           </ion-row>
 
           <ion-row>
             <ion-item lines="none">
               <ion-col size="6">
-                  <ion-label>Ejercicios</ion-label>              
+                  <ion-label>Ejercicios</ion-label>
               </ion-col>
 
               <ion-col size="6" offset="-3">
-                <ion-button class="botonCrear" color="dark" (click)="initModalEjercicio('ejercicios')"> 
+                <ion-button class="botonCrear" color="dark" (click)="initModalEjercicio('ejercicios')">
                   <ion-icon [name]="'add-circle-outline'"></ion-icon>
                 </ion-button>
               </ion-col>
@@ -272,7 +272,7 @@
           </ion-row>
 
           <div *ngFor="let ejercicio of this.ejercicios; let i = index ">
-          <ion-row>
+          <ion-col>
             <ion-item>
               <ion-col>
                 <ion-label>Ejercicio {{i+1}}</ion-label>
@@ -284,45 +284,45 @@
                     <div *ngFor="let pregunta of ejercicio">
                       <ion-item>
                       <ion-grid>
-                      
+
                         <ion-row>
                           <ion-col>
                             <ion-label>Imagen</ion-label>
                           </ion-col>
-          
+
                         </ion-row>
-                      
-          
+
+
                       <ion-row>
                           <ion-col>
                             <img class="img-thumb" [src]="pregunta.img">
                           </ion-col>
                       </ion-row>
-          
+
                       <ion-row>
                         <ion-col>
                           <ion-text>{{pregunta.texto}}</ion-text>
                         </ion-col>
                       </ion-row>
-          
-          
+
+
                       <ion-row>
                         <ion-col *ngIf="pregunta.intruso">
                           <ion-text> Es el intruso </ion-text>
                         </ion-col>
                       </ion-row>
-                    
+
                     </ion-grid>
                   </ion-item>
                     </div>
 
               </ion-col>
             </ion-item>
-          </ion-row>
+          </ion-col>
         </div>
-          
+
       </ion-grid>
-    
+
       </form>
 
       <form [formGroup]="sonidoForm" #sonidoFormRef="ngForm" novalidate *ngIf="slide === 'Sonido'">
@@ -379,7 +379,7 @@
           <ion-row>
             <ion-item lines="none">
               <ion-col>
-                  <ion-label>Resultado numérico</ion-label>              
+                  <ion-label>Resultado numérico</ion-label>
               </ion-col>
 
               <ion-col>
@@ -391,7 +391,7 @@
           <ion-row>
             <ion-item lines="none">
               <ion-col>
-                  <ion-label>Resultado con pictograma</ion-label>              
+                  <ion-label>Resultado con pictograma</ion-label>
               </ion-col>
 
               <ion-col>
@@ -403,7 +403,7 @@
           <ion-row>
             <ion-item lines="none">
               <ion-col>
-                  <ion-label>Cuestionario final</ion-label>              
+                  <ion-label>Cuestionario final</ion-label>
               </ion-col>
 
               <ion-col>
@@ -430,11 +430,11 @@
           <ion-row *ngIf="this.cuestionarioFinal">
             <ion-item lines="none">
               <ion-col size="6">
-                  <ion-label>Opciones</ion-label>              
+                  <ion-label>Opciones</ion-label>
               </ion-col>
 
               <ion-col size="6" offset="-3">
-                <ion-button class="botonCrear" color="dark" (click)="initModalOpcionCuestionario()"> 
+                <ion-button class="botonCrear" color="dark" (click)="initModalOpcionCuestionario()">
                   <ion-icon [name]="'add-circle-outline'"></ion-icon>
                 </ion-button>
               </ion-col>
@@ -455,29 +455,29 @@
                       <ion-col size="6" *ngIf="this.opcionesCuestionario.length != 0">
                         <ion-button (click)="this.deleteOpcionCuestionario(i)"><ion-icon [name]="'trash-outline'"></ion-icon></ion-button>
                       </ion-col>
-      
+
                     </ion-row>
-      
+
                     <ion-row>
                       <ion-col>
                         <ion-label>Imagen</ion-label>
                       </ion-col>
-      
+
                     </ion-row>
-                  
-      
+
+
                   <ion-row>
                       <ion-col>
                         <img class="img-thumb" [src]="opcion.img">
                       </ion-col>
-      
+
                   </ion-row>
-      
+
                   <ion-row>
                     <ion-col>
                       <ion-text>{{opcion.texto}}</ion-text>
                     </ion-col>
-      
+
                   </ion-row>
                 </ion-grid>
                 </ion-item>
@@ -506,10 +506,10 @@
       (click)="onNextButtonTouched()">
       <span>Siguiente</span>
     </ion-button>
-  
-    <ion-button style="width: 120px;" strong shape="round" color="primary" [style.visibility]="!isEnd ? 'hidden' : ''"
-      (click)="onCrearButtonTouched()" >
-      <span>Crear</span>
+
+    <ion-button style="width: 180px;" strong shape="round" color="primary" [style.visibility]="!isEnd ? 'hidden' : ''"
+      (click)="onSubmit()" >
+      <span>{{editando? 'Aplicar cambios': 'Crear'}}</span>
     </ion-button>
 
   </ion-toolbar>

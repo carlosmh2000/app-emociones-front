@@ -9,13 +9,16 @@ import { CrearJuegoAsociarImagenPageRoutingModule } from './crear-juego-asociar-
 import { CrearJuegoAsociarImagenPage } from './crear-juego-asociar-imagen.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonicModule,
-    CrearJuegoAsociarImagenPageRoutingModule
-  ],
-  declarations: [CrearJuegoAsociarImagenPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        IonicModule,
+        CrearJuegoAsociarImagenPageRoutingModule
+    ],
+    exports: [
+        CrearJuegoAsociarImagenPage
+    ],
+    declarations: [CrearJuegoAsociarImagenPage]
 })
 export class CrearJuegoAsociarImagenPageModule {}

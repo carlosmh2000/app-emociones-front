@@ -20,7 +20,8 @@ export class JuegoService {
     this.http = http;
   }
   apiurl = 'https://6792-90-164-58-246.ngrok-free.app'
-  apiUrl = this.apiurl+'/api/juego';
+  localUrl = 'http://localhost:5000'
+  apiUrl = this.localUrl+'/api/juego';
   addJuego(juego: Juego): Observable<Juego>{
     return this.http.post<Juego>(this.apiUrl, juego);
   }
@@ -59,6 +60,10 @@ export class JuegoService {
 
   getJuegoAsociarImagen(id: string): Observable<JuegoAsociar>{
     return this.http.get<JuegoAsociar>(`${this.apiUrl}/asociarImagen/${id}`);
+  }
+
+  getJuegoElegirEmocion(id: string): Observable<JuegoAsociar>{
+    return this.http.get<JuegoAsociar>(`${this.apiUrl}/elegirEmocion/${id}`);
   }
 
   getJuegoBuscarIntruso(id: string): Observable<JuegoBuscarIntruso>{

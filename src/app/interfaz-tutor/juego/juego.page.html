@@ -11,28 +11,20 @@
   <ion-grid>
     <ion-row>
       <ion-col class="colCenter">
-          <ion-img class="profileUser" src="../../assets/sinFoto.png" [hidden]="this.portada != null" ></ion-img>
-          <ion-img class="profileUser" src={{this.portada}} [hidden]="this.portada === null"></ion-img>
+        <ion-img class="profileUser" src="../../assets/sinFoto.png" [hidden]="this.portada != null" ></ion-img>
+        <ion-img class="profileUser" src={{this.portada}} [hidden]="this.portada === null"></ion-img>
 
       </ion-col>
     </ion-row>
 
-    <ion-row >
-      <ion-col class="colCenter">
+    <ion-col class="padding">
+      <ion-col>
         <ion-button class="botonConfiguracion" (click)="redirectToConfig()"> Configuración </ion-button>
       </ion-col>
-      <ion-col class="colCenter">
-        <ion-button color="danger" (click)="eliminarJuego()"> <ion-icon name="trash-outline" slot="start"></ion-icon> Eliminar alumno </ion-button>
+      <ion-col>
+        <ion-button class="botonConfiguracion" color="danger" (click)="eliminarJuego()"> <ion-icon name="trash-outline" slot="start"></ion-icon> Eliminar juego </ion-button>
       </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col class="colCenter">
-        <ion-button > Importar </ion-button>
-        <ion-button > Exportar </ion-button>
-      </ion-col>
-    </ion-row>
-
+    </ion-col>
   </ion-grid>
 
 </ion-content>

@@ -15,6 +15,7 @@ import {JuegoService} from "../../services/juego.service";
 import {Juego} from "../../models/juego.model";
 import {JuegoUnirPareja} from "../../models/juego-unir-pareja.model";
 import {JuegoUnir} from "../../models/juego-unir.model";
+import {JuegoBuscarIntruso} from "../../models/juego-buscar-intruso.model";
 
 
 
@@ -31,7 +32,6 @@ export class CrearJuegoUnirParejaPage implements OnInit {
   @Input()juego?: JuegoUnir;
   @Input()editando = false;
 
-  tipoJuego : string;
   public slides: string[];
   public currentSlide: string;
   public isBeginning: boolean = true;
@@ -86,13 +86,18 @@ export class CrearJuegoUnirParejaPage implements OnInit {
   ngOnInit(){
 
     this.activatedRoute.paramMap.subscribe(paramMap => {
-      this.tipoJuego = paramMap.get('tipo');
       console.log(this.juego);
-
-      this.portadaJuego = this.juego.portada ?? '../assets/sinFoto.png';
-      this.ejercicios = this.juego.ejercicios ?? [];
-      this.preguntaCuestionario = this.juego.cuestionarioFinalPregunta ?? '';
-      this.opcionesCuestionario = this.juego.opcionesCuestionarioFinal ?? [];
+      if(this.juego){
+        this.portadaJuego = this.juego.portada ?? '../assets/sinFoto.png';
+        this.ejercicios = this.juego.ejercicios ?? [];
+        this.preguntaCuestionario = this.juego.cuestionarioFinalPregunta ?? '';
+        this.opcionesCuestionario = this.juego.opcionesCuestionarioFinal ?? [];
+      }else{
+        this.portadaJuego = '../assets/sinFoto.png';
+        this.ejercicios = [];
+        this.preguntaCuestionario = '';
+        this.opcionesCuestionario = [];
+      }
       console.log(this.opcionesCuestionario);
       this.setupForm();
       this.buildSlides();
@@ -100,11 +105,15 @@ export class CrearJuegoUnirParejaPage implements OnInit {
   }
 
   getJuegoParamValueOrDefault(param: any, defaultValue: any): any {
-    return param ? param : defaultValue;
+    if (this.juego !== undefined){
+      return param ? param : defaultValue;
+    }
+    return defaultValue;
   }
 
 
   async initModalEjercicio(tipo : string) {
+    debugger
     const modal = await this.modalController.create({
       component: PreguntasUnirParejaPage,
       componentProps: {
@@ -157,6 +166,7 @@ export class CrearJuegoUnirParejaPage implements OnInit {
 
   async deleteEjercicioTutorial(){
     this.ejercicioTutorial.length = 0;
+    this.ejercicioTutorial = [];
   }
 
   async deleteOpcionCuestionario(index : number){
@@ -197,6 +207,9 @@ export class CrearJuegoUnirParejaPage implements OnInit {
 
 
   setupForm() {
+    if(!this.juego) {
+      this.juego = new JuegoUnir(undefined, '', '', '', '', true, '', true, [], true, true, true, true, '', '', true, '', [], [], []);
+    }
     this.presentacionForm = new FormGroup({
       nombre: new FormControl(this.getJuegoParamValueOrDefault(this.juego.nombre, ''), Validators.required),
     });
@@ -277,7 +290,7 @@ export class CrearJuegoUnirParejaPage implements OnInit {
 
   onSubmit() {
 
-    const juego = new JuegoUnirPareja(undefined, this.nombreJuego, this.portadaJuego, this.tipoJuego, this.juegoInstruc,
+    const juego = new JuegoUnirPareja(undefined, this.nombreJuego, this.portadaJuego, 'unirPareja', this.juegoInstruc,
       this.visualizarTutorial, this.tutorialDescrip, this.efectosSonido, this.sonidos, this.refPositivo, this.refNegativo,
       this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo, this.cuestionarioFinal, this.preguntaCuestionario, this.opcionesCuestionario, this.ejercicioTutorial, this.ejercicios);
     console.log(this.sonidos);

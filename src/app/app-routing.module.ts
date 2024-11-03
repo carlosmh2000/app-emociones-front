@@ -161,7 +161,7 @@ const routes: Routes = [
           },
 
           {
-            path: 'juego-asociar-emocion/:juegoId',
+            path: 'juego-elegir-emocion/:juegoId',
             loadChildren: () => import('./interfaz-alumno/juegos/juego-asociar-emocion/juego-asociar-emocion.module').then( m => m.JuegoAsociarEmocionPageModule)
           },
 

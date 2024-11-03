@@ -79,9 +79,9 @@ jugarJuegoTipo(tipo: string, id?: number): void {
   } else if (tipo === 'buscarIntruso') {
     this.router.navigate([`/login/alumno/${this.alumno.id}/juego-buscar-intruso/${id}`]);
   } else if (tipo === 'unirFrase') {
-    this.router.navigate(['/juego-asociar-frase']);
+    this.router.navigate([`/login/alumno/${this.alumno.id}/juego-asociar-frase/${id}`]);
   } else if (tipo === 'elegirEmocion') {
-    this.router.navigate(['/juego-asociar-emocion']);
+    this.router.navigate([`/login/alumno/${this.alumno.id}/juego-elegir-emocion/${id}`]);
   } else {
     this.router.navigate(['/juego-unir-color']);
   }

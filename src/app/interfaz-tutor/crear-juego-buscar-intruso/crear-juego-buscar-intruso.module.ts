@@ -9,13 +9,16 @@ import { CrearJuegoBuscarIntrusoPageRoutingModule } from './crear-juego-buscar-i
 import { CrearJuegoBuscarIntrusoPage } from './crear-juego-buscar-intruso.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonicModule,
-    CrearJuegoBuscarIntrusoPageRoutingModule
-  ],
-  declarations: [CrearJuegoBuscarIntrusoPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        IonicModule,
+        CrearJuegoBuscarIntrusoPageRoutingModule
+    ],
+    exports: [
+        CrearJuegoBuscarIntrusoPage
+    ],
+    declarations: [CrearJuegoBuscarIntrusoPage]
 })
 export class CrearJuegoBuscarIntrusoPageModule {}

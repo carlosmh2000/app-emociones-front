@@ -1,2 +1,6 @@
 <app-crear-juego-unir-pareja [juego]="juego" *ngIf="juego && (juego.tipo==='unirPareja' || juego.tipo==='hacerPareja')" [editando]="true"></app-crear-juego-unir-pareja>
-
+<app-crear-juego [juego]="juego" *ngIf="juego && juego.tipo === 'unirColor'" [editando]="true"></app-crear-juego>
+<app-crear-juego-buscar-intruso [juego]="juego" *ngIf="juego && juego.tipo === 'buscarIntruso'" [editando]="true"></app-crear-juego-buscar-intruso>
+<app-crear-juego-asociar-imagen [juego]="juego" *ngIf="juego && juego.tipo === 'asociarImagen'" [editando]="true"></app-crear-juego-asociar-imagen>
+<app-crear-juego-asociar-frase [juego]="juego" *ngIf="juego && juego.tipo === 'unirFrase'" [editando]="true"></app-crear-juego-asociar-frase>
+<app-crear-juego-elegir-emocion [juego]="juego" *ngIf="juego && juego.tipo === 'elegirEmocion'" [editando]="true"></app-crear-juego-elegir-emocion>
