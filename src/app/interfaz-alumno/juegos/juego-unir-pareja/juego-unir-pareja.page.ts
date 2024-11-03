@@ -107,6 +107,7 @@ init = false
   constructor( private activatedRoute: ActivatedRoute, private ptl : Platform, private menu: MenuController) {
     this.activatedRoute.paramMap.subscribe(params => {
       let juegoId = params.get('juegoId');
+      this.alumnoId = params.get('alumnoId');
       console.log('juegoId: ' + juegoId);
       this.juegoService.getJuegoUnirPareja(juegoId).subscribe(data => {
           this.juego = new JuegoUnir(data.id, data.nombre, data.portada, data.tipo,

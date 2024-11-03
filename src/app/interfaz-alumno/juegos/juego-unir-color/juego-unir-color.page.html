@@ -28,7 +28,7 @@
         <div *ngIf="!this.terminarVentana && this.currentSlide != 'Resultados' && this.currentSlide != 'Tutorial' && this.currentSlide != 'Final'">
           <ion-grid>
             <ion-row>
-              <ion-col>
+              <ion-col *ngIf="currentSlide">
                 PREGUNTA {{this.currentSlide.split('_')[1]}}
               </ion-col>
             </ion-row>

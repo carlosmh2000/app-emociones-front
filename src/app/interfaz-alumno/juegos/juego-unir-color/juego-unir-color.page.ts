@@ -109,7 +109,8 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
-
+      console.log(this.juego.refNegativo)
+      console.log(this.juego.refPositivo)
 
       let juegoId = params.get('juegoId');
       this.alumnoId = params.get('alumnoId');
@@ -350,10 +351,6 @@ export class JuegoUnirColorPage implements OnInit, AfterContentChecked  {
           else if(this.mostrarResultados){
               this.currentSlide = 'Resultados';
           }
-          else if(this.currentSlide == 'Final'){
-             this.router.navigate(['..']);
-          }
-
           else{
             this.currentSlide = 'Final';
           }

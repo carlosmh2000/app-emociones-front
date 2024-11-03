@@ -82,6 +82,7 @@ ion-slides, ng-container, ion-slide{
 .center {
   display: flex;
   height: 100%;
+  width: 100%;
 }
 
 .repetir{
@@ -374,8 +375,7 @@ ion-slides, ng-container, ion-slide{
 
 @media(min-width: 1200px) {
   .elementoImg {
-    width: 270px;
-    height: 200px;
+    height: 300px;
     justify-content: flex-start;
     align-items: self-start;
     flex: 1;
@@ -544,9 +544,8 @@ ion-slides, ng-container, ion-slide{
       -ms-flex-pack: justify;
       justify-content: space-between;
       position: relative;
-      max-width: 720px;
+      width: 50%;
       box-sizing: content-box;
-      min-width: 0;
       height: 100%;
       margin-right: 0;
       padding-right: 0;
