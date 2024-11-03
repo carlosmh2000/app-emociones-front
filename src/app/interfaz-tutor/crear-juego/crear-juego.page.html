@@ -19,8 +19,9 @@
         <form [formGroup]="presentacionForm" #presentacionFormRef="ngForm" novalidate *ngIf="slide === 'Presentacion'">
 
           <ion-list-header>
-            <ion-label color="primary" class="tituloSlide"> Presentación </ion-label>
+            <ion-label color="primary" class="tituloSlide"> Datos iniciales </ion-label>
           </ion-list-header>
+
 
           <ion-grid>
 
@@ -251,10 +252,10 @@
             <ion-row>
               <div *ngFor="let ejercicio of this.ejercicios; let i = index">
 
-                  <ion-row>
+                  <ion-row *ngIf="i > 0">
                     <ion-item>
                       <ion-col>
-                        <ion-label>Ejercicio {{i+1}}</ion-label>
+                        <ion-label>Ejercicio {{i}}</ion-label>
                         <ion-col size="6" *ngIf="this.ejercicios.length != 0">
                           <ion-button (click)="this.deleteEjercicio(i)"><ion-icon [name]="'trash-outline'"></ion-icon></ion-button>
                         </ion-col>
@@ -421,7 +422,7 @@
               <ion-col >
                 <ion-item lines="none">
                   <ion-label position="floating">Pregunta</ion-label>
-                  <ion-textarea formControlPregunta="pregunta"> </ion-textarea>
+                  <ion-textarea formControlPregunta="pregunta">{{this.preguntaCuestionario}} </ion-textarea>
                 </ion-item>
                 <ion-text color="danger">
                   <span class="text-tiny"

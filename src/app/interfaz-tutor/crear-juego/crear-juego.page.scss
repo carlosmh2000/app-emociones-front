@@ -1,3 +1,12 @@
+:host{
+  width: 100% !important;
+}
+.sc-ion-label-md-h {
+  font-size: 1.5rem !important;
+}
+.textarea-wrapper.sc-ion-textarea-md {
+  font-size: 1.5rem !important;
+}
 ion-col{
 
     margin:8px;
@@ -9,10 +18,12 @@ ion-col{
     min-width: 500px;
   }
 
-  ion-textarea{
-    border: 0.5px solid gray;
-    padding-left:10px;
-  }
+ion-textarea{
+  border: 0.5px solid gray;
+  padding-left:10px;
+  font-size: 1.5rem !important;
+  height: fit-content;
+}
 
 
   .img-thumb{
@@ -65,5 +76,5 @@ ion-item {
 .tituloSlide {
   padding-top: 1rem;
   text-align: center;
-  font-size: 2rem;
+  font-size: 2rem !important;
 }
