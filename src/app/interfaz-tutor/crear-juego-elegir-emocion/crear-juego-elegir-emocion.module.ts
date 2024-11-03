@@ -16,6 +16,9 @@ import { CrearJuegoElegirEmocionPage } from './crear-juego-elegir-emocion.page';
         CrearJuegoElegirEmocionPageRoutingModule,
         ReactiveFormsModule
     ],
-  declarations: [CrearJuegoElegirEmocionPage]
+    exports: [
+        CrearJuegoElegirEmocionPage
+    ],
+    declarations: [CrearJuegoElegirEmocionPage]
 })
 export class CrearJuegoElegirEmocionPageModule {}

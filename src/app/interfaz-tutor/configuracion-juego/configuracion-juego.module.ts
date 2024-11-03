@@ -12,6 +12,7 @@ import {CrearJuegoUnirParejaPageModule} from "../crear-juego-unir-pareja/crear-j
 import {CrearJuegoPageModule} from "../crear-juego/crear-juego.module";
 import {CrearJuegoBuscarIntrusoPageModule} from "../crear-juego-buscar-intruso/crear-juego-buscar-intruso.module";
 import {CrearJuegoAsociarImagenPageModule} from "../crear-juego-asociar-imagen/crear-juego-asociar-imagen.module";
+import {CrearJuegoElegirEmocionPageModule} from "../crear-juego-elegir-emocion/crear-juego-elegir-emocion.module";
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import {CrearJuegoAsociarImagenPageModule} from "../crear-juego-asociar-imagen/c
     CrearJuegoUnirParejaPageModule,
     CrearJuegoPageModule,
     CrearJuegoBuscarIntrusoPageModule,
-    CrearJuegoAsociarImagenPageModule
+    CrearJuegoAsociarImagenPageModule,
+    CrearJuegoElegirEmocionPageModule
   ],
   declarations: [ConfiguracionJuegoPage]
 })

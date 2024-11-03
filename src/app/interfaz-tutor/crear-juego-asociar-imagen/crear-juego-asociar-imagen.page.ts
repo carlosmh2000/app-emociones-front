@@ -84,12 +84,17 @@ export class CrearJuegoAsociarImagenPage implements OnInit {
   ngOnInit(){
 
     this.activatedRoute.paramMap.subscribe(paramMap => {
-      this.tipoJuego = paramMap.get('tipo');
-      this.portadaJuego = this.juego.portada ?? '../assets/sinFoto.png';
-      this.ejercicios = this.juego.ejercicios ?? [];
-      this.preguntaCuestionario = this.juego.cuestionarioFinalPregunta ?? '';
-      this.opcionesCuestionario = this.juego.opcionesCuestionarioFinal ?? [];
-      console.log(this.opcionesCuestionario);
+      if(this.juego){
+        this.portadaJuego = this.juego.portada ?? '../assets/sinFoto.png';
+        this.ejercicios = this.juego.ejercicios ?? [];
+        this.preguntaCuestionario = this.juego.cuestionarioFinalPregunta ?? '';
+        this.opcionesCuestionario = this.juego.opcionesCuestionarioFinal ?? [];
+      }else{
+        this.portadaJuego = '../assets/sinFoto.png';
+        this.ejercicios = [];
+        this.preguntaCuestionario = '';
+        this.opcionesCuestionario = [];
+      }
       this.setupForm();
       this.buildSlides();
     });
@@ -192,6 +197,9 @@ export class CrearJuegoAsociarImagenPage implements OnInit {
 
 
   setupForm() {
+    if(!this.juego){
+      this.juego = new JuegoAsociar(undefined, '', '', '', '', true, '', true, [], true, true, true, true, '', '', true, '', [], [], []);
+    }
     this.presentacionForm = new FormGroup({
       nombre: new FormControl(this.getJuegoParamValueOrDefault(this.juego.nombre, ''), Validators.required),
     });
@@ -271,9 +279,9 @@ export class CrearJuegoAsociarImagenPage implements OnInit {
 
 
   onSubmit() {
-    const juego = new Juego(undefined, this.nombreJuego, this.portadaJuego, this.tipoJuego, this.juegoInstruc,
+    const juego = new JuegoAsociar(undefined, this.nombreJuego, this.portadaJuego, this.tipoJuego, this.juegoInstruc,
       this.visualizarTutorial, this.tutorialDescrip, this.efectosSonido, this.sonidos, this.refPositivo, this.refNegativo,
-      this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo);
+      this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo, this.cuestionarioFinal, this.preguntaCuestionario, this.opcionesCuestionario, this.ejercicioTutorial, this.ejercicios);
     console.log(this.sonidos);
     console.log(this.opcionesCuestionario);
     if (!this.editando){

@@ -62,6 +62,10 @@ export class JuegoService {
     return this.http.get<JuegoAsociar>(`${this.apiUrl}/asociarImagen/${id}`);
   }
 
+  getJuegoElegirEmocion(id: string): Observable<JuegoAsociar>{
+    return this.http.get<JuegoAsociar>(`${this.apiUrl}/elegirEmocion/${id}`);
+  }
+
   getJuegoBuscarIntruso(id: string): Observable<JuegoBuscarIntruso>{
     return this.http.get<JuegoBuscarIntruso>(`${this.apiUrl}/buscarIntruso/${id}`);
   }

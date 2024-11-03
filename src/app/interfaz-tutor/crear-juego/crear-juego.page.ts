@@ -81,14 +81,19 @@ export class CrearJuegoPage implements OnInit {
   constructor(public audioService: AudioService, public photoService : CamaraService, private modalController: ModalController,  private activatedRoute : ActivatedRoute, private actionSheetCtrl: ActionSheetController, private navCtrl: NavController, private sanitizer: DomSanitizer) { }
 
   ngOnInit(){
-    console.log(this.juego);
-
     this.activatedRoute.paramMap.subscribe(paramMap => {
-      this.tipoJuego = paramMap.get('tipo');
-      this.portadaJuego = this.juego.portada ?? '../assets/sinFoto.png';
-      this.ejercicios = this.juego.ejercicios ?? [];
-      this.preguntaCuestionario = this.juego.cuestionarioFinalPregunta ?? '';
-      this.opcionesCuestionario = this.juego.opcionesCuestionarioFinal ?? [];
+      console.log(this.juego);
+      if(this.juego){
+        this.portadaJuego = this.juego.portada ?? '../assets/sinFoto.png';
+        this.ejercicios = this.juego.ejercicios ?? [];
+        this.preguntaCuestionario = this.juego.cuestionarioFinalPregunta ?? '';
+        this.opcionesCuestionario = this.juego.opcionesCuestionarioFinal ?? [];
+      }else{
+        this.portadaJuego = '../assets/sinFoto.png';
+        this.ejercicios = [];
+        this.preguntaCuestionario = '';
+        this.opcionesCuestionario = [];
+      }
       console.log(this.opcionesCuestionario);
       this.setupForm();
       this.buildSlides();
@@ -192,6 +197,9 @@ export class CrearJuegoPage implements OnInit {
 
 
   setupForm() {
+    if(!this.juego) {
+      this.juego = new JuegoUnir(undefined, '', '', '', '', true, '', true, [], true, true, true, true, '', '', true, '', [], [], []);
+    }
     this.presentacionForm = new FormGroup({
       nombre: new FormControl(this.getJuegoParamValueOrDefault(this.juego.nombre, ''), Validators.required),
     });
@@ -271,7 +279,7 @@ export class CrearJuegoPage implements OnInit {
 
 
   onSubmit() {
-    const juego = new JuegoUnircolor(undefined, this.nombreJuego, this.portadaJuego, this.tipoJuego, this.juegoInstruc,
+    const juego = new JuegoUnircolor(undefined, this.nombreJuego, this.portadaJuego, 'unirColor', this.juegoInstruc,
       this.visualizarTutorial, this.tutorialDescrip, this.efectosSonido, this.sonidos, this.refPositivo, this.refNegativo,
       this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo, this.cuestionarioFinal, this.preguntaCuestionario, this.opcionesCuestionario, [], this.ejercicios);
     console.log(this.sonidos);

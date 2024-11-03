@@ -7,8 +7,9 @@ export class PreguntaAsociar {
     public tipo : string;
     public opcionCorrecta : Boolean;
     public numEjer : number;
-  
-    constructor( id : number = null, img : string = '', texto : string = '', tipo : string = '', opcionCorrecta : Boolean = null, numEjer : number  = null) 
+    public frase ?: string;
+
+    constructor( id : number = null, img : string = '', texto : string = '', tipo : string = '', opcionCorrecta : Boolean = null, numEjer : number  = null, frase: string = '')
     {
 
       this.id = id;
@@ -17,5 +18,6 @@ export class PreguntaAsociar {
       this.tipo = tipo;
       this.opcionCorrecta = opcionCorrecta;
       this.numEjer = numEjer;
+      this.frase = frase;
     }
   }

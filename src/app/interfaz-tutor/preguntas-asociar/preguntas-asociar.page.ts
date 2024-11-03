@@ -5,6 +5,7 @@ import { PreguntaAsociar } from 'src/app/models/pregunta-asociar.model';
 import { PreguntaUnir } from 'src/app/models/pregunta-unir.model';
 import { AudioService } from 'src/app/services/audio.service';
 import { CamaraService } from 'src/app/services/camara.service';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-preguntas-asociar',
@@ -15,6 +16,7 @@ export class PreguntasAsociarPage implements OnInit {
 
   @Input() numEjer: number;
   @Input() tipo: string;
+  @Input() tipoJuego?: string;
   public numPregunta = 1;
   public preguntaForm: FormGroup;
   public preguntas : PreguntaAsociar[] = [];
@@ -24,16 +26,19 @@ export class PreguntasAsociarPage implements OnInit {
   public img = null;
   public tipoImg = '';
   public correcta = false;
-  
+
   @ViewChild('preguntaFormRef', { static: false }) preguntaFormRef: NgForm;
 
-  constructor(public audioService : AudioService, private modalCtr: ModalController, private photoService : CamaraService, private actionSheetCtrl: ActionSheetController, private navCtrl: NavController) { }
+  constructor(public audioService : AudioService, private modalCtr: ModalController, private photoService : CamaraService, private actionSheetCtrl: ActionSheetController, private route: ActivatedRoute, private navCtrl: NavController) { }
 
   ngOnInit() {
     this.preguntaForm = new FormGroup({
       texto: new FormControl('', Validators.required)
     });
-
+    if(this.tipoJuego == 'unirFrase'){
+      const fraseControl =  new FormControl('', Validators.required);
+      this.preguntaForm.addControl('frase', fraseControl);
+    }
     if(this.tipo == 'tutorial'){
       this.numEjer = 0;
     }
@@ -50,14 +55,14 @@ export class PreguntasAsociarPage implements OnInit {
   }
 
   async add(){
- 
-    this.preguntaFormRef.onSubmit(undefined);
 
+    this.preguntaFormRef.onSubmit(undefined);
     if(this.preguntaForm.valid && this.img != null){
       if(this.tipoImg == "asociada")
         this.correcta = false;
 
-      this.preguntas.push(new PreguntaAsociar( null, this.img, this.preguntaForm.value.texto, this.tipoImg, this.correcta, this.numEjer));
+      const frase = this.preguntaForm.controls['frase'] ? this.preguntaForm.value.frase : '';
+      this.preguntas.push(new PreguntaAsociar( null, this.img, this.preguntaForm.value.texto, this.tipoImg, this.correcta, this.numEjer, frase));
       console.log(this.preguntas);
       this.numPregunta++;
 
@@ -84,7 +89,7 @@ export class PreguntasAsociarPage implements OnInit {
   }
 
 
-  
+
   async presentActionSheet(dir : string) {
 
     const actionSheet = await this.actionSheetCtrl.create({
@@ -92,23 +97,23 @@ export class PreguntasAsociarPage implements OnInit {
       buttons: [{
         text: 'Galería',
         handler: async () => {
- 
+
           await  this.photoService.getGaleria().then(async (_) => {
               this.img = await this.photoService.imgURL;
-            
+
           });
         }
-        
+
       }, {
         text: 'Cámara',
         handler: async () => {
 
         await this.photoService.getCamara().then(async (_) => {
            this.img = await this.photoService.imgURL;
-      
+
         });
 
-        
+
 
         }
       }, {
