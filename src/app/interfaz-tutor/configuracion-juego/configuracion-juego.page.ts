@@ -7,6 +7,7 @@ import { CamaraService } from 'src/app/services/camara.service';
 import {JuegoService} from "../../services/juego.service";
 import {JuegoUnir} from "../../models/juego-unir.model";
 import {JuegoAsociar} from "../../models/juego-asociar.model";
+import {PreguntaUnir} from "../../models/pregunta-unir.model";
 
 @Component({
   selector: 'app-configuracion-juego',
@@ -31,38 +32,11 @@ export class ConfiguracionJuegoPage implements OnInit {
       let juegoId = params.get('juegoId');
       console.log(params);
       this.juegoService.getJuego(juegoId, params.get('tipo')).subscribe( data => {
-        switch (data.tipo) {
-          case 'unirPareja':
-            this.juego = new JuegoUnir(data.id, data.nombre, data.portada, data.tipo,
-              data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
-              data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
-              data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal, data.ejercicios);
-            break;
-          case 'hacerPareja':
-            this.juego = new JuegoUnir(data.id, data.nombre, data.portada, data.tipo,
-              data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
-              data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
-              data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal, data.ejercicios);
-            break;
-          case 'unirColor':
-            this.juego = new JuegoUnir(data.id, data.nombre, data.portada, data.tipo,
-              data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
-              data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
-              data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal, data.ejercicios);
-            break;
-          case 'asociarImagen':
-            this.juego = new JuegoAsociar(data.id, data.nombre, data.portada, data.tipo,
-              data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
-              data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
-              data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal, data.ejercicios);
-            break;
-          default:
-            this.juego = new Juego(data.id, data.nombre, data.portada, data.tipo,
-              data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
-              data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
-              data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal, data.ejercicios);
-            break;
-        }
+        this.juego = new Juego(data.id, data.nombre, data.portada, data.tipo,
+          data.instrucciones, data.tutorial, data.descrip_tutorial, data.efectos_sonido,
+          data.sonidos, data.refPositivo, data.refNegativo, data.resultadoNum, data.resultadoPicto, data.imgRefPositivo,
+          data.imgRefNegativo, data.cuestionarioFinal, data.cuestionarioFinalPregunta, data.opcionesCuestionarioFinal, data.ejercicios);
+
         this.juegoId = data.id;
         this.foto = data.portada;
         if(this.foto == null || this.foto == '')

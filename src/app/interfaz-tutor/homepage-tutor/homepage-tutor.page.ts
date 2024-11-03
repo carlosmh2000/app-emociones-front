@@ -32,52 +32,9 @@ export class HomepageTutorPage implements OnInit {
   constructor(private screenOrientation : ScreenOrientation) { }
 
   ngOnInit() {
-
-    this.lockToPortrait();
-
     this.alumnoService.getAlumnos().subscribe(al => {
       this.alumnos = al.items;
       console.log(this.alumnos);
     });
-
-    /***
-
-
-    this.db.getJuegosUnirColor().subscribe(jue => {
-      this.juegos = jue;
-
-      console.log(this.juegos);
-
-    })
-
-    this.db.getPreguntasUnirColor().subscribe(jue => {
-      console.log(jue);
-
-    })
-
-    this.db.getSonidos().subscribe(jue => {
-      console.log(jue);
-      this.sonidos = jue;
-      console.log(this.sonidos);
-
-    })
-
-    this.db.getOpcionesCuestionarioFinal().subscribe(jue => {
-      console.log(jue);
-      this.opcionesCuestionarioFinal = jue;
-      console.log(this.opcionesCuestionarioFinal);
-
-    })
-     */
-  }
-
-  // Lock to landscape
-  lockToPortrait(){
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-  }
-
-  borrar(){
-
-
   }
 }

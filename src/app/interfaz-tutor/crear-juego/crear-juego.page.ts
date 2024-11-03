@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { ActionSheetController, IonContent, IonSlides, NavController } from '@ionic/angular';
 import { AbstractControl, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
@@ -13,6 +13,7 @@ import { PreguntaUnir } from 'src/app/models/pregunta-unir.model';
 import {Juego} from "../../models/juego.model";
 import {JuegoService} from "../../services/juego.service";
 import {JuegoUnircolor} from "../../models/juego-unircolor.model";
+import {JuegoUnir} from "../../models/juego-unir.model";
 
 
 @Component({
@@ -23,6 +24,9 @@ import {JuegoUnircolor} from "../../models/juego-unircolor.model";
 export class CrearJuegoPage implements OnInit {
   juegoService = inject(JuegoService);
   router = inject(Router);
+
+  @Input()juego?: JuegoUnir;
+  @Input()editando = false;
 
   tipoJuego : string;
   public slides: string[];
@@ -77,17 +81,18 @@ export class CrearJuegoPage implements OnInit {
   constructor(public audioService: AudioService, public photoService : CamaraService, private modalController: ModalController,  private activatedRoute : ActivatedRoute, private actionSheetCtrl: ActionSheetController, private navCtrl: NavController, private sanitizer: DomSanitizer) { }
 
   ngOnInit(){
+    console.log(this.juego);
 
     this.activatedRoute.paramMap.subscribe(paramMap => {
-      if(!paramMap.has('tipojuego')){
-        return;
-      }
-      this.tipoJuego = paramMap.get('tipojuego');
-
+      this.tipoJuego = paramMap.get('tipo');
+      this.portadaJuego = this.juego.portada ?? '../assets/sinFoto.png';
+      this.ejercicios = this.juego.ejercicios ?? [];
+      this.preguntaCuestionario = this.juego.cuestionarioFinalPregunta ?? '';
+      this.opcionesCuestionario = this.juego.opcionesCuestionarioFinal ?? [];
+      console.log(this.opcionesCuestionario);
+      this.setupForm();
+      this.buildSlides();
     });
-
-    this.setupForm();
-    this.buildSlides();
   }
 
 
@@ -181,27 +186,31 @@ export class CrearJuegoPage implements OnInit {
     this.slides = slides;
   }
 
+  getJuegoParamValueOrDefault(param: any, defaultValue: any): any {
+    return param ? param : defaultValue;
+  }
+
 
   setupForm() {
     this.presentacionForm = new FormGroup({
-      nombre: new FormControl('', Validators.required),
+      nombre: new FormControl(this.getJuegoParamValueOrDefault(this.juego.nombre, ''), Validators.required),
     });
 
     this.tutorialForm = new FormGroup({
-      descripcion: new FormControl('', Validators.required),
+      descripcion: new FormControl(this.getJuegoParamValueOrDefault(this.juego.descrip_tutorial, ''), Validators.required),
     });
 
     this.juegoForm = new FormGroup({
-      instrucciones: new FormControl('', Validators.required),
-      ref_positivo: new FormControl(true, Validators.required),
-      ref_negativo: new FormControl(true, Validators.required),
+      instrucciones: new FormControl(this.getJuegoParamValueOrDefault(this.juego.instrucciones, ''), Validators.required),
+      ref_positivo: new FormControl(this.getJuegoParamValueOrDefault(this.juego.refPositivo, true), Validators.required),
+      ref_negativo: new FormControl(this.getJuegoParamValueOrDefault(this.juego.refNegativo, true), Validators.required),
     });
 
     this.sonidoForm = new FormGroup({
     });
 
     this.resultForm = new FormGroup({
-      pregunta: new FormControl('', Validators.required),
+      pregunta: new FormControl(this.getJuegoParamValueOrDefault(this.juego.cuestionarioFinalPregunta, ''), Validators.required),
     });
 
   }
@@ -261,37 +270,26 @@ export class CrearJuegoPage implements OnInit {
 
 
 
-  onCrearButtonTouched() {
-
-    console.log('nombre: ' + this.nombreJuego);
-    console.log('portadaJuego: ' + this.portadaJuego);
-    console.log('tipoJuego: ' + this.tipoJuego);
-    console.log('visualizarTutorial: ' + this.visualizarTutorial);
-    console.log('tutorialDescrip: ' + this.tutorialDescrip);
-    console.log('juegoInstruc: ' + this.juegoInstruc);
-    console.log('efectosSonido: ' + this.efectosSonido);
-    console.log('refPositivo: ' + this.refPositivo);
-    console.log('refNegativo: ' + this.refNegativo);
-    console.log('resultNum: ' + this.resultNum);
-    console.log('resultNum: ' + this.resultNum);
-    console.log('resultPicto: ' + this.resultPicto);
-    console.log('resultImg: ' + this.resultImg);
-    console.log('cuestionarioFinal: ' + this.cuestionarioFinal);
-    console.log('cuestionarioFinalPregunta: ' + this.preguntaCuestionario);
-    console.log('ejercicioTutorial: ' + this.ejercicioTutorial);
-    console.log('ejercicios: ' + this.ejercicios);
-    console.log('opcionesCuestionarioFinal: ' + this.opcionesCuestionario);
-    console.log('sonidos ' + this.sonidos );
+  onSubmit() {
     const juego = new JuegoUnircolor(undefined, this.nombreJuego, this.portadaJuego, this.tipoJuego, this.juegoInstruc,
       this.visualizarTutorial, this.tutorialDescrip, this.efectosSonido, this.sonidos, this.refPositivo, this.refNegativo,
       this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo, this.cuestionarioFinal, this.preguntaCuestionario, this.opcionesCuestionario, [], this.ejercicios);
     console.log(this.sonidos);
     console.log(this.opcionesCuestionario);
-    this.juegoService.addJuegoUnircolor(juego).subscribe(juego =>{
+    if (!this.editando){
+      this.juegoService.addJuegoUnircolor(juego).subscribe(juego =>{
+          console.log(juego);
+          this.router.navigate(['/juegos/unirColor'])
+        }
+      );
+    }else {
+      juego.id = this.juego.id;
+      juego.tipo = this.juego.tipo;
+      this.juegoService.updateJuego(juego).subscribe(juego =>{
         console.log(juego);
-        this.router.navigate(['/juegos/unirColor'])
-      }
-    );
+        this.router.navigate(['/juegos/unirColor']);
+      });
+    }
   }
 
   onBackButtonTouched() {

@@ -281,12 +281,12 @@ export class CrearJuegoAsociarFrasePage implements OnInit {
     console.log('sonidos ' + this.sonidos );
     const juego = new Juego(undefined, this.nombreJuego, this.portadaJuego, this.tipoJuego, this.juegoInstruc,
       this.visualizarTutorial, this.tutorialDescrip, this.efectosSonido, this.sonidos, this.refPositivo, this.refNegativo,
-      this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo);
+      this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo, this.cuestionarioFinal, this.preguntaCuestionario, this.opcionesCuestionario, this.ejercicios);
     console.log(this.sonidos);
     console.log(this.opcionesCuestionario);
     this.juegoService.addJuego(juego).subscribe(juego =>{
         console.log(juego);
-         this.router.navigate(['/juegos/asociarImagen']);
+         this.router.navigate(['/juegos/asociarFrase']);
       }
     );
   }

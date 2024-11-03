@@ -1,7 +1,8 @@
 <ion-header>
   <ion-toolbar>
     <ion-button href=".." slot="start"> <ion-icon name="arrow-back-outline"></ion-icon> </ion-button>
-    <ion-title>Nuevo juego de {{tipoJuego}}</ion-title>
+    <ion-title *ngIf="!editando">Nuevo juego de {{tipoJuego}}</ion-title>
+    <ion-title *ngIf="editando">Editar juego:  {{this.presentacionForm.controls.nombre.value}}</ion-title>
 
   </ion-toolbar>
 </ion-header>
@@ -511,9 +512,9 @@
       <span>Siguiente</span>
     </ion-button>
 
-    <ion-button style="width: 120px;" strong shape="round" color="primary" [style.visibility]="!isEnd ? 'hidden' : ''"
-                (click)="onCrearButtonTouched()" >
-      <span>Crear</span>
+    <ion-button style="width: 180px;" strong shape="round" color="primary" [style.visibility]="!isEnd ? 'hidden' : ''"
+                (click)="onSubmit()" >
+      <span>{{editando? 'Aplicar cambios': 'Crear'}}</span>
     </ion-button>
 
   </ion-toolbar>
