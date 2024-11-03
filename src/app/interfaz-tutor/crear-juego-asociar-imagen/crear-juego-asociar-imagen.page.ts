@@ -85,10 +85,15 @@ export class CrearJuegoAsociarImagenPage implements OnInit {
 
     this.activatedRoute.paramMap.subscribe(paramMap => {
       if(this.juego){
+        console.log(this.juego);
         this.portadaJuego = this.juego.portada ?? '../assets/sinFoto.png';
         this.ejercicios = this.juego.ejercicios ?? [];
+        this.ejercicioTutorial = this.ejercicios[0] ?? [];
         this.preguntaCuestionario = this.juego.cuestionarioFinalPregunta ?? '';
         this.opcionesCuestionario = this.juego.opcionesCuestionarioFinal ?? [];
+        this.resultNum = this.juego.resultadoNum ?? false;
+        this.resultPicto = this.juego.resultadoPicto ?? false;
+        this.cuestionarioFinal = this.juego.cuestionarioFinal ?? false;
       }else{
         this.portadaJuego = '../assets/sinFoto.png';
         this.ejercicios = [];
@@ -124,7 +129,7 @@ export class CrearJuegoAsociarImagenPage implements OnInit {
           }
 
           else if(tipo == 'tutorial'){
-            this.ejercicioTutorial = data[0].data;
+            this.ejercicios.push(data[0].data);
             console.log(data[0].data);
             console.log(this.ejercicioTutorial);
           }
@@ -190,7 +195,7 @@ export class CrearJuegoAsociarImagenPage implements OnInit {
   }
 
   buildSlides() {
-    const slides = ['Presentacion', 'Tutorial', 'Juego', 'Sonido', 'Resultados'];
+    const slides = ['Presentacion', 'Tutorial', 'Juego', 'Refuerzos', 'Resultados'];
     this.currentSlide = slides[0];
     this.slides = slides;
   }
@@ -279,7 +284,7 @@ export class CrearJuegoAsociarImagenPage implements OnInit {
 
 
   onSubmit() {
-    const juego = new JuegoAsociar(undefined, this.nombreJuego, this.portadaJuego, this.tipoJuego, this.juegoInstruc,
+    const juego = new JuegoAsociar(undefined, this.nombreJuego, this.portadaJuego, 'asociarImagen', this.juegoInstruc,
       this.visualizarTutorial, this.tutorialDescrip, this.efectosSonido, this.sonidos, this.refPositivo, this.refNegativo,
       this.resultNum, this.resultPicto, this.imgRefPositivo, this.imgRefNegativo, this.cuestionarioFinal, this.preguntaCuestionario, this.opcionesCuestionario, this.ejercicioTutorial, this.ejercicios);
     console.log(this.sonidos);
@@ -295,7 +300,7 @@ export class CrearJuegoAsociarImagenPage implements OnInit {
       juego.tipo = this.juego.tipo;
       this.juegoService.updateJuego(juego).subscribe(juego =>{
         console.log(juego);
-        this.router.navigate(['/juegos/asciarImagen']);
+        this.router.navigate(['/juegos/asociarImagen']);
       });
     }
   }

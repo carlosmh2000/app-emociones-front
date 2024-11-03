@@ -1,23 +1,77 @@
+.sc-ion-label-md-h {
+  font-size: 1.5rem !important;
+}
+.textarea-wrapper.sc-ion-textarea-md {
+  font-size: 1.5rem !important;
+}
 ion-col{
 
     margin:8px;
   }
-  
+
   ion-item{
     display: flex;
     justify-content: center;
     min-width: 500px;
   }
-  
-  ion-textarea{
-    border: 0.5px solid gray;
-    padding-left:10px;
-  }
-  
-  
+
+ion-textarea{
+  border: 0.5px solid gray;
+  padding-left:10px;
+  font-size: 1.5rem !important;
+  height: fit-content;
+}
+
+
   .img-thumb{
     width: 200px;
     height: 200px;
     padding: 10px;
     object-fit: cover;
   }
+
+.sonido {
+  align-self: center;
+}
+
+.juegoForm {
+  height: max-content;
+}
+
+ion-slide {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+ion-grid {
+  flex: 1 !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.vertical-line {
+  border-right: 1px solid #000;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+}
+
+ion-row {
+  flex: 1 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-item {
+  width: 100%;
+}
+
+
+.tituloSlide {
+  padding-top: 1rem;
+  text-align: center;
+  font-size: 2rem !important;
+}
