@@ -3,8 +3,6 @@
 
     <ion-button color="azul" class="botonHeader" href="/login" slot="start"> <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon> </ion-button>
 
-    <ion-button color="verdeClaro" class="botonHeader" [routerLink]="['./', 'resultados']" slot="end"> <ion-icon name="stats-chart-outline" slot="icon-only"></ion-icon> </ion-button>
-
     <ion-button color="morado" class="botonHeader" [routerLink]="['./', 'perfil']" slot="end">
         <ion-img class="profileUser" src="../assets/sinFoto.png" [hidden]="this.profilePhoto != null" ></ion-img>
         <ion-img class="profileUser" src={{this.profilePhoto}} [hidden]="this.profilePhoto == null"></ion-img>
