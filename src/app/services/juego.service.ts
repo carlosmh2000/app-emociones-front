@@ -8,6 +8,7 @@ import {JuegoUnircolor} from "../models/juego-unircolor.model";
 import {JuegoUnir} from "../models/juego-unir.model";
 import {JuegoAsociar} from "../models/juego-asociar.model";
 import {environment} from "../../environments/environment";
+import {apiUrl} from "../app.component";
 
 
 
@@ -19,9 +20,8 @@ export class JuegoService {
   constructor(http: HttpClient) {
     this.http = http;
   }
-  apiurl = 'https://6792-90-164-58-246.ngrok-free.app'
-  localUrl = 'http://localhost:5000'
-  apiUrl = this.localUrl+'/api/juego';
+
+  apiUrl = apiUrl +'/api/juego';
   addJuego(juego: Juego): Observable<Juego>{
     return this.http.post<Juego>(this.apiUrl, juego);
   }

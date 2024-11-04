@@ -6,6 +6,7 @@ import { MenuController } from '@ionic/angular';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
+
 export class AppComponent {
   constructor(private menu: MenuController) { }
 
@@ -23,3 +24,5 @@ export class AppComponent {
     this.menu.open('custom');
   }
 }
+
+export const apiUrl = 'http://localhost:5000';
