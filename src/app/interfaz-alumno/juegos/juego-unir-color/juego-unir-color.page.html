@@ -121,7 +121,7 @@
         <div class="middleEjercicio">
           <div class="inner">
             <div [ngClass]="this.terminarVentana ? 'repetir' : 'norepetir'">
-              <div [ngClass]="getClaseOrganImg(this.currentEj.length)">
+              <div [ngClass]="getClaseOrganImg(this.currentEj.length, true)">
                 <div class="elemento" *ngFor="let elem of this.currentEj">
 
                   <ion-button [ngClass]="this.esRepetido ? 'botonImagen' : isSeleccionado((elem.id + '+' + elem.tipo), elem.musica)" (click)="seleccionar(elem.id + '+' + elem.tipo)" slot="start">

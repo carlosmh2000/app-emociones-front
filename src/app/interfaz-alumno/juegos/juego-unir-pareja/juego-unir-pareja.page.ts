@@ -288,7 +288,7 @@ init = false
     this.menu.open('custom');
   }
 
-  getClaseOrganImg(size : number){
+  getClaseOrganImg(size : number, ejer =false){
     let clase = 'elementos';
 
     if(size == 2)
@@ -298,7 +298,7 @@ init = false
       clase = 'elementos6';
 
     else if(size == 8)
-      clase = 'elementos8';
+      clase = ejer? 'elementos8--ejer' :  'elementos8';
 
     return clase;
 
