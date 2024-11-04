@@ -10,7 +10,8 @@ import {IonContent, IonSlides, MenuController, Platform} from "@ionic/angular";
   templateUrl: './juego-asociar-emocion.page.html',
   styleUrls: ['./juego-asociar-emocion.page.scss'],
 })
-export class JuegoAsociarEmocionPage implements OnInit {  juegoService = inject(JuegoService);
+export class JuegoAsociarEmocionPage implements OnInit {
+  juegoService = inject(JuegoService);
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
 
