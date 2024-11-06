@@ -51,7 +51,7 @@
             <ion-row class="rowCenter">
               <ion-col class="rowCenter">
 
-                <ion-button strong shape="round" color="primary" size="small" (click)="presentActionSheet('portada')">
+                <ion-button strong shape="round" color="primary" size="small" (click)="getFoto('portada')">
                   Seleccionar
                 </ion-button>
 
@@ -324,7 +324,7 @@
 
                 <ion-row class="rowCenter" *ngIf="this.refNegativo">
                   <ion-col class="rowCenter">
-                    <ion-button strong shape="round" color="primary" size="small" (click)="presentActionSheet('imgRefNegativo')">
+                    <ion-button strong shape="round" color="primary" size="small" (click)="getFoto('imgRefNegativo')">
                       Seleccionar
                     </ion-button>
                   </ion-col>
@@ -359,7 +359,7 @@
 
                 <ion-row class="rowCenter" *ngIf="this.refPositivo">
                   <ion-col class="rowCenter">
-                    <ion-button strong shape="round" color="primary" size="small" (click)="presentActionSheet('imgRefPositivo')">
+                    <ion-button strong shape="round" color="primary" size="small" (click)="getFoto('imgRefPositivo')">
                       Seleccionar
                     </ion-button>
                   </ion-col>

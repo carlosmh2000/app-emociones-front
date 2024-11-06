@@ -6,6 +6,7 @@ import { PreguntaUnir } from 'src/app/models/pregunta-unir.model';
 import { AudioService } from 'src/app/services/audio.service';
 import { CamaraService } from 'src/app/services/camara.service';
 import {ActivatedRoute} from "@angular/router";
+import {openGaleriaModal} from "../../utils";
 
 @Component({
   selector: 'app-preguntas-asociar',
@@ -42,6 +43,14 @@ export class PreguntasAsociarPage implements OnInit {
     if(this.tipo == 'tutorial'){
       this.numEjer = 0;
     }
+  }
+
+
+  getFoto(tipo: string) {
+    openGaleriaModal(this.modalCtr).then((data) => {
+      this.img = data.img;
+    });
+
   }
 
   get texto(): AbstractControl {

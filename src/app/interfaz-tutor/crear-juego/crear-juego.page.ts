@@ -14,6 +14,7 @@ import {Juego} from "../../models/juego.model";
 import {JuegoService} from "../../services/juego.service";
 import {JuegoUnircolor} from "../../models/juego-unircolor.model";
 import {JuegoUnir} from "../../models/juego-unir.model";
+import {openGaleriaModal} from "../../utils";
 
 
 @Component({
@@ -102,6 +103,19 @@ export class CrearJuegoPage implements OnInit {
       console.log(this.opcionesCuestionario);
       this.setupForm();
       this.buildSlides();
+    });
+  }
+
+  getFoto(tipo: string) {
+    openGaleriaModal(this.modalController).then((data) => {
+      if(tipo == 'portada')
+        this.portadaJuego = data.img;
+
+      else if(tipo == 'imgRefNegativo')
+        this.imgRefNegativo = data.img;
+
+      else if(tipo == 'imgRefPositivo')
+        this.imgRefPositivo = data.img;
     });
   }
 

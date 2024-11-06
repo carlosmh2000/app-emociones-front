@@ -13,6 +13,7 @@ import {OpcionCuestionarioFinalPage} from "../opcion-cuestionario-final/opcion-c
 import {Juego} from "../../models/juego.model";
 import {JuegoAsociar} from "../../models/juego-asociar.model";
 import {JuegoAsociarFrase} from "../../models/juego-asociar-frase.model";
+import {openGaleriaModal} from "../../utils";
 
 @Component({
   selector: 'app-crear-juego-asociar-frase',
@@ -450,6 +451,19 @@ export class CrearJuegoAsociarFrasePage implements OnInit {
 
 
 
+  }
+
+  getFoto(tipo: string) {
+    openGaleriaModal(this.modalController).then((data) => {
+      if(tipo == 'portada')
+        this.portadaJuego = data.img;
+
+      else if(tipo == 'imgRefNegativo')
+        this.imgRefNegativo = data.img;
+
+      else if(tipo == 'imgRefPositivo')
+        this.imgRefPositivo = data.img;
+    });
   }
 
   async presentActionSheet(tipo : string) {

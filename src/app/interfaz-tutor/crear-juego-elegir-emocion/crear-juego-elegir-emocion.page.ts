@@ -12,6 +12,7 @@ import {PreguntasAsociarPage} from "../preguntas-asociar/preguntas-asociar.page"
 import {OpcionCuestionarioFinalPage} from "../opcion-cuestionario-final/opcion-cuestionario-final.page";
 import {Juego} from "../../models/juego.model";
 import {JuegoAsociar} from "../../models/juego-asociar.model";
+import {openGaleriaModal} from "../../utils";
 
 @Component({
   selector: 'app-crear-juego-elegir-emocion',
@@ -104,6 +105,19 @@ export class CrearJuegoElegirEmocionPage implements OnInit {
       return param ? param : defaultValue;
     }
     return defaultValue;
+  }
+
+  getFoto(tipo: string) {
+    openGaleriaModal(this.modalController).then((data) => {
+      if(tipo == 'portada')
+        this.portadaJuego = data.img;
+
+      else if(tipo == 'imgRefNegativo')
+        this.imgRefNegativo = data.img;
+
+      else if(tipo == 'imgRefPositivo')
+        this.imgRefPositivo = data.img;
+    });
   }
 
 

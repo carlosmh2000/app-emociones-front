@@ -33,7 +33,7 @@
                 <ion-icon [name]="'add-circle-outline'"></ion-icon>
               </ion-button>
               <div *ngFor="let image of seccion.imgs" class="gallery-item">
-                <img [src]="image">
+                <img [src]="image" (click)="closeModal(image)">
               </div>
             </div>
           </div>

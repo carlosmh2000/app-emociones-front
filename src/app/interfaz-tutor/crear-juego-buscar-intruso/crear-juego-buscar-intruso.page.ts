@@ -18,6 +18,7 @@ import {Juego} from "../../models/juego.model";
 import {JuegoService} from "../../services/juego.service";
 import {JuegoBuscarIntruso} from "../../models/juego-buscar-intruso.model";
 import {JuegoUnir} from "../../models/juego-unir.model";
+import {openGaleriaModal} from "../../utils";
 
 
 @Component({
@@ -457,6 +458,19 @@ export class CrearJuegoBuscarIntrusoPage implements OnInit {
 
 
 
+  }
+
+  getFoto(tipo: string) {
+    openGaleriaModal(this.modalController).then((data) => {
+      if(tipo == 'portada')
+        this.portadaJuego = data.img;
+
+      else if(tipo == 'imgRefNegativo')
+        this.imgRefNegativo = data.img;
+
+      else if(tipo == 'imgRefPositivo')
+        this.imgRefPositivo = data.img;
+    });
   }
 
   async presentActionSheet(tipo : string) {

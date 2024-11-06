@@ -5,6 +5,7 @@ import { PreguntaBuscarIntruso } from 'src/app/models/pregunta-buscar-intruso.mo
 import { PreguntaUnir } from 'src/app/models/pregunta-unir.model';
 import { AudioService } from 'src/app/services/audio.service';
 import { CamaraService } from 'src/app/services/camara.service';
+import {openGaleriaModal} from "../../utils";
 
 @Component({
   selector: 'app-preguntas-buscar-intruso',
@@ -24,7 +25,7 @@ export class PreguntasBuscarIntrusoPage implements OnInit {
   public img = null;
   public tipoImg = '';
   public intruso = false;
-  
+
   @ViewChild('preguntaFormRef', { static: false }) preguntaFormRef: NgForm;
 
   constructor(public audioService : AudioService, private modalCtr: ModalController, private photoService : CamaraService, private actionSheetCtrl: ActionSheetController, private navCtrl: NavController) { }
@@ -50,7 +51,7 @@ export class PreguntasBuscarIntrusoPage implements OnInit {
   }
 
   async add(){
- 
+
     this.preguntaFormRef.onSubmit(undefined);
 
     if(this.preguntaForm.valid && this.img != null){
@@ -81,8 +82,12 @@ export class PreguntasBuscarIntrusoPage implements OnInit {
     this.numPregunta --;
   }
 
+  getFoto(tipo: string) {
+    openGaleriaModal(this.modalCtr).then((data) => {
+      this.img = data.img;
+    });
+  }
 
-  
   async presentActionSheet(dir : string) {
 
     const actionSheet = await this.actionSheetCtrl.create({
@@ -90,23 +95,23 @@ export class PreguntasBuscarIntrusoPage implements OnInit {
       buttons: [{
         text: 'Galería',
         handler: async () => {
- 
+
           await  this.photoService.getGaleria().then(async (_) => {
               this.img = await this.photoService.imgURL;
-            
+
           });
         }
-        
+
       }, {
         text: 'Cámara',
         handler: async () => {
 
         await this.photoService.getCamara().then(async (_) => {
            this.img = await this.photoService.imgURL;
-      
+
         });
 
-        
+
 
         }
       }, {

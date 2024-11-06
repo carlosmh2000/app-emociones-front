@@ -15,6 +15,7 @@ import {JuegoService} from "../../services/juego.service";
 import {Juego} from "../../models/juego.model";
 import {JuegoUnirPareja} from "../../models/juego-unir-pareja.model";
 import {JuegoUnir} from "../../models/juego-unir.model";
+import {openGaleriaModal} from "../../utils";
 
 
 
@@ -107,6 +108,21 @@ export class CrearJuegoUnirParejaPage implements OnInit {
     });
   }
 
+
+  getFoto(tipo: string) {
+    openGaleriaModal(this.modalController).then((data) => {
+      if(tipo == 'portada')
+        this.portadaJuego = data.img;
+
+      else if(tipo == 'imgRefNegativo')
+        this.imgRefNegativo = data.img;
+
+      else if(tipo == 'imgRefPositivo')
+        this.imgRefPositivo = data.img;
+    });
+  }
+
+
   getJuegoParamValueOrDefault(param: any, defaultValue: any): any {
     if (this.juego !== undefined){
       return param ? param : defaultValue;
@@ -116,7 +132,6 @@ export class CrearJuegoUnirParejaPage implements OnInit {
 
 
   async initModalEjercicio(tipo : string) {
-    debugger
     const modal = await this.modalController.create({
       component: PreguntasUnirParejaPage,
       componentProps: {

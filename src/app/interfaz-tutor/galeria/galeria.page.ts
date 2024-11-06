@@ -1,8 +1,8 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {GalleryService} from "../../services/gallery.service";
 import {apiUrl} from "../../app.component";
 import {CamaraService} from "../../services/camara.service";
-import {ActionSheetController} from "@ionic/angular";
+import {ActionSheetController, ModalController} from "@ionic/angular";
 
 @Component({
   selector: 'app-galeria',
@@ -13,8 +13,12 @@ export class GaleriaPage implements OnInit {
   private galleryService = inject(GalleryService);
   private camaraService = inject(CamaraService);
   private actionSheetCtrl = inject(ActionSheetController);
+  private modalCtrl = inject(ModalController);
+
   images: string[] = [];
   apiUrl = apiUrl;
+
+  @Input() asignando = false;
 
 
   seccionesEmociones = [
@@ -77,4 +81,9 @@ export class GaleriaPage implements OnInit {
     seccion.visible = !seccion.visible;
   }
 
+  async closeModal(imgRoute: string) {
+    if (this.asignando){
+      await this.modalCtrl.dismiss({img: imgRoute});
+    }
+  }
 }

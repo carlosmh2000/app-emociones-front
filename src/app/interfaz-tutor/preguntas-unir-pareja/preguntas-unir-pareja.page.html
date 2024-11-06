@@ -9,7 +9,7 @@
 
 <ion-content>
 
-  
+
   <ion-grid>
     <ion-row>
       <ion-col text-center>
@@ -29,7 +29,7 @@
                   <ion-col>
                     <ion-label>Imagen 1</ion-label>
                   </ion-col>
-  
+
                   <ion-col>
                     <ion-label>Imagen 2</ion-label>
                   </ion-col>
@@ -39,8 +39,8 @@
                   <ion-col>
                     <div class="flex align-items-center full-width ion-margin-top">
                       <div class="ion-margin-end">
-                        
-                        <ion-button strong shape="round" color="primary" size="small" (click)="presentActionSheet('unirColor_color')">
+
+                        <ion-button strong shape="round" color="primary" size="small" (click)="getFoto('unirColor_color')">
                           Seleccionar
                         </ion-button>
                       </div>
@@ -48,21 +48,21 @@
                         <img class="img-thumb"  [src]="this.img_color" *ngIf="this.img_color != null">
                       </div>
                     </div>
-  
+
                     <ion-text color="danger">
                       <span class="text-tiny"
                         [style.visibility]="this.img_color == null && preguntaFormRef.submitted ? '' : 'hidden'">
                         Debe seleccionar una imagen
                       </span>
                     </ion-text>
-  
+
                   </ion-col>
-  
+
                   <ion-col>
                     <div class="flex align-items-center full-width ion-margin-top">
                       <div class="ion-margin-end">
-                        
-                        <ion-button strong shape="round" color="primary" size="small" (click)="presentActionSheet('unirColor_img_asociada')">
+
+                        <ion-button strong shape="round" color="primary" size="small" (click)="getFoto('unirColor_img_asociada')">
                           Seleccionar
                         </ion-button>
                       </div>
@@ -70,22 +70,22 @@
                         <img class="img-thumb" [src]="this.img_asociada" *ngIf="this.img_asociada != null">
                       </div>
                     </div>
-  
+
                     <ion-text color="danger">
                       <span class="text-tiny"
                         [style.visibility]="this.img_asociada == null && preguntaFormRef.submitted ? '' : 'hidden'">
                         Debe seleccionar una imagen
                       </span>
                     </ion-text>
-  
+
                   </ion-col>
-  
+
                 </ion-row>
 
                 <ion-row>
                   <ion-col>
-  
-                   
+
+
                         <ion-item lines="none">
                           <ion-label position="floating">Texto</ion-label>
                           <ion-input clear-input="true" type="text" formControlName="texto_color"></ion-input>
@@ -96,12 +96,12 @@
                             Campo obligatorio
                           </span>
                         </ion-text>
-  
+
                   </ion-col>
-  
+
                   <ion-col>
-  
-                   
+
+
                     <ion-item lines="none">
                       <ion-label position="floating">Texto</ion-label>
                       <ion-input clear-input="true" type="text" formControlName="texto_img"></ion-input>
@@ -112,14 +112,14 @@
                         Campo obligatorio
                       </span>
                     </ion-text>
-  
+
               </ion-col>
                 </ion-row>
 
               </ion-grid>
-              
+
             </form>
-          
+
             <ion-button (click)="add()">Añadir</ion-button>
           </ion-card-content>
         </ion-card>
@@ -150,7 +150,7 @@
                   <ion-label>Imagen 2</ion-label>
                 </ion-col>
               </ion-row>
-            
+
 
             <ion-row>
                 <ion-col>

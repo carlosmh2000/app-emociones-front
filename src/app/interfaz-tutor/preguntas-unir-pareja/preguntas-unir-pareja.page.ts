@@ -5,6 +5,7 @@ import { PreguntaUnirPareja } from 'src/app/models/pregunta-unir-pareja';
 import { PreguntaUnir } from 'src/app/models/pregunta-unir.model';
 import { AudioService } from 'src/app/services/audio.service';
 import { CamaraService } from 'src/app/services/camara.service';
+import {openGaleriaModal} from "../../utils";
 
 @Component({
   selector: 'app-preguntas-unir-pareja',
@@ -22,7 +23,7 @@ export class PreguntasUnirParejaPage implements OnInit {
   public preguntas : PreguntaUnirPareja[] = [];
   public crearError = false;
   public musica = '';
-  
+
   @ViewChild('preguntaFormRef', { static: false }) preguntaFormRef: NgForm;
 
   constructor(public audioService : AudioService, private modalCtr: ModalController, private photoService : CamaraService, private actionSheetCtrl: ActionSheetController, private navCtrl: NavController) { }
@@ -36,6 +37,20 @@ export class PreguntasUnirParejaPage implements OnInit {
     if(this.tipo == 'tutorial'){
       this.numEjer = 0;
     }
+  }
+
+  getFoto(tipo: string) {
+    openGaleriaModal(this.modalCtr).then((data) => {
+      if(tipo == 'unirColor_color'){
+        this.img_color = data.img;
+      }
+
+      else if(tipo == 'unirColor_img_asociada'){
+        this.img_asociada = data.img;
+
+      }
+    });
+
   }
 
   get textoColor(): AbstractControl {
@@ -52,7 +67,7 @@ export class PreguntasUnirParejaPage implements OnInit {
   }
 
   async add(){
- 
+
     this.preguntaFormRef.onSubmit(undefined);
 
     if(this.preguntaForm.valid && this.img_color != null && this.img_asociada != null){
@@ -83,16 +98,16 @@ export class PreguntasUnirParejaPage implements OnInit {
     this.numPregunta --;
   }
 
-  
+
   async selectAudio(){
 
     await this.audioService.seleccionarAudio().then(async (_) => {
       this.musica = this.audioService.returnpath;
-     
+
     })
   }
 
-  
+
   async presentActionSheet(dir : string) {
 
     const actionSheet = await this.actionSheetCtrl.create({
@@ -100,19 +115,19 @@ export class PreguntasUnirParejaPage implements OnInit {
       buttons: [{
         text: 'Galería',
         handler: async () => {
- 
+
           await  this.photoService.getGaleria().then(async (_) => {
             if(dir == 'unirColor_color'){
               this.img_color = await this.photoService.imgURL;
              }
-   
+
              else if(dir == 'unirColor_img_asociada'){
                this.img_asociada = await this.photoService.imgURL;
-   
+
              }
           });
         }
-        
+
       }, {
         text: 'Cámara',
         handler: async () => {
@@ -128,7 +143,7 @@ export class PreguntasUnirParejaPage implements OnInit {
           }
         });
 
-        
+
 
         }
       }, {
