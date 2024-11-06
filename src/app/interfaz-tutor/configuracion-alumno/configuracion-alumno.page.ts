@@ -75,9 +75,10 @@ export class ConfiguracionAlumnoPage implements OnInit {
 
     this.nombre = this.formulario.value.nombre;
 
-      const alumno = new Alumno(this.alumnoId, this.nombre, this.foto);
+      const alumno = new Alumno(this.alumnoId, this.nombre, this.camaraService.imgURL);
+     console.log(alumno);
 
-      this.alumnoService.updateAlumno(alumno).subscribe( _ => {
+     this.alumnoService.updateAlumno(alumno).subscribe( _ => {
           //volvemos a la página inicial del tutor
           this.router.navigate(['./homepage-tutor']);
       });
@@ -100,8 +101,8 @@ export class ConfiguracionAlumnoPage implements OnInit {
         handler: async () => {
 
           await  this.camaraService.getGaleria().then(async (_) => {
-            this.foto = await this.camaraService.imgURL;
-            console.log(this.foto);
+            this.foto = this.camaraService.imgURL;
+            console.log(this.camaraService.imageData);
           });
         }
 
@@ -110,7 +111,7 @@ export class ConfiguracionAlumnoPage implements OnInit {
         handler: async () => {
 
         await this.camaraService.getCamara().then(async (_) => {
-          this.foto = await this.camaraService.imgURL;
+          this.foto = this.camaraService.imgURL;
           console.log(this.foto);
         });
 

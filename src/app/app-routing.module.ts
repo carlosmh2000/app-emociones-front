@@ -31,6 +31,10 @@ const routes: Routes = [
         ]
 
       },
+      {
+        path: 'galeria',
+        loadChildren: () => import('./interfaz-tutor/galeria/galeria.module').then( m => m.GaleriaPageModule)
+      }
 
     ]
   },
@@ -234,7 +238,12 @@ const routes: Routes = [
   {
     path: 'crear-juego-asociar-frase',
     loadChildren: () => import('./interfaz-tutor/crear-juego-asociar-frase/crear-juego-asociar-frase.module').then( m => m.CrearJuegoAsociarFrasePageModule)
+  },
+  {
+    path: 'galeria',
+    loadChildren: () => import('./interfaz-tutor/galeria/galeria.module').then(m => m.GaleriaPageModule)
   }
+
 
 
 

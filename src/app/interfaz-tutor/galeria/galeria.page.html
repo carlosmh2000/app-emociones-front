@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center"> Biblioteca de media </ion-title>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Biblioteca de media</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="gallery">
+    <ng-container *ngFor="let seccionG of seccionesGaleria">
+      <div class="gallery--content">
+        <h1 style="font-size: 3rem">{{seccionG.seccion}}</h1>
+        <ng-container *ngFor="let seccion of seccionG.subsecciones; let i = index">
+          <div class="seccion">
+            <ion-button  slot="start" color="tertiary" (click)="toggleSubSection(seccion)">
+              <div class="seccion--boton">
+                <ion-icon slot="icon-only" [name]="seccion.visible ? 'chevron-down' : 'chevron-forward'"></ion-icon>
+                <h2 style="margin: 0">{{seccion.nombre}}</h2>
+              </div>
+            </ion-button>
+            <div *ngIf="seccion.visible" class="gallery-images seccion--imagenes">
+              <ion-button slot="icon-only" size="large" color="medium" (click)="subirFoto(seccion.ruta)">
+                <ion-icon [name]="'add-circle-outline'"></ion-icon>
+              </ion-button>
+              <div *ngFor="let image of seccion.imgs" class="gallery-item">
+                <img [src]="image">
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+</ion-content>

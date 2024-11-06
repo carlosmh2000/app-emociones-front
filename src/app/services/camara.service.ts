@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
-import { Filesystem, Directory } from '@capacitor/filesystem';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { apiUrl } from '../app.component';
 
 export interface PhotoData {
   filepath: string,
   webviewPath: string,
   base64URL: string
-
 }
 
 @Injectable({
@@ -14,15 +16,14 @@ export interface PhotoData {
 })
 export class CamaraService {
 
-  public imgURL : string;
+  public imgURL: string;
   public imageData: PhotoData;
 
-  constructor()
-  {
+  constructor(private http: HttpClient) {
     this.imgURL = '';
   }
 
-  async getCamara() {
+  async getCamara(subruta='') {
     const capturedPhoto = await Camera.getPhoto({
       resultType: CameraResultType.Uri,
       source: CameraSource.Camera,
@@ -30,14 +31,13 @@ export class CamaraService {
       quality: 10
     });
 
-    const imageData = await this.savePicture(capturedPhoto);
-    this.imgURL = imageData.webviewPath;
-    this.imageData = imageData;
-
+    const imageData = await this.savePicture(capturedPhoto, subruta);
+    if (imageData) {
+      this.imageData = imageData;
+    }
   }
 
-
-  async getGaleria() {
+  async getGaleria(subruta='') {
     const image = await Camera.getPhoto({
       quality: 10,
       allowEditing: true,
@@ -46,34 +46,35 @@ export class CamaraService {
       source: CameraSource.Photos
     });
 
-    const imageData = await this.savePicture(image);
-    this.imgURL = imageData.webviewPath;
-    this.imageData = imageData;
- }
+    const imageData = await this.savePicture(image, subruta);
+    if (imageData) {
+      this.imageData = imageData;
+    }
+  }
 
-  private async savePicture(photo: Photo): Promise<PhotoData> {
-    // Convert photo to base64 format, required by Filesystem API to save
+  private async savePicture(photo: Photo, subruta=''): Promise<PhotoData | null> {
+    if (!photo || !photo.webPath) {
+      console.error('Photo object is invalid:', photo);
+      return null;
+    }
+
     const base64Data = await this.readAsBase64(photo);
 
-    // Write the file to the data directory
-    const fileName = Date.now() + '.jpeg';
-    const savedFile = await Filesystem.writeFile({
-      path: fileName,
-      data: base64Data,
-      directory: Directory.Data
+    return new Promise((resolve, reject) => {
+      this.uploadImage(base64Data, subruta).subscribe(response => {
+        const fileName = apiUrl + '/uploads/'+ subruta + Date.now() + '.jpeg';
+        resolve({
+          filepath: fileName,
+          webviewPath: photo.webPath,
+          base64URL: base64Data
+        });
+      }, error => {
+        reject(error);
+      });
     });
-
-    // Use webPath to display the new image instead of base64 since it's
-    // already loaded into memory
-    return {
-      filepath: fileName,
-      webviewPath: photo.webPath,
-      base64URL: base64Data
-    };
   }
 
   private async readAsBase64(photo: Photo) {
-    // Fetch the photo, read as a blob, then convert to base64 format
     const response = await fetch(photo.webPath!);
     const blob = await response.blob();
 
@@ -89,4 +90,18 @@ export class CamaraService {
     reader.readAsDataURL(blob);
   });
 
+  private uploadImage(base64Data: string, subruta=''): Observable<any> {
+    const url = apiUrl + '/api/upload/'+subruta;
+    const filename = Date.now() + '.jpeg';
+    this.imgURL = apiUrl + '/uploads/' + filename;
+    const payload = { image: base64Data, name: filename };
+    return this.http.post(url, payload).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    console.error('Error:', error.message);
+    return throwError('Error');
+  }
 }

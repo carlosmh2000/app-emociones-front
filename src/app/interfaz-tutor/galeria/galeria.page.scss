@@ -1,0 +1,58 @@
+/* src/app/interfaz-tutor/galeria/galeria.page.scss */
+
+
+.gallery {
+  padding: 2rem 10rem;
+
+  &--content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+.gallery-item {
+  display: inline-block;
+  margin: 10px;
+}
+
+.gallery-item img {
+  border: black 1px solid;
+  width: 120px;
+  height: 120px;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+
+.gallery-images {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.seccion {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  &--boton {
+    display: flex !important;
+    flex-direction: row;
+    gap: 1rem;
+
+    ion-icon {
+      font-size: 1.5rem;
+    }
+  }
+  &--imagenes {
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+  }
+}
