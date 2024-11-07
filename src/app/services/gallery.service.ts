@@ -33,4 +33,8 @@ export class GalleryService {
     formData.append('folder', folder);
     return this.http.post(`${apiUrl}/api/upload_audio`, formData);
   }
+
+  getRouteTree(): Observable<any> {
+    return this.http.get<any>(apiUrl+'/api/upload/route_tree');
+  }
 }

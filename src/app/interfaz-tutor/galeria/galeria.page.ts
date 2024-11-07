@@ -17,9 +17,12 @@ export class GaleriaPage implements OnInit {
 
   images: string[] = [];
   apiUrl = apiUrl;
+  anadirSeccion = false;
 
   @Input() asignando = false;
 
+  nombreSeccion: string;
+  nombreSubseccion: string;
 
   seccionesEmociones = [
     { nombre: 'Triste', ruta: 'emociones/triste', imgs: [], visible: true },
@@ -41,7 +44,9 @@ export class GaleriaPage implements OnInit {
   ]
 
   ngOnInit(): void {
-    this.loadImages();
+    this.galleryService.getRouteTree().subscribe((data) => {
+      this.seccionesGaleria = data.routes;
+    });
   }
   async subirAudio(subruta = '') {
     const input = document.createElement('input');
@@ -111,7 +116,26 @@ export class GaleriaPage implements OnInit {
 
   async closeModal(imgRoute: string) {
     if (this.asignando){
+      console.log(imgRoute);
       await this.modalCtrl.dismiss({img: imgRoute});
     }
+  }
+
+  anadirSeccicon(){
+
+  }
+
+    addNewSection(): void {
+    const newSection = {
+      seccion: this.nombreSeccion,
+      subsecciones: [
+        { nombre: this.nombreSubseccion, ruta: `${this.nombreSeccion.toLowerCase()}/${this.nombreSubseccion.toLowerCase()}`, imgs: [], visible: true }
+      ],
+      visible: true
+    };
+    this.seccionesGaleria.push(newSection);
+    this.anadirSeccion = false;
+    this.nombreSeccion = '';
+    this.nombreSubseccion = '';
   }
 }

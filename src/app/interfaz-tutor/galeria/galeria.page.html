@@ -5,7 +5,9 @@
     </ion-buttons>
 
     <ion-title class="ion-text-center"> Biblioteca de media </ion-title>
-
+    <ion-button slot="end">
+      <ion-icon name="close-outline" (click)="closeModal('')"></ion-icon>
+    </ion-button>
 
   </ion-toolbar>
 </ion-header>
@@ -33,8 +35,8 @@
                 <ion-icon [name]="'add-circle-outline'"></ion-icon>
               </ion-button>
               <div *ngFor="let image of seccion.imgs" class="gallery-item">
-                <ng-container *ngIf="seccion.nombre !== 'Audios'; else audioTemplate" (click)="closeModal(image)">
-                  <img [src]="image">
+                <ng-container *ngIf="seccion.nombre !== 'Audios'; else audioTemplate">
+                  <img [src]="image" (click)="closeModal(image)">
                 </ng-container>
                 <ng-template #audioTemplate >
                   <ion-icon name="musical-notes-outline" size="large"></ion-icon>
@@ -45,6 +47,20 @@
           </div>
         </ng-container>
       </div>
+    </ng-container>
+    <ion-button slot="icon-only" size="large" color="medium" (click)="anadirSeccion = true">
+      <ion-icon [name]="'add-circle-outline'"></ion-icon>
+    </ion-button>
+    <ng-container *ngIf="anadirSeccion">
+      <ion-item>
+        <ion-label position="floating">Nombre de la sección</ion-label>
+        <ion-input [(ngModel)]="nombreSeccion"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nombre de la subsección</ion-label>
+        <ion-input [(ngModel)]="nombreSubseccion"></ion-input>
+      </ion-item>
+      <ion-button expand="full" (click)="addNewSection()">Añadir Sección</ion-button>
     </ng-container>
   </div>
 </ion-content>
