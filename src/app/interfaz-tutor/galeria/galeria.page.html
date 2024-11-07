@@ -29,11 +29,17 @@
               </div>
             </ion-button>
             <div *ngIf="seccion.visible" class="gallery-images seccion--imagenes">
-              <ion-button slot="icon-only" size="large" color="medium" (click)="subirFoto(seccion.ruta)">
+              <ion-button slot="icon-only" size="large" color="medium" (click)="subirFoto(seccion.ruta, seccion.nombre === 'Audios')">
                 <ion-icon [name]="'add-circle-outline'"></ion-icon>
               </ion-button>
               <div *ngFor="let image of seccion.imgs" class="gallery-item">
-                <img [src]="image" (click)="closeModal(image)">
+                <ng-container *ngIf="seccion.nombre !== 'Audios'; else audioTemplate" (click)="closeModal(image)">
+                  <img [src]="image">
+                </ng-container>
+                <ng-template #audioTemplate >
+                  <ion-icon name="musical-notes-outline" size="large"></ion-icon>
+                  <p (click)="closeModal(image)">{{ getFileName(image) }}</p>
+                </ng-template>
               </div>
             </div>
           </div>

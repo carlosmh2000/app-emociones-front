@@ -32,48 +32,76 @@ export class GaleriaPage implements OnInit {
     { nombre: 'Portadas juegos', ruta: 'portadasJuegosTipo', imgs: [], visible: true },
   ];
 
+  sonidos = [{nombre: 'Audios', ruta: '', imgs: [], visible: true}];
+
   seccionesGaleria = [
     { seccion: 'Emociones', subsecciones: this.seccionesEmociones, visible: true },
-    { seccion:'Portadas', subsecciones: this.seccionesPortadas, visible: true }
+    { seccion:'Portadas', subsecciones: this.seccionesPortadas, visible: true},
+    { seccion: 'Sonidos', subsecciones: this.sonidos, visible: true }
   ]
 
   ngOnInit(): void {
     this.loadImages();
   }
+  async subirAudio(subruta = '') {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'audio/*';
+    input.onchange = async (event: any) => {
+      const file = event.target.files[0];
+      if (file) {
+        this.galleryService.uploadAudio(subruta, file).subscribe(response => {});
+      }
+    };
+    input.click();
+  }
 
   loadImages() {
     for (let seccion of this.seccionesGaleria) {
       for (let subseccion of seccion.subsecciones) {
-        this.galleryService.getImages(subseccion.ruta).subscribe((data) => {
+        this.galleryService.getContent(subseccion.ruta, subseccion.nombre==='Audios').subscribe((data) => {
           subseccion.imgs = data.files.map(img => `${this.apiUrl}/${img.replace(/\\/g, '/')}`);
         });
       }
     }
   }
 
-  async subirFoto(subruta = '') {
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Elige una opción',
-      buttons: [{
-        text: 'Galería',
-        handler: async () => {
-          await  this.camaraService.getGaleria(subruta);
-        }
-      }, {
-        text: 'Cámara',
-        handler: async () => {
-          await this.camaraService.getCamara(subruta);
-        }
-      }, {
-        text: 'Cancelar',
-        role: 'cancel'
-      }]
-    });
+  async subirFoto(subruta = '', sonido=false) {
+    if(sonido){
+      await this.subirAudio(subruta);
+    }else{
 
-    await actionSheet.present();
-    actionSheet.onDidDismiss().then(() => {
-      window.location.reload();
-    });
+      const actionSheet = await this.actionSheetCtrl.create({
+        header: 'Elige una opción',
+        buttons: [{
+          text: 'Galería',
+          handler: async () => {
+            await  this.camaraService.getGaleria(subruta);
+          }
+        }, {
+          text: 'Cámara',
+          handler: async () => {
+            await this.camaraService.getCamara(subruta);
+          }
+        }, {
+          text: 'Cancelar',
+          role: 'cancel'
+        }]
+      });
+      await actionSheet.present();
+      actionSheet.onDidDismiss().then(() => {
+        window.location.reload();
+      });
+
+    }
+  }
+
+  isImage(item: string): boolean {
+    return !item.match(/\.(mp3)$/) != null;
+  }
+
+  getFileName(item: string): string {
+    return item.split('/').pop();
   }
 
 
