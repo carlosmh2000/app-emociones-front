@@ -116,34 +116,35 @@ export class CrearJuegoBuscarIntrusoPage implements OnInit {
     return param ? param : defaultValue;
   }
 
-  async initModalEjercicio(tipo : string) {
+  async initModalEjercicio(tipo : string, edit = false, ejer?: any) {
+        let modalParams = {numEjer: (this.ejercicios.length + 1), tipo: tipo, ejercicios: undefined};
+    if(edit){
+      console.log(ejer);
+      modalParams = {
+        numEjer: ejer[0].numEjer,
+        tipo: tipo,
+        ejercicios: ejer
+      }
+    }
     const modal = await this.modalController.create({
       component: PreguntasBuscarIntrusoPage,
-      componentProps: {
-        numEjer: (this.ejercicios.length + 1),
-        tipo: tipo
-      },
+      componentProps: modalParams,
       cssClass: 'addEjercicio',
-    }).then(async (elem)=>{
-      await elem.present();
-      await Promise.all([elem.onDidDismiss()]).then(async (data) => {
-        if (data != null) {
-          if(tipo == 'ejercicios'){
-            this.ejercicios.push(data[0].data);
-            console.log(data[0].data);
-            console.log(this.ejercicios);
-
-          }
-
-          else if(tipo == 'tutorial'){
-            this.ejercicios.push(data[0].data);
-            console.log(data[0].data);
-            console.log(this.ejercicioTutorial);
-          }
-
-       }
-     });
     })
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      if (tipo === 'ejercicios') {
+        if (edit) {
+          console.log(data);
+          ejer = data
+        } else {
+          this.ejercicios.push(data);
+        }
+      } else if (tipo === 'tutorial') {
+        this.ejercicioTutorial = data;
+      }
+    }
   }
 
   async initModalOpcionCuestionario() {

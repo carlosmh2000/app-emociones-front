@@ -16,9 +16,11 @@ export class PreguntasBuscarIntrusoPage implements OnInit {
 
   @Input() numEjer: number;
   @Input() tipo: string;
+      @Input() ejercicios?: any[];
+
   public numPregunta = 1;
   public preguntaForm: FormGroup;
-  public preguntas : PreguntaBuscarIntruso[] = [];
+  public preguntas : any[] = [];
   public crearError = false;
   public imgAsociada = true;
   public imgGrupo = false;
@@ -31,6 +33,14 @@ export class PreguntasBuscarIntrusoPage implements OnInit {
   constructor(public audioService : AudioService, private modalCtr: ModalController, private photoService : CamaraService, private actionSheetCtrl: ActionSheetController, private navCtrl: NavController) { }
 
   ngOnInit() {
+        this.preguntas = this.ejercicios.map(ejercicio => ({
+      ...ejercicio,
+      formGroup: new FormGroup({
+        texto: new FormControl('', Validators.required)
+
+      })
+    }));
+    console.log(this.numEjer);
     this.preguntaForm = new FormGroup({
       texto: new FormControl('', Validators.required)
     });
@@ -82,9 +92,14 @@ export class PreguntasBuscarIntrusoPage implements OnInit {
     this.numPregunta --;
   }
 
-  getFoto(tipo: string) {
+  getFoto(tipo: string, pregunta?: any) {
     openGaleriaModal(this.modalCtr).then((data) => {
-      this.img = data.img;
+      if(tipo == 'img'){
+
+        this.img = data.img;
+      }else if (tipo === 'img2'){
+        pregunta.img = data.img;
+      }
     });
   }
 
