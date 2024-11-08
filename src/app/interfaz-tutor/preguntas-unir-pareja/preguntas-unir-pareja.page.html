@@ -16,7 +16,7 @@
         <ion-card>
           <ion-card-header>
             <ion-card-title>
-              Pregunta {{this.numPregunta}}
+              Pregunta {{ejercicios? ejercicios.length + 1: numPregunta}}
             </ion-card-title>
           </ion-card-header>
           <ion-card-content>
@@ -129,50 +129,60 @@
     <ion-row>
       <ion-col text-center>
         <ion-list *ngFor="let pregunta of preguntas; index as i;">
-          <ion-item>
-            <ion-grid>
-              <ion-row>
-                <ion-col>
-                  <ion-title>Pregunta {{i+1}}</ion-title>
-                </ion-col>
-
-                <ion-col>
-                  <ion-button (click)="delete(i)"><ion-icon [name]="'trash-outline'"></ion-icon></ion-button>
-                </ion-col>
-              </ion-row>
-
-              <ion-row>
-                <ion-col>
-                  <ion-label>Imagen 1</ion-label>
-                </ion-col>
-
-                <ion-col>
-                  <ion-label>Imagen 2</ion-label>
-                </ion-col>
-              </ion-row>
-
-
-            <ion-row>
-                <ion-col>
-                  <img class="img-thumb" [src]="pregunta.img_1">
-                </ion-col>
-
-                <ion-col>
-                  <img class="img-thumb" [src]="pregunta.img_2">
-                </ion-col>
-            </ion-row>
-
-            <ion-row>
-              <ion-col>
-                <ion-text>{{pregunta.texto_1}}</ion-text>
-              </ion-col>
-
-              <ion-col>
-                <ion-text>{{pregunta.texto_2}}</ion-text>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-          </ion-item>
+          <form [formGroup]="pregunta.formGroup">
+            <ion-item>
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <ion-title>Pregunta {{i+1}}</ion-title>
+                  </ion-col>
+                  <ion-col>
+                    <ion-button (click)="delete(i)"><ion-icon [name]="'trash-outline'"></ion-icon></ion-button>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-label>Imagen 1</ion-label>
+                  </ion-col>
+                  <ion-col>
+                    <ion-label>Imagen 2</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <img class="img-thumb" [src]="pregunta.img_1">
+                  </ion-col>
+                  <ion-col class="ion-margin-end">
+                    <ion-button strong shape="round" color="primary" size="small" (click)="getFoto('img1', pregunta)">
+                      Seleccionar
+                    </ion-button>
+                  </ion-col>
+                  <ion-col>
+                    <img class="img-thumb" [src]="pregunta.img_2">
+                  </ion-col>
+                  <div class="ion-margin-end">
+                    <ion-button strong shape="round" color="primary" size="small" (click)="getFoto('img2', pregunta)">
+                      Seleccionar
+                    </ion-button>
+                  </div>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-item lines="none">
+                      <ion-label position="floating">Texto</ion-label>
+                      <ion-input clear-input="true" type="text" formControlName="texto_1"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col>
+                    <ion-item lines="none">
+                      <ion-label position="floating">Texto</ion-label>
+                      <ion-input clear-input="true" type="text" formControlName="texto_2"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+          </form>
         </ion-list>
       </ion-col>
     </ion-row>
