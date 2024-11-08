@@ -22,8 +22,24 @@ ion-textarea{
   height: fit-content;
 }
 
+.botonCrear{
+  width: 4rem;
+  height: 4rem;
 
-  .img-thumb{
+  ion-icon{
+    font-size: 2rem;
+  }
+}
+
+.botonEliminar {
+  width: 2.5rem;
+  height: 2.5rem;
+
+  ion-icon {
+    font-size: 1.5rem;
+  }
+}
+.img-thumb{
     width: 200px;
     height: 200px;
     padding: 10px;
@@ -74,4 +90,8 @@ ion-item {
   padding-top: 1rem;
   text-align: center;
   font-size: 2rem !important;
+}
+
+.textoImg{
+  font-size: 1.5rem;
 }
