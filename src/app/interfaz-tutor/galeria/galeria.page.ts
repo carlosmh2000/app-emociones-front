@@ -114,10 +114,13 @@ export class GaleriaPage implements OnInit {
     seccion.visible = !seccion.visible;
   }
 
-  async closeModal(imgRoute: string) {
+  async closeModal(imgRoute?: string) {
     if (this.asignando){
-      console.log(imgRoute);
-      await this.modalCtrl.dismiss({img: imgRoute});
+      if(imgRoute){
+        await this.modalCtrl.dismiss({img: imgRoute});
+      }else{
+        await this.modalCtrl.dismiss();
+      }
     }
   }
 
