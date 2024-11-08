@@ -18,9 +18,11 @@ export class PreguntasAsociarPage implements OnInit {
   @Input() numEjer: number;
   @Input() tipo: string;
   @Input() tipoJuego?: string;
+      @Input() ejercicios?: any[];
+
   public numPregunta = 1;
   public preguntaForm: FormGroup;
-  public preguntas : PreguntaAsociar[] = [];
+  public preguntas : any[] = [];
   public crearError = false;
   public imgAsociada = true;
   public imgGrupo = false;
@@ -33,6 +35,13 @@ export class PreguntasAsociarPage implements OnInit {
   constructor(public audioService : AudioService, private modalCtr: ModalController, private photoService : CamaraService, private actionSheetCtrl: ActionSheetController, private route: ActivatedRoute, private navCtrl: NavController) { }
 
   ngOnInit() {
+    this.preguntas = this.ejercicios.map(ejercicio => ({
+      ...ejercicio,
+      formGroup: new FormGroup({
+        texto: new FormControl(ejercicio.texto, Validators.required),
+      })
+    }));
+    console.log(this.numEjer);
     this.preguntaForm = new FormGroup({
       texto: new FormControl('', Validators.required)
     });
@@ -45,12 +54,14 @@ export class PreguntasAsociarPage implements OnInit {
     }
   }
 
-
-  getFoto(tipo: string) {
+  getFoto(tipo: string, pregunta?: any) {
     openGaleriaModal(this.modalCtr).then((data) => {
-      this.img = data.img;
+      if(tipo === 'img1'){
+        pregunta.img = data.img;
+      }else if (tipo === 'img2'){
+        pregunta.img = data.img;
+      }
     });
-
   }
 
   get texto(): AbstractControl {

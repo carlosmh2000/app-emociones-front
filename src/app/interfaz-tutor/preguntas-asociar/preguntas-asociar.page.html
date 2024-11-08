@@ -43,7 +43,7 @@
         <ion-card>
           <ion-card-header>
             <ion-card-title>
-              Imagen {{this.numPregunta}}
+              Imagen {{ejercicios? ejercicios.length + 1: numPregunta}}
             </ion-card-title>
           </ion-card-header>
           <ion-card-content>
@@ -64,7 +64,7 @@
                     <div class="flex align-items-center full-width ion-margin-top">
                       <div class="ion-margin-end">
 
-                        <ion-button strong shape="round" color="primary" size="small" (click)="getFoto('unirColor_color')">
+                        <ion-button strong shape="round" color="primary" size="small" (click)="getFoto('img')">
                           Seleccionar
                         </ion-button>
                       </div>
@@ -141,52 +141,60 @@
     <ion-row>
       <ion-col text-center>
         <ion-list *ngFor="let pregunta of preguntas; index as i;">
-          <ion-item>
-            <ion-grid>
-              <ion-row>
-                <ion-col>
-                  <ion-title>Imagen {{i+1}}</ion-title>
-                </ion-col>
+          <form [formGroup]="pregunta.formGroup">
+            <ion-item>
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <ion-title>Imagen {{i+1}}</ion-title>
+                  </ion-col>
 
-                <ion-col>
-                  <ion-button (click)="delete(i)"><ion-icon [name]="'trash-outline'"></ion-icon></ion-button>
-                </ion-col>
-              </ion-row>
+                  <ion-col>
+                    <ion-button (click)="delete(i)"><ion-icon [name]="'trash-outline'"></ion-icon></ion-button>
+                  </ion-col>
+                </ion-row>
 
-              <ion-row>
-                <ion-col>
-                  <ion-label>Imagen</ion-label>
-                </ion-col>
+                <ion-row>
+                  <ion-col>
+                    <ion-label>Imagen</ion-label>
+                  </ion-col>
 
-              </ion-row>
+                </ion-row>
 
 
-            <ion-row>
-                <ion-col>
-                  <img class="img-thumb" [src]="pregunta.img">
-                </ion-col>
-            </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <img class="img-thumb" [src]="pregunta.img">
+                  </ion-col>
+                </ion-row>
 
-            <ion-row>
-              <ion-col>
-                <ion-text>{{pregunta.texto}}</ion-text>
-              </ion-col>
-            </ion-row>
+                <ion-row class="ion-margin-end">
+                  <ion-button strong shape="round" color="primary" size="small" (click)="getFoto('img1', pregunta)">
+                    Seleccionar
+                  </ion-button>
+                </ion-row>
 
-            <ion-row>
-              <ion-col>
-                <ion-text>{{pregunta.tipo}}</ion-text>
-              </ion-col>
-            </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-text>{{pregunta.texto}}</ion-text>
+                  </ion-col>
+                </ion-row>
 
-            <ion-row>
-              <ion-col *ngIf="pregunta.opcionCorrecta">
-                <ion-text> Solución </ion-text>
-              </ion-col>
-            </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-text>{{pregunta.tipo}}</ion-text>
+                  </ion-col>
+                </ion-row>
 
-          </ion-grid>
-          </ion-item>
+                <ion-row>
+                  <ion-col *ngIf="pregunta.opcionCorrecta">
+                    <ion-text> Solución </ion-text>
+                  </ion-col>
+                </ion-row>
+
+              </ion-grid>
+            </ion-item>
+          </form>
         </ion-list>
       </ion-col>
     </ion-row>
