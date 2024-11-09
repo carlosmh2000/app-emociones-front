@@ -141,7 +141,12 @@ export class CrearJuegoPage implements OnInit {
       if (tipo === 'ejercicios') {
         if (edit) {
           console.log(data);
-          ejer = data
+          const index = this.ejercicios.findIndex(item => item[0].id === data[0].id);
+          if (index !== -1) {
+            this.ejercicios.splice(index, 1, data);
+          } else {
+            this.ejercicios.push(data);
+          }
         } else {
           this.ejercicios.push(data);
         }

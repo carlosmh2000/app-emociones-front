@@ -29,14 +29,11 @@ export class PreguntasUnirColorPage implements OnInit {
   constructor(public audioService: AudioService, private modalCtr: ModalController, private photoService: CamaraService, private actionSheetCtrl: ActionSheetController, private navCtrl: NavController) { }
 
   ngOnInit() {
-    this.preguntas = this.ejercicios.map(ejercicio => ({
-      ...ejercicio,
-      formGroup: new FormGroup({
-        texto_1: new FormControl(ejercicio.texto_1, Validators.required),
-        texto_2: new FormControl(ejercicio.texto_2, Validators.required)
-      })
-    }));
-    console.log(this.numEjer);
+    if(this.ejercicios){
+      this.preguntas = this.ejercicios.map(ejercicio => ({
+        ...ejercicio
+      }));
+    }
     this.preguntaForm = new FormGroup({
       texto_color: new FormControl('', Validators.required),
       texto_img: new FormControl('', Validators.required)
@@ -72,7 +69,6 @@ export class PreguntasUnirColorPage implements OnInit {
         musica: this.musica,
         numEjer: this.numEjer
       });
-      console.log(this.preguntas);
       this.numPregunta++;
 
       this.img_color = null;
@@ -83,7 +79,6 @@ export class PreguntasUnirColorPage implements OnInit {
 
   async create() {
     if (this.preguntas.length != 0) {
-      console.log(this.preguntas);
       await this.modalCtr.dismiss(this.preguntas);
     } else {
       this.crearError = true;
