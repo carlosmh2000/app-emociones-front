@@ -106,7 +106,7 @@
               </ion-col>
 
               <ion-col size="6" *ngIf="this.ejercicioTutorial.length != 0">
-                <ion-button (click)="deleteEjercicioTutorial()"><ion-icon [name]="'trash-outline'"></ion-icon></ion-button>
+                  <ion-button class="botonEliminar" (click)="deleteEjercicioTutorial()" color="danger"><ion-icon [name]="'trash-outline'"></ion-icon></ion-button>
               </ion-col>
 
             </ion-item>
@@ -115,7 +115,7 @@
           <ion-row>
             <ion-col text-center>
               <ion-list *ngFor="let pregunta of this.ejercicioTutorial; index as i;">
-                <ion-item>
+                  <ion-item (click)="initModalEjercicio('ejercicios', true, pregunta)">
                   <ion-grid>
                     <ion-row>
                       <ion-col>
@@ -140,13 +140,13 @@
 
                   <ion-row>
                     <ion-col>
-                      <ion-text>{{pregunta.texto}}</ion-text>
+                      <ion-text class="textoImg">{{pregunta.texto}}</ion-text>
                     </ion-col>
                   </ion-row>
 
                   <ion-row>
                     <ion-col>
-                      <ion-text>{{pregunta.tipo}}</ion-text>
+                      <ion-text class="textoImg">{{pregunta.tipo}}</ion-text>
                     </ion-col>
                   </ion-row>
 
@@ -251,12 +251,12 @@
             <ion-row>
               <div *ngFor="let ejercicio of this.ejercicios; let i = index ">
                 <ion-row *ngIf="i > 0">
-                  <ion-item>
+                    <ion-item (click)="initModalEjercicio('ejercicios', true, ejercicio)">
                     <ion-col>
                       <ion-label>Ejercicio {{i}}</ion-label>
 
                       <ion-col size="6" *ngIf="this.ejercicios.length != 0">
-                        <ion-button (click)="this.deleteEjercicio(i)"><ion-icon [name]="'trash-outline'"></ion-icon></ion-button>
+                          <ion-button class="botonEliminar" (click)="this.deleteEjercicio(i)" color="danger"><ion-icon [name]="'trash'"></ion-icon></ion-button>
                       </ion-col>
 
                       <div *ngFor="let pregunta of ejercicio">
@@ -279,19 +279,19 @@
 
                             <ion-row>
                               <ion-col>
-                                <ion-text>{{pregunta.texto}}</ion-text>
+                                <ion-text class="textoImg">{{pregunta.texto}}</ion-text>
                               </ion-col>
                             </ion-row>
 
                             <ion-row>
                               <ion-col>
-                                <ion-text>{{pregunta.tipo}}</ion-text>
+                                <ion-text class="textoImg">{{pregunta.tipo}}</ion-text>
                               </ion-col>
                             </ion-row>
 
                             <ion-row>
                               <ion-col *ngIf="pregunta.opcionCorrecta">
-                                <ion-text> Solución </ion-text>
+                                <ion-text class="textoImg"> Solución </ion-text>
                               </ion-col>
                             </ion-row>
 
