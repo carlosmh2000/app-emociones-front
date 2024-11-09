@@ -164,7 +164,7 @@
             </ion-button>
 
           </div>
-          <div class="elementos6">
+          <div class="elementos6--ejer">
             <div class="elemento" *ngFor="let elem of currentEj |slice:1:5">
 
               <ion-button [ngClass]="this.esRepetido ? 'botonImagen' : isSeleccionado(elem.id)" (click)="seleccionar(elem.id)" slot="start" *ngIf="elem.tipo != 'imagen'">

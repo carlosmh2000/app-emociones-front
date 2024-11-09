@@ -1,100 +1,665 @@
-.textoImg{
-  font-size: 1.5rem;
+@font-face { font-family: Escolar; src: url('/assets/fonts/escolar.ttf'); }
+
+ ion-toolbar{
+   --background: #ebd4ab;
+   min-height: 100px!important;
+   height:100%;
+ }
+
+ ion-header{
+   min-height: 100px;
+ }
+
+ ion-footer{
+  min-height: 100px;
 }
 
-.botonCrear{
-  width: 4rem;
-  height: 4rem;
+ ion-content {
+  --background: aliceblue;
+  height: 100%;
 
-  ion-icon{
-    font-size: 2rem;
-  }
 }
 
-.botonEliminar {
-  width: 2.5rem;
-  height: 2.5rem;
-
-  ion-icon {
-    font-size: 1.5rem;
-  }
-}
-
-
-.sc-ion-label-md-h {
-  font-size: 1.5rem !important;
-}
-.textarea-wrapper.sc-ion-textarea-md {
-  font-size: 1.5rem !important;
-}
-ion-col{
-
-    margin:8px;
-  }
-
-  ion-item{
-    display: flex;
-    justify-content: center;
-    min-width: 500px;
-  }
-
-ion-textarea{
-  border: 0.5px solid gray;
-  padding-left:10px;
-  font-size: 1.5rem !important;
-  height: fit-content;
-}
-
-
-  .img-thumb{
-    width: 200px;
-    height: 200px;
-    padding: 10px;
-    object-fit: cover;
-  }
-
-.sonido {
-  align-self: center;
-}
-
-.juegoForm {
-  height: max-content;
-}
-
-ion-slide {
-  display: flex;
-  flex-direction: column;
+ion-slides, ng-container, ion-slide{
   height: 100%;
 }
 
-ion-grid {
-  flex: 1 !important;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+ .toolbar-container{
+    min-height: 100px!important;
+ }
 
-.vertical-line {
-  border-right: 1px solid #000;
-  height: 100%;
-  position: absolute;
-  left: 50%;
-}
+ .toolbar-title{
+    min-height: 100px!important;
+ }
 
-ion-row {
-  flex: 1 !important;
-  display: flex;
+.picto{
+  padding: 10 0px;
+  object-fit: cover;
+  overflow: hidden;
+  height: 90px;
+  max-width: 100%;
   align-items: center;
+  display: flex;
+  justify-content: center;
+
+}
+
+
+ .colCenter {
+   display: flex;
+   justify-content: center;
+   height:100%;
+}
+
+.refuerzoPositivo{
+  padding-top: 25px;
+  font-family: Escolar;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  align-items: center;
+  color: green;
+  vertical-align: middle;
+  line-height: 45px;
+  display: flex;
   justify-content: center;
 }
 
-ion-item {
+.refuerzoNegativo{
+  padding-top: 25px;
+  font-family: Escolar;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  align-items: center;
+  color:red;
+  vertical-align: middle;
+  line-height: 45px;
+  display: flex;
+  justify-content: center;
+}
+
+.center {
+  display: flex;
+  height: 100%;
   width: 100%;
 }
 
-
-.tituloSlide {
-  padding-top: 1rem;
-  text-align: center;
-  font-size: 2rem !important;
+.repetir{
+  opacity: 50%;
+  height: 100%;
 }
+
+.norepetir{
+  height: 100%;
+}
+
+.middleEjercicio {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  min-width: 80%;
+  justify-content: space-between;
+  padding-left: 20px;
+}
+
+.middleTutorial {
+  width:30%;
+  flex: 1;
+  text-align: center;
+  align-items: center;
+  background-color: plum;
+  height: 100%;
+  overflow: auto;
+}
+
+
+.inner {
+  padding: 70px 0;
+  margin-left: auto;
+  margin-right: auto;
+  height:100%;
+}
+
+
+
+.parrafo{
+  font-family: Escolar;
+  font-size: 20px;
+  color:black;
+  overflow-wrap: break-word;
+  margin: 10px;
+}
+
+.botonImagen{
+  width: 100%;
+  height: 100%;
+  border: 2px solid gray;
+  vertical-align: middle;
+  border-radius: 10px;
+  min-width: 0;
+  min-height: 0;
+  --background: lightgrey;
+}
+
+.botonImagenSelected{
+  width: 100%;
+  height: 100%;
+  border: 4px solid black;
+  vertical-align: middle;
+  border-radius: 10px;
+  min-width: 0;
+  --background: lightgrey;
+}
+
+.botonImagenSelectedCorrecto{
+  width: 100%;
+  height: 100%;
+  border: 4px solid green;
+  vertical-align: middle;
+  border-radius: 10px;
+  min-width: 0;
+  --background: lightgrey;
+}
+
+.botonImagenSelectedFallo{
+  width: 100%;
+  height: 100%;
+  border: 4px solid red;
+  vertical-align: middle;
+  border-radius: 10px;
+  min-width: 0;
+  --background: lightgrey;
+}
+
+
+
+@media(max-width: 1200px) {
+
+
+.botonHeader{
+  width: 150px;
+  height: 85px;
+  margin: 0 20px;
+  border: 2px solid black;
+  vertical-align: middle;
+  border-radius: 10px;
+  font-family: Escolar;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 40px;
+}
+
+
+.botonHeaderRepetir{
+  width: 150px;
+  height: 85px;
+  margin-left: 20px;
+  border: 2px solid black;
+  vertical-align: middle;
+  border-radius: 10px;
+  font-family: Escolar;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 40px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.botonHeaderTransparente{
+  width: 70px;
+  height: 85px;
+  vertical-align: middle;
+  border-radius: 10px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+
+}
+
+  ion-icon{
+    width: 100%;
+  }
+
+  .titulo{
+    font-family: Escolar;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+
+  }
+
+  .textoImg{
+    font-family: Escolar;
+    font-size: 20px;
+    font-weight: bold;
+    color:black;
+    overflow-wrap: break-word;
+  }
+
+  .imagen{
+    width:100%;
+    height:100%;
+    max-height: 130px;
+    max-width: 130px;
+    padding: 10px;
+    object-fit: cover;
+    overflow: hidden;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+  }
+
+  .elemento {
+      flex: 1;
+  max-width: 50%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+    height: 100%;
+    min-width: 80px;
+    min-height: 80px;
+    padding: 7px 7px;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .elementoImg {
+    height: 100%;
+    min-width: 80px;
+    min-height: 80px;
+    justify-content: flex-start;
+    align-items: self-start;
+    flex: 1;
+    width: 50%;
+    display: flex;
+    margin: auto;
+    padding: 80px 30px;
+    box-sizing: content-box;
+
+  }
+
+  .elementos {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    max-width: 1080px;
+    margin: auto;
+    padding: 80px 30px;
+    box-sizing: content-box;
+    min-width: 0;
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+
+
+  }
+
+  .elementos6 {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: flex-end;
+    position: relative;
+    max-width: 720px;
+    margin: auto;
+    padding: 0 15px;
+    box-sizing: content-box;
+    min-width: 0;
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+
+
+  }
+
+  .elementos8 {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    max-height: 580px;
+    margin: auto;
+    padding: 0 10px;
+    box-sizing: content-box;
+    min-width: 0;
+    height: 100%;
+
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+  }
+
+
+
+}
+
+.botonImagenSmaller{
+  width: 100%;
+  height: 100%;
+  border: 2px solid gray;
+  vertical-align: middle;
+  border-radius: 10px;
+  min-width: 0;
+  min-height: 0;
+  max-width: 150;
+  max-height: 150px;
+  --background: lightgrey;
+}
+
+
+@media(min-width: 1200px) {
+  .elementoImg {
+    height: 300px;
+    justify-content: flex-start;
+    align-items: self-start;
+    flex: 1;
+    display: flex;
+    margin: auto;
+    margin-left: 0;
+    box-sizing: content-box;
+
+  }
+
+  .botonHeader{
+    width: 150px;
+    height: 85px;
+    margin-right: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 2px solid black;
+    vertical-align: middle;
+    border-radius: 10px;
+    font-family: Escolar;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 40px;
+  }
+
+
+  .botonHeaderRepetir{
+    width: 150px;
+    height: 85px;
+    margin-left: 20px;
+    border: 2px solid black;
+    vertical-align: middle;
+    border-radius: 10px;
+    font-family: Escolar;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 40px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .botonHeaderTransparente{
+    width: 70px;
+    height: 85px;
+    vertical-align: middle;
+    border-radius: 10px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+
+  }
+
+    ion-icon{
+      width: 100%;
+    }
+
+    .titulo{
+      margin-left: 20px;
+      font-family: Escolar;
+      font-size: 30px;
+      font-weight: bold;
+      text-align: center;
+      color: black;
+
+    }
+
+    .textoImg{
+      font-family: Escolar;
+      font-size: 20px;
+      font-weight: bold;
+      color:black;
+      overflow-wrap: break-word;
+    }
+
+    .imagen{
+      width:100%;
+      height:100%;
+      max-height: 130px;
+      max-width: 130px;
+      padding: 10px;
+      object-fit: cover;
+      overflow: hidden;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+
+    }
+
+  .elemento {
+    flex: 1;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    width: 160px;
+    height: 160px;
+    margin-left: 100px;
+    margin-top: 50px;
+
+  }
+
+  .elementoResultado {
+    height: 100%;
+    min-width: 80px;
+    min-height: 80px;
+    padding: 7px 7px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .elementos2 {
+    -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      position: relative;
+      margin: auto;
+      max-width: 1080px;
+      padding: 0px 80px;
+      box-sizing: content-box;
+      min-width: 0;
+      height: 100%;
+
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+
+
+    }
+
+    .elementos {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      position: relative;
+      max-width: 1080px;
+      margin: auto;
+      padding: 80px 30px;
+      box-sizing: content-box;
+      min-width: 0;
+      height: 100%;
+
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+
+
+    }
+
+    .elementos6 {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      position: relative;
+      width: 55%;
+      box-sizing: content-box;
+      height: 100%;
+      flex-wrap: wrap;
+      margin-right: 0;
+      display: flex;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      padding-right: 2rem;
+
+      &--ejer {
+              -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      position: relative;
+      width: 50%;
+      box-sizing: content-box;
+      height: 100%;
+      flex-wrap: wrap;
+      margin-right: 0;
+      display: flex;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      padding-right: 2rem;
+      }
+
+    }
+
+    .elementos8 {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      position: relative;
+      max-height: 580px;
+      margin: auto;
+      padding: 0 10px;
+      box-sizing: content-box;
+      min-width: 0;
+      height: 100%;
+
+
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+    }
+
+
+
+}
+
+
+.imagenPrincipal{
+    width: 20%;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+
+}
+
+.imagenesAsociadas{
+    width: 80%;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+
+}
+
+/************    COLORES       *********/
+.ion-color-verdeClaro {
+  --ion-color-base: var(--ion-color-verdeClaro);
+  --ion-color-base-rgb: var(--ion-color-verdeClaro-rgb);
+  --ion-color-contrast: var(--ion-color-verdeClaro-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-verdeClaro-contrast-rgb);
+  --ion-color-shade: var(--ion-color-verdeClaro-shade);
+  --ion-color-tint: var(--ion-color-verdeClaro-tint);
+}
+
+.ion-color-morado {
+  --ion-color-base: var(--ion-color-morado);
+  --ion-color-base-rgb: var(--ion-color-morado-rgb);
+  --ion-color-contrast: var(--ion-color-morado-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-morado-contrast-rgb);
+  --ion-color-shade: var(--ion-color-morado-shade);
+  --ion-color-tint: var(--ion-color-morado-tint);
+}
+
+.ion-color-ayuda {
+  --ion-color-base: var(--ion-color-ayuda);
+  --ion-color-base-rgb: var(--ion-color-ayuda-rgb);
+  --ion-color-contrast: var(--ion-color-ayuda-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-ayuda-contrast-rgb);
+  --ion-color-shade: var(--ion-color-ayuda-shade);
+  --ion-color-tint: var(--ion-color-ayuda-tint);
+}
+
+.ion-color-azul {
+  --ion-color-base: var(--ion-color-azul);
+  --ion-color-base-rgb: var(--ion-color-azul-rgb);
+  --ion-color-contrast: var(--ion-color-azul-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-azul-contrast-rgb);
+  --ion-color-shade: var(--ion-color-azul-shade);
+  --ion-color-tint: var(--ion-color-azul-tint);
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+}
+

@@ -126,7 +126,7 @@ ion-slides, ng-container, ion-slide{
 
 .parrafo{
   font-family: Escolar;
-  font-size: 20px;
+  font-size: 3rem;
   color:black;
   overflow-wrap: break-word;
   margin: 10px;
@@ -472,11 +472,11 @@ ion-slides, ng-container, ion-slide{
 
   .elemento {
     flex: 1;
-    display: flex;
-    flex-direction: row;
+    display: flex !important;
+    flex-direction: row !important;
     flex-wrap: wrap;
-    width: 220px;
-    height: 220px;
+    width: 160px;
+    height: 160px;
     margin-left: 100px;
     margin-top: 50px;
 
@@ -544,13 +544,33 @@ ion-slides, ng-container, ion-slide{
       -ms-flex-pack: justify;
       justify-content: space-between;
       position: relative;
+      width: 55%;
+      box-sizing: content-box;
+      height: 100%;
+      flex-wrap: wrap;
+      margin-right: 0;
+      display: flex;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      padding-right: 2rem;
+
+      &--ejer {
+              -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      position: relative;
       width: 50%;
       box-sizing: content-box;
       height: 100%;
+      flex-wrap: wrap;
       margin-right: 0;
-      padding-right: 0;
-      display: grid;
+      display: flex;
       grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      padding-right: 2rem;
+      }
 
     }
 

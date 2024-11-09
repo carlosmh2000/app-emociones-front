@@ -97,12 +97,9 @@ ion-slides, ng-container, ion-slide{
 .middleEjercicio {
   flex: 1;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  height: 100%;
   min-width: 80%;
-  justify-content: space-between;
-  padding-left: 20px;
+
 }
 
 .middleTutorial {
@@ -381,9 +378,10 @@ ion-slides, ng-container, ion-slide{
     align-items: self-start;
     flex: 1;
     display: flex;
-    padding-top: 1rem;
+    padding: 0;
     margin-left: 0;
     box-sizing: content-box;
+    max-height: min-content;
 
   }
 
@@ -451,12 +449,12 @@ ion-slides, ng-container, ion-slide{
 
 
     .frase{
-      margin-left: 20px;
       font-family: Escolar;
-      font-size: 100px;
+      font-size: 75px;
       font-weight: bold;
       text-align: center;
       color: black;
+      margin: 2rem 2rem;
 
     }
 
@@ -487,10 +485,9 @@ ion-slides, ng-container, ion-slide{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 220px;
-    height: 220px;
-    margin-left: 100px;
-    margin-top: 50px;
+    width: 180px;
+    height: 180px;
+    margin: 0 2rem;
 
   }
 
@@ -556,13 +553,8 @@ ion-slides, ng-container, ion-slide{
       -ms-flex-pack: justify;
       justify-content: space-between;
       position: relative;
-      width: 50%;
       box-sizing: content-box;
-      height: 75%;
-      margin-right: 0;
-      padding-right: 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      display: flex;
 
     }
 
